@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./chat.css";
 import chat from "../../assets/chat.png";
 import close from "../../assets/close.png";
@@ -6,14 +6,17 @@ import Input from "../Input/Input";
 import dp from "../../assets/dp.jpg";
 
 const Chat = () => {
+   const [expanded, setExpanded] = useState(true);
    return (
-      <div className="chat">
-         <header>
+      <div className={expanded ? "chat" : "chat btn"}>
+         <header className={expanded ? "" : "hide"}>
             <img src={chat} alt="" />
             <h3>John Doe</h3>
-            <img src={close} alt="" />
+            <button onClick={() => setExpanded(false)}>
+               <img src={close} alt="" />
+            </button>
          </header>
-         <main>
+         <main className={expanded ? "" : "hide"}>
             <div>
                <h4>TODAY</h4>
                <div className="chat__sent">
@@ -60,7 +63,7 @@ const Chat = () => {
                </div>
             </div>
          </main>
-         <div className="chat__input">
+         <div className="chat__input" onClick={() => setExpanded(true)}>
             <Input placeholder="Type a message..." />
          </div>
       </div>

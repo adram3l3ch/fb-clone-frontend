@@ -4,6 +4,8 @@
    position: relative;
    overflow: hidden;
    height: 100%;
+   max-height: 500px;
+   transition: max-height 0.3s linear;
 }
 
 .chat header {
@@ -87,4 +89,13 @@
    width: 100%;
    padding: 1.5rem;
    background: var(--primary-500);
+}
+
+.hide {
+   transition: opacity 0.5s linear;
+   opacity: 0;
+}
+
+.chat.btn {
+   max-height: 5.5rem;
 }

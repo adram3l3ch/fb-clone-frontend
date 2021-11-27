@@ -36,8 +36,18 @@ input {
    height: min-content;
 }
 
+button,
+a {
+   cursor: pointer;
+}
+
 .roundimage {
    aspect-ratio: 1;
    border-radius: 50%;
    object-fit: cover;
+}
+
+.container {
+   max-width: 1440px;
+   margin-inline: auto;
 }

@@ -12,7 +12,7 @@ const Gallery = () => {
             <img src={img2} alt="" />
             <img src={img3} alt="" />
          </div>
-         <button>Edit Profile</button>
+         <button>View All</button>
       </section>
    );
 };

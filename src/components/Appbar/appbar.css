@@ -43,7 +43,11 @@
    object-fit: cover;
    border-radius: 50%;
 }
+.appbar__profile a {
+   height: 40px;
+}
 
 .appbar__profile__logout {
    width: 30px;
+   height: 30px;
 }

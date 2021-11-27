@@ -15,7 +15,7 @@ const Post = ({ singlepost }) => {
                <p>20 min ago</p>
             </div>
          </header>
-         <h4>How can you hear your soul if everyone is talking...</h4>
+         <p>How can you hear your soul if everyone is talking...</p>
          <img src={img1} alt="" className="post__image" />
          <div className="post__footer">
             <div className="post__reactions">
