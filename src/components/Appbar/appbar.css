@@ -1,0 +1,42 @@
+.appbar {
+   display: flex;
+   margin-bottom: 2rem;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.appbar form {
+   display: flex;
+   padding: 0.75rem 1.5rem;
+   background-color: var(--primary-500);
+   width: 50%;
+   max-width: 500px;
+   border-radius: 10px;
+   gap: 1rem;
+}
+
+.appbar form img {
+   width: 20px;
+}
+
+.appbar form input {
+   color: white;
+   width: 100%;
+}
+
+.appbar__profile {
+   display: flex;
+   gap: 1rem;
+   align-items: center;
+}
+
+.appbar__profile__dp {
+   width: 40px;
+   aspect-ratio: 1;
+   object-fit: cover;
+   border-radius: 50%;
+}
+
+.appbar__profile__logout {
+   width: 30px;
+}

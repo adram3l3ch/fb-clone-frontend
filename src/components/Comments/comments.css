@@ -1,0 +1,14 @@
+.comments {
+   overflow: auto;
+   margin-bottom: 1.5rem;
+   color: white;
+}
+
+.comments > h3 {
+   margin-bottom: 2rem;
+   font-size: 0.9rem;
+}
+
+.comments::-webkit-scrollbar {
+   display: none;
+}

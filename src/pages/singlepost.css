@@ -1,0 +1,19 @@
+.singlepost {
+   display: flex;
+   gap: 2px;
+}
+
+.singlepost__comments {
+   border-radius: 0 10px 10px 0;
+   flex: 1;
+   background-color: var(--primary-500);
+   position: relative;
+}
+
+.singlepost__comments > div {
+   position: absolute;
+   inset: 0;
+   padding: 2rem;
+   display: flex;
+   flex-direction: column;
+}
