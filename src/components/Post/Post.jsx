@@ -7,9 +7,9 @@ import "./post.css";
 
 const Post = ({ singlepost }) => {
    return (
-      <article className="post">
+      <article className={singlepost ? "post halfborder" : "post"}>
          <header>
-            <img src={dp} alt="dp" className="post__dp" />
+            <img src={dp} alt="dp" className="post__dp roundimage" />
             <div>
                <h3>Jane Doe</h3>
                <p>20 min ago</p>

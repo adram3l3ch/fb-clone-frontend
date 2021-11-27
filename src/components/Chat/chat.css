@@ -1,0 +1,90 @@
+.chat {
+   background-color: var(--primary-500);
+   border-radius: 10px;
+   position: relative;
+   overflow: hidden;
+   height: 100%;
+}
+
+.chat header {
+   display: flex;
+   padding: 1rem 1.5rem;
+   color: white;
+   gap: 1rem;
+   align-items: center;
+   background: linear-gradient(120.91deg, #1c1d3a 47.58%, rgb(11, 12, 39) 122.81%);
+   position: absolute;
+   width: 100%;
+   top: 0;
+   box-shadow: 0 0 50px rgba(0, 0, 0, 0.178);
+}
+
+.chat header h3 {
+   font-weight: 400;
+   flex: 1;
+   transform: translateY(-4px);
+}
+
+.chat header img:last-child {
+   transform: translateY(-4px);
+}
+
+.chat header img {
+   width: 30px;
+}
+.chat main {
+   padding: 1.5rem;
+   color: white;
+   text-align: center;
+   padding-block: 5rem;
+   height: 100%;
+   overflow: scroll;
+}
+
+.chat main::-webkit-scrollbar {
+   display: none;
+}
+
+.chat main h4 {
+   margin-bottom: 1.5rem;
+   font-weight: 500;
+}
+
+.chat__sent,
+.chat__recieve {
+   display: flex;
+   align-items: flex-start;
+   gap: 1rem;
+   text-align: left;
+   margin-bottom: 1rem;
+}
+
+.chat__sent p,
+.chat__recieve p {
+   padding: 1rem;
+   background: var(--primary-400);
+   border-radius: 10px;
+   max-width: 70%;
+   font-weight: 200;
+}
+
+.chat__recieve p {
+   margin-left: auto;
+   max-width: 70%;
+}
+
+.chat__recieve img {
+   display: none;
+}
+
+.chat__sent img {
+   width: 25px;
+}
+
+.chat__input {
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+   padding: 1.5rem;
+   background: var(--primary-500);
+}

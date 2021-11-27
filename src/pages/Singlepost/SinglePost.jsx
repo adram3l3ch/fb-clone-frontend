@@ -1,8 +1,8 @@
 import React from "react";
-import Input from "../components/Input/Input";
-import Comments from "../components/Comments/Comments";
+import Input from "../../components/Input/Input";
+import Comments from "../../components/Comments/Comments";
 import "./singlepost.css";
-import Post from "../components/Post/Post";
+import Post from "../../components/Post/Post";
 
 const SinglePost = () => {
    return (

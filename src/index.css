@@ -20,7 +20,7 @@ body {
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
    background-color: var(--primary-400);
-   padding: 2rem;
+   padding: 1rem 2rem;
 }
 
 img {
@@ -33,4 +33,11 @@ input {
    outline: none;
    font-family: inherit;
    background: none;
+   height: min-content;
+}
+
+.roundimage {
+   aspect-ratio: 1;
+   border-radius: 50%;
+   object-fit: cover;
 }

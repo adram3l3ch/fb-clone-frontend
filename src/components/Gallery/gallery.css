@@ -1,0 +1,21 @@
+.gallery__images {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 1.5rem;
+}
+
+.gallery__images > img {
+   width: 30%;
+   aspect-ratio: 1;
+   object-fit: cover;
+   border-radius: 10px;
+}
+
+.gallery button {
+   background: var(--primary-500);
+   width: 100%;
+   color: white;
+   padding: 0.75rem;
+   border-radius: 10px;
+   font-size: 0.8rem;
+}

@@ -7,8 +7,10 @@ import search from "../../assets/search.svg";
 const Appbar = () => {
    return (
       <div className="appbar">
-         <form action="">
-            <img src={search} alt="" />
+         <form>
+            <button type="submit">
+               <img src={search} alt="" />
+            </button>
             <input type="text" placeholder="Tap to search..." />
          </form>
          <div className="appbar__profile">

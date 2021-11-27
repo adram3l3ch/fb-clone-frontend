@@ -1,0 +1,45 @@
+.online {
+   height: 100%;
+   overflow: scroll;
+   background-color: var(--primary-500);
+   border-radius: 10px;
+   padding: 2rem 1.5rem;
+}
+
+.online::-webkit-scrollbar {
+   display: none;
+}
+
+.online > div {
+   display: flex;
+   flex-direction: column;
+   gap: 1.5rem;
+}
+
+.online > div > div {
+   position: relative;
+   display: flex;
+   color: white;
+   align-items: center;
+   gap: 1rem;
+}
+
+.online img {
+   width: 25px;
+}
+
+.online > div > div::after {
+   content: "";
+   position: absolute;
+   width: 8px;
+   height: 8px;
+   border-radius: 50%;
+   bottom: 0px;
+   left: 18px;
+   background-color: #26ff56;
+}
+
+.online h3 {
+   font-weight: 300;
+   font-size: 0.8rem;
+}

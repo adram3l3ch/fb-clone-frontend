@@ -3,6 +3,12 @@
    margin-bottom: 2rem;
    align-items: center;
    justify-content: space-between;
+   position: -webkit-sticky;
+   position: sticky;
+   background-color: var(--primary-400);
+   top: 0;
+   padding-block: 1rem;
+   z-index: 9;
 }
 
 .appbar form {
@@ -15,8 +21,9 @@
    gap: 1rem;
 }
 
-.appbar form img {
+.appbar form button {
    width: 20px;
+   cursor: pointer;
 }
 
 .appbar form input {

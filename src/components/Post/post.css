@@ -12,8 +12,12 @@ p {
    background: var(--primary-500);
    padding: 2rem 1.5rem;
    color: white;
-   border-radius: 10px 0 0 10px;
+   border-radius: 10px;
    flex: 2;
+}
+
+.halfborder {
+   border-radius: 10px 0 0 10px;
 }
 
 .post h4 {
@@ -24,9 +28,6 @@ p {
 
 .post__dp {
    width: 40px;
-   aspect-ratio: 1;
-   object-fit: cover;
-   border-radius: 50%;
 }
 
 .post > header {
