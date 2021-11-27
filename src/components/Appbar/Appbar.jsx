@@ -4,8 +4,18 @@ import dp from "../../assets/dp.jpg";
 import logout from "../../assets/logout.png";
 import search from "../../assets/search.svg";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout as Logout } from "../../features/userSlice";
+import Cookies from "js-cookie";
 
 const Appbar = () => {
+   const dispatch = useDispatch();
+
+   const logoutHandler = () => {
+      Cookies.remove("user");
+      Cookies.remove("token");
+      dispatch(Logout());
+   };
    return (
       <div className="appbar">
          <form>
@@ -18,8 +28,14 @@ const Appbar = () => {
             <Link to="/user">
                <img src={dp} alt="" className="appbar__profile__dp" title="profile" />
             </Link>
-
-            <img src={logout} alt="" className="appbar__profile__logout" title="logout" />
+            <button onClick={logoutHandler}>
+               <img
+                  src={logout}
+                  alt=""
+                  className="appbar__profile__logout"
+                  title="logout"
+               />
+            </button>
          </div>
       </div>
    );
