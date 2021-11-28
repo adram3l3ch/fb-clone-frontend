@@ -1,22 +1,21 @@
 .profilecard {
    background-color: var(--primary-500);
    border-radius: 10px;
-   position: relative;
    margin-top: 50px;
    padding: 2rem 1.5rem;
+}
+
+.profilecard header {
+   position: relative;
+   text-align: center;
+   color: white;
 }
 
 .profilecard__dp {
    width: 100px;
    position: absolute;
    left: 50%;
-   top: 0;
-   transform: translate(-50%, -50%);
-}
-
-.profilecard header {
-   text-align: center;
-   color: white;
+   transform: translate(-50%, -110%);
 }
 
 .profilecard h1 {

@@ -18,7 +18,7 @@ const Login = ({ setIsRegistering }) => {
          });
          dispatch(login(data));
       } catch (error) {
-         const { msg } = error.response.data;
+         const { msg } = error.response?.data || "Error";
          dispatch(showModal(msg));
          setTimeout(() => {
             dispatch(hideModal());

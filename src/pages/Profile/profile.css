@@ -1,7 +1,6 @@
 .profile {
    display: flex;
    gap: 1rem;
-   position: relative;
    height: 80vh;
    min-height: 650px;
 }
