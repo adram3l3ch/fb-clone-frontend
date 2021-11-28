@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 const initialState = {
-   user: {},
+   id: "",
+   token: "",
 };
 
 export const userSlice = createSlice({
@@ -9,15 +11,19 @@ export const userSlice = createSlice({
    initialState,
    reducers: {
       login: (state, action) => {
-         state.user = action.payload;
+         const { id, token } = action.payload;
+         Cookies.set("user", JSON.stringify(action.payload));
+         state.id = id;
+         state.token = token;
       },
       logout: (state) => {
-         state.user = {};
+         Cookies.remove("user");
+         state.id = "";
+         state.token = "";
       },
-      register: (state, action) => {},
    },
 });
 
-export const { login, logout, register } = userSlice.actions;
+export const { login, logout } = userSlice.actions;
 
 export default userSlice.reducer;

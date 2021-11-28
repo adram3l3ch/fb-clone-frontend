@@ -4,13 +4,14 @@ import Appbar from "./components/Appbar/Appbar";
 import Profile from "./pages/Profile/Profile.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Login from "./components/Login/Login.jsx";
+import Auth from "./pages/Auth/Auth";
 import Cookies from "js-cookie";
 import { login } from "./features/userSlice.js";
+import Modal from "./components/Modal/Modal.jsx";
 
 function App() {
    const dispatch = useDispatch();
-   const state = useSelector((state) => state.user);
+   const user = useSelector((state) => state.user);
 
    useEffect(() => {
       const user = Cookies.get("user");
@@ -20,14 +21,15 @@ function App() {
    return (
       <Router>
          <div className="container">
-            {!state.user.name ? (
-               <Login />
+            <Modal />
+            {!user.id ? (
+               <Auth />
             ) : (
                <>
                   <Appbar />
                   <Routes>
                      <Route path="/" element={<SinglePost />} />
-                     <Route path="/user" element={<Profile />} />
+                     <Route path="/user/:id" element={<Profile />} />
                   </Routes>
                </>
             )}

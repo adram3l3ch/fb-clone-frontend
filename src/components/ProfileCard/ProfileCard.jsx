@@ -5,8 +5,13 @@ import clock from "../../assets/clock.svg";
 import cake from "../../assets/cake.svg";
 import location from "../../assets/location.svg";
 import mail from "../../assets/mail.svg";
+import { months } from "../../DATE";
 
-const ProfileCard = () => {
+const ProfileCard = ({ user }) => {
+   // let { name, email, about, dob } = user;
+   // dob = new Date(dob);
+   // dob = `${dob.getDate()} ${months[dob.getMonth()]} ${dob.getFullYear()}`;
+
    return (
       <section className="profilecard">
          <header>
@@ -25,11 +30,11 @@ const ProfileCard = () => {
             </div>
             <div className="profilecard__info">
                <img src={mail} alt="" />
-               <h3>janedoe@gmail.com</h3>
+               <h3>asd@gmail.com</h3>
             </div>
             <div className="profilecard__info">
                <img src={cake} alt="" />
-               <h3>25 August 1998</h3>
+               <h3>23 aug 2000</h3>
             </div>
          </article>
          <button>Edit Profile</button>
