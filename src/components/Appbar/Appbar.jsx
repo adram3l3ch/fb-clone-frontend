@@ -22,7 +22,7 @@ const Appbar = () => {
             </button>
             <input type="text" placeholder="Tap to search..." />
          </form>
-         <div className="appbar__profile">
+         <nav className="appbar__profile">
             <Link to={`/user/${id}`}>
                <img src={dp} alt="" className="appbar__profile__dp" title="profile" />
             </Link>
@@ -34,7 +34,7 @@ const Appbar = () => {
                   title="logout"
                />
             </button>
-         </div>
+         </nav>
       </div>
    );
 };

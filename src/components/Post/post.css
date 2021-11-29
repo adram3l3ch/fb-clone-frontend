@@ -5,7 +5,7 @@ h3 {
 
 p {
    font-weight: 300;
-   font-size: 0.75rem;
+   font-size: 0.8rem;
 }
 
 .post header p {
@@ -42,7 +42,7 @@ p {
 }
 
 .post__image {
-   height: 400px;
+   /* height: 400px; */
    width: 100%;
    border-radius: 10px;
    object-fit: cover;

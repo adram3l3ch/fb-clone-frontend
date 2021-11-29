@@ -1,12 +1,15 @@
 import axios from "axios";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
 import "./setupprofile.css";
+import { login } from "../../features/userSlice";
 
 const SetupProfile = ({ setIsEditing, user, setUser }) => {
    const [name, setName] = useState(user.name);
    const [about, setAbout] = useState(user.about);
    const [location, setLocation] = useState(user.location);
+   const dispatch = useDispatch();
 
    const updateUser = async (e) => {
       e.preventDefault();
@@ -26,6 +29,7 @@ const SetupProfile = ({ setIsEditing, user, setUser }) => {
             }
          );
          setUser(data.user);
+         dispatch(login({ token: data.token, id: data.id }));
          setIsEditing(false);
       } catch (error) {
          console.log(error);

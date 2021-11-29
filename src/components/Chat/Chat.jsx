@@ -6,7 +6,7 @@ import Input from "../Input/Input";
 import dp from "../../assets/dp.jpg";
 
 const Chat = () => {
-   const [expanded, setExpanded] = useState(true);
+   const [expanded, setExpanded] = useState(false);
    return (
       <div className={expanded ? "chat" : "chat btn"}>
          <header className={expanded ? "" : "hide"}>

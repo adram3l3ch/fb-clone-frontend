@@ -22,7 +22,7 @@ const Login = ({ setIsRegistering }) => {
          dispatch(showModal(msg));
          setTimeout(() => {
             dispatch(hideModal());
-         }, 3000);
+         }, 4000);
       }
    };
 

@@ -1,11 +1,10 @@
 import React from "react";
 import dp from "../../assets/dp.jpg";
-import img1 from "../../assets/img-1.jpg";
 import like from "../../assets/like.svg";
 import Input from "../Input/Input";
 import "./post.css";
 
-const Post = ({ singlepost }) => {
+const Post = ({ singlepost, post }) => {
    return (
       <article className={singlepost ? "post halfborder" : "post"}>
          <header>
@@ -15,8 +14,8 @@ const Post = ({ singlepost }) => {
                <p>20 min ago</p>
             </div>
          </header>
-         <p>How can you hear your soul if everyone is talking...</p>
-         <img src={img1} alt="" className="post__image" />
+         <p>{post.caption}</p>
+         <img src={post.image?.src} alt="" className="post__image" />
          <div className="post__footer">
             <div className="post__reactions">
                <img src={like} alt="" />

@@ -17,8 +17,13 @@ const ProfileCard = ({ id }) => {
 
    useEffect(() => {
       try {
+         const { token } = JSON.parse(Cookies.get("user"));
          async function fetchUser() {
-            const { data } = await axios.get(`http://localhost:5000/api/v1/user/${id}`);
+            const { data } = await axios.get(`http://localhost:5000/api/v1/user/${id}`, {
+               headers: {
+                  authorization: `Bearer ${token}`,
+               },
+            });
             setUser(data.user);
          }
          fetchUser();
