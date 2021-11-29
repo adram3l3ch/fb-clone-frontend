@@ -1,38 +1,35 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "./profilecard.css";
 import dp from "../../assets/dp.jpg";
 import clockIcon from "../../assets/clock.svg";
 import cakeIcon from "../../assets/cake.svg";
 import locationIcon from "../../assets/location.svg";
 import mailIcon from "../../assets/mail.svg";
+import cameraIcon from "../../assets/camera.svg";
 import { months } from "../../DATE";
-import Cookies from "js-cookie";
 import SetupProfile from "../SetupProfile/SetupProfile";
+import { fetchUser } from "../../API";
+import ImageUpload from "../ImageUpload/ImageUpload";
+import Cookies from "js-cookie";
 
-const ProfileCard = ({ id }) => {
+const ProfileCard = ({ id, isOwnProfile }) => {
    const [user, setUser] = useState({});
    const [isEditing, setIsEditing] = useState(false);
-   const isOwnProfile = id === JSON.parse(Cookies.get("user")).id;
+   const [isUploading, setIsUploading] = useState(false);
+   const { token } = JSON.parse(Cookies.get("user"));
 
    useEffect(() => {
       try {
-         const { token } = JSON.parse(Cookies.get("user"));
-         async function fetchUser() {
-            const { data } = await axios.get(`http://localhost:5000/api/v1/user/${id}`, {
-               headers: {
-                  authorization: `Bearer ${token}`,
-               },
-            });
+         (async () => {
+            const data = await fetchUser(id, token);
             setUser(data.user);
-         }
-         fetchUser();
+         })();
       } catch (error) {
          console.log(error);
       }
-   }, [id]);
+   }, [id, token]);
 
-   let { name, email, about, dob, location, createdAt } = user;
+   let { name, email, about, dob, location, createdAt, profileImage } = user;
    dob = new Date(dob);
    createdAt = new Date(createdAt);
    createdAt = `Joined on ${months[createdAt.getMonth()]} ${createdAt.getFullYear()}`;
@@ -43,8 +40,22 @@ const ProfileCard = ({ id }) => {
          {isEditing && (
             <SetupProfile setIsEditing={setIsEditing} user={user} setUser={setUser} />
          )}
+         {isUploading && (
+            <ImageUpload setIsUploading={setIsUploading} setUser={setUser} />
+         )}
          <header>
-            <img src={dp} alt="" className="profilecard__dp roundimage" />
+            <div>
+               <img
+                  src={profileImage || dp}
+                  alt=""
+                  className="profilecard__dp roundimage"
+               />
+               {isOwnProfile && (
+                  <div className="dp-upload">
+                     <img src={cameraIcon} alt="" onClick={() => setIsUploading(true)} />
+                  </div>
+               )}
+            </div>
             <h1>{name}</h1>
             <h2>{about}</h2>
          </header>
@@ -69,7 +80,7 @@ const ProfileCard = ({ id }) => {
          {isOwnProfile ? (
             <button onClick={() => setIsEditing(true)}>Edit Profile</button>
          ) : (
-            <button>Message</button>
+            <button disabled>Message</button>
          )}
       </section>
    );

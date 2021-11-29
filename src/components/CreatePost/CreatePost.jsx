@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import "./createpost.css";
 import plane from "../../assets/plane.svg";
 import file from "../../assets/file.png";
-import axios from "axios";
-import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { hideModal, showModal } from "../../features/modalSlice";
+import { createPost } from "../../API";
+import Cookies from "js-cookie";
+import { pushPost } from "../../features/postSlice";
 
 const CreatePost = () => {
    const [image, setImage] = useState(null);
    const [preview, setPreview] = useState(null);
    const [caption, setCaption] = useState("");
+   const { token } = JSON.parse(Cookies.get("user"));
    const dispatch = useDispatch();
 
    const loadImage = (e) => {
@@ -19,23 +21,18 @@ const CreatePost = () => {
       reader.onload = function (e) {
          setPreview(e.target.result);
       };
-      reader.readAsDataURL(input.files[0]);
+      input.files[0] && reader.readAsDataURL(input.files[0]);
       setImage(input.files[0]);
    };
 
-   const createPost = async (e) => {
+   const submitHandler = async (e) => {
       e.preventDefault();
       const formData = new FormData();
       formData.append("image", image);
       formData.append("caption", caption);
       try {
-         const { token } = JSON.parse(Cookies.get("user"));
-         axios.post("http://localhost:5000/api/v1/post", formData, {
-            headers: {
-               "Content-Type": "multipart/form-data",
-               authorization: `Bearer ${token}`,
-            },
-         });
+         const data = await createPost(formData, token);
+         dispatch(pushPost(data.post));
          dispatch(showModal("Post Created"));
       } catch (error) {
          const { msg } = error.response?.data || "Error";
@@ -44,15 +41,13 @@ const CreatePost = () => {
          setImage(null);
          setPreview(null);
          setCaption("");
-         setTimeout(() => {
-            dispatch(hideModal());
-         }, 4000);
+         setTimeout(() => dispatch(hideModal()), 4000);
       }
    };
 
    return (
       <article className="createpost">
-         <form onSubmit={createPost}>
+         <form onSubmit={submitHandler}>
             <textarea
                placeholder="What's on your mind?"
                value={caption}

@@ -11,11 +11,25 @@
    color: white;
 }
 
-.profilecard__dp {
-   width: 100px;
+.profilecard header > div {
    position: absolute;
+   width: 100px;
    left: 50%;
    transform: translate(-50%, -110%);
+}
+
+.dp-upload {
+   position: absolute;
+   width: 40px;
+   aspect-ratio: 1;
+   background-color: var(--primary-400);
+   border-radius: 50%;
+   bottom: 0;
+   right: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
 }
 
 .profilecard h1 {

@@ -1,0 +1,51 @@
+.imageupload {
+   position: absolute;
+   inset: 0;
+   background-color: rgba(0, 0, 0, 0.644);
+   z-index: 10;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.imageupload form {
+   width: 400px;
+   min-height: 100px;
+   background-color: var(--primary-500);
+   border-radius: 10px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   padding: 2rem 1.5rem;
+   justify-content: center;
+}
+
+.imageupload form img {
+   margin-bottom: 1rem;
+   border-radius: 10px;
+}
+
+input[type="file"] {
+   display: none;
+}
+
+.imageupload label {
+   cursor: pointer;
+   background-color: var(--primary-400);
+   padding: 0.65rem 1rem;
+   color: white;
+   border-radius: 10px;
+   font-size: 0.8rem;
+}
+
+.imageupload .btns {
+   display: flex;
+   gap: 1rem;
+   float: right;
+   margin: 0;
+}
+
+.uploaded-image {
+   width: 100%;
+   border-radius: 10px;
+}

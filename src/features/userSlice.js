@@ -3,7 +3,8 @@ import Cookies from "js-cookie";
 
 const initialState = {
    id: "",
-   token: "",
+   name: "",
+   profileImage: "",
 };
 
 export const userSlice = createSlice({
@@ -11,19 +12,25 @@ export const userSlice = createSlice({
    initialState,
    reducers: {
       login: (state, action) => {
-         const { id, token } = action.payload;
+         const { id, name, profileImage } = action.payload;
          Cookies.set("user", JSON.stringify(action.payload));
          state.id = id;
-         state.token = token;
+         state.name = name;
+         state.profileImage = profileImage;
       },
       logout: (state) => {
          Cookies.remove("user");
          state.id = "";
-         state.token = "";
+         state.name = "";
+         state.profileImage = "";
+      },
+      update: (state, action) => {
+         const { payload } = action;
+         Object.keys(payload).map((key) => (state[key] = payload[key]));
       },
    },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, update } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -10,6 +10,7 @@ import { logout as Logout } from "../../features/userSlice";
 const Appbar = () => {
    const dispatch = useDispatch();
    const { id } = useSelector((state) => state.user);
+   const { profileImage } = useSelector((state) => state.user);
 
    const logoutHandler = () => {
       dispatch(Logout());
@@ -24,7 +25,12 @@ const Appbar = () => {
          </form>
          <nav className="appbar__profile">
             <Link to={`/user/${id}`}>
-               <img src={dp} alt="" className="appbar__profile__dp" title="profile" />
+               <img
+                  src={profileImage || dp}
+                  alt=""
+                  className="appbar__profile__dp"
+                  title="profile"
+               />
             </Link>
             <button onClick={logoutHandler}>
                <img

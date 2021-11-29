@@ -11,7 +11,7 @@ import Modal from "./components/Modal/Modal.jsx";
 
 function App() {
    const dispatch = useDispatch();
-   const user = useSelector((state) => state.user);
+   const { id } = useSelector((state) => state.user);
 
    useEffect(() => {
       const user = Cookies.get("user");
@@ -22,7 +22,7 @@ function App() {
       <Router>
          <div className="container">
             <Modal />
-            {!user.id ? (
+            {!id ? (
                <Auth />
             ) : (
                <>

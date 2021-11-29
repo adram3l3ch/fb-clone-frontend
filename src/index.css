@@ -51,3 +51,7 @@ a {
 .container {
    max-width: 1440px;
 }
+
+button:disabled {
+   cursor: not-allowed;
+}

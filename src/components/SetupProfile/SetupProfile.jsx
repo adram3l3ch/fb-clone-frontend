@@ -1,36 +1,26 @@
-import axios from "axios";
 import React, { useState } from "react";
-import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import "./setupprofile.css";
-import { login } from "../../features/userSlice";
+import { update } from "../../features/userSlice";
+import { updateUser } from "../../API";
+import Cookies from "js-cookie";
 
 const SetupProfile = ({ setIsEditing, user, setUser }) => {
    const [name, setName] = useState(user.name);
    const [about, setAbout] = useState(user.about);
    const [location, setLocation] = useState(user.location);
+   const { token } = JSON.parse(Cookies.get("user"));
    const dispatch = useDispatch();
 
-   const updateUser = async (e) => {
+   const clickHandler = async (e) => {
       e.preventDefault();
       try {
-         const { token } = JSON.parse(Cookies.get("user"));
-         const { data } = await axios.patch(
-            `http://localhost:5000/api/v1/user/update`,
-            {
-               name,
-               about,
-               location,
-            },
-            {
-               headers: {
-                  authorization: `Bearer ${token}`,
-               },
-            }
-         );
-         setUser(data.user);
-         dispatch(login({ token: data.token, id: data.id }));
-         setIsEditing(false);
+         (async () => {
+            const data = await updateUser(name, about, location, token);
+            setUser(data.user);
+            setIsEditing(false);
+            dispatch(update({ name: data.user.name }));
+         })();
       } catch (error) {
          console.log(error);
       }
@@ -38,7 +28,7 @@ const SetupProfile = ({ setIsEditing, user, setUser }) => {
 
    return (
       <div className="setup">
-         <form onSubmit={updateUser}>
+         <form onSubmit={clickHandler}>
             <label htmlFor="">Username</label>
             <input
                type="text"

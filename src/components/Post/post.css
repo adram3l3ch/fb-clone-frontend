@@ -1,14 +1,16 @@
 h3 {
-   font-size: 1rem;
-   font-weight: 500;
+   font-size: 0.9rem;
+   font-weight: 400;
+   margin-bottom: 0.2em;
 }
 
 p {
    font-weight: 300;
-   font-size: 0.8rem;
+   font-size: 0.9rem;
 }
 
 .post header p {
+   font-size: 0.7rem;
    opacity: 0.5;
 }
 
@@ -59,12 +61,14 @@ p {
 
 .post__reactions img {
    height: 25px;
+   cursor: pointer;
 }
 
 .post__reactions p {
    position: relative;
-   top: 3px;
-   font-weight: 500;
+   top: 1.5px;
+   font-size: 1rem;
+   font-weight: 400;
 }
 
 .post__footer {

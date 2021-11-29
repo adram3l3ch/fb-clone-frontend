@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { hideModal, showModal } from "../../features/modalSlice";
+import { showModal } from "../../features/modalSlice";
 import { login } from "../../features/userSlice";
 
 const Register = ({ setIsRegistering }) => {
@@ -24,9 +24,6 @@ const Register = ({ setIsRegistering }) => {
       } catch (error) {
          const { msg } = error.response.data;
          dispatch(showModal(msg));
-         setTimeout(() => {
-            dispatch(hideModal());
-         }, 4000);
       }
    };
 

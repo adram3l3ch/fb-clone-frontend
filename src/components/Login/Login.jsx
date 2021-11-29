@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/userSlice";
 import axios from "axios";
-import { hideModal, showModal } from "../../features/modalSlice";
+import { showModal } from "../../features/modalSlice";
 
 const Login = ({ setIsRegistering }) => {
    const [email, setEmail] = useState("");
@@ -20,9 +20,6 @@ const Login = ({ setIsRegistering }) => {
       } catch (error) {
          const { msg } = error.response?.data || "Error";
          dispatch(showModal(msg));
-         setTimeout(() => {
-            dispatch(hideModal());
-         }, 4000);
       }
    };
 

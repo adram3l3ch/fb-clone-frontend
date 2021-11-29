@@ -9,7 +9,7 @@ import Chat from "../../components/Chat/Chat";
 const SinglePost = () => {
    return (
       <section className="singlepost">
-         <Post singlepost={true} />
+         {/* <Post singlepost={true} /> */}
          <div className="singlepost__comments">
             <div>
                <Comments />
