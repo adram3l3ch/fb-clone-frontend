@@ -1,0 +1,25 @@
+.notfound {
+   margin-top: 7rem;
+   max-width: 600px;
+   margin-inline: auto;
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+   align-items: center;
+   color: white;
+}
+
+.notfound > img {
+   object-fit: contain;
+   margin-bottom: 1rem;
+}
+.notfound h1 {
+   font-size: 3rem;
+   font-weight: 500;
+}
+
+.notfound button {
+   padding: 1em 2em;
+   border-radius: 10px;
+   background-color: var(--primary-500);
+}

@@ -1,7 +1,8 @@
 import axios from "axios";
+const API_ENDPOINT = "http://localhost:5000/api/v1";
 
 const loginUser = async (email, password) => {
-   const { data } = await axios.post("http://localhost:5000/api/v1/auth/login", {
+   const { data } = await axios.post(`${API_ENDPOINT}/auth/login`, {
       email,
       password,
    });
@@ -9,7 +10,7 @@ const loginUser = async (email, password) => {
 };
 
 const registerUser = async (name, email, password, dob) => {
-   const { data } = await axios.post("http://localhost:5000/api/v1/auth/register", {
+   const { data } = await axios.post(`${API_ENDPOINT}/auth/register`, {
       name,
       password,
       email,
@@ -19,7 +20,7 @@ const registerUser = async (name, email, password, dob) => {
 };
 
 const fetchUser = async (id, token) => {
-   const { data } = await axios.get(`http://localhost:5000/api/v1/user/${id}`, {
+   const { data } = await axios.get(`${API_ENDPOINT}/user/${id}`, {
       headers: {
          authorization: `Bearer ${token}`,
       },
@@ -27,8 +28,16 @@ const fetchUser = async (id, token) => {
    return data;
 };
 
-const fetchUsers = async (token) => {
-   const { data } = await axios.get(`http://localhost:5000/api/v1/user`, {
+const fetchUsers = async (token, query) => {
+   if (query) {
+      const { data } = await axios.get(`${API_ENDPOINT}/user?search=${query}`, {
+         headers: {
+            authorization: `Bearer ${token}`,
+         },
+      });
+      return data;
+   }
+   const { data } = await axios.get(`${API_ENDPOINT}/user`, {
       headers: {
          authorization: `Bearer ${token}`,
       },
@@ -38,7 +47,7 @@ const fetchUsers = async (token) => {
 
 const updateUser = async (name, about, location, token) => {
    const { data } = await axios.patch(
-      `http://localhost:5000/api/v1/user/update`,
+      `${API_ENDPOINT}/user/update`,
       {
          name,
          about,
@@ -54,29 +63,33 @@ const updateUser = async (name, about, location, token) => {
 };
 
 const updateDP = async (formData, token) => {
-   const { data } = await axios.patch(
-      "http://localhost:5000/api/v1/user/update/dp",
-      formData,
-      {
-         headers: {
-            "Content-Type": "multipart/form-data",
-            authorization: `Bearer ${token}`,
-         },
-      }
-   );
+   const { data } = await axios.patch(`${API_ENDPOINT}/user/update/dp`, formData, {
+      headers: {
+         "Content-Type": "multipart/form-data",
+         authorization: `Bearer ${token}`,
+      },
+   });
    return data;
 };
 
-const fetchPosts = async (token, id) => {
+const fetchPosts = async (token, id, query) => {
    if (id) {
-      const { data } = await axios.get(`http://localhost:5000/api/v1/post?by=${id}`, {
+      const { data } = await axios.get(`${API_ENDPOINT}/post?by=${id}`, {
          headers: {
             authorization: `Bearer ${token}`,
          },
       });
       return data;
    }
-   const { data } = await axios.get("http://localhost:5000/api/v1/post", {
+   if (query) {
+      const { data } = await axios.get(`${API_ENDPOINT}/post?search=${query}`, {
+         headers: {
+            authorization: `Bearer ${token}`,
+         },
+      });
+      return data;
+   }
+   const { data } = await axios.get(`${API_ENDPOINT}/post`, {
       headers: {
          authorization: `Bearer ${token}`,
       },
@@ -85,7 +98,7 @@ const fetchPosts = async (token, id) => {
 };
 
 const fetchPost = async (id, token) => {
-   const { data } = await axios.get(`http://localhost:5000/api/v1/post/${id}`, {
+   const { data } = await axios.get(`${API_ENDPOINT}/post/${id}`, {
       headers: {
          authorization: `Bearer ${token}`,
       },
@@ -94,7 +107,7 @@ const fetchPost = async (id, token) => {
 };
 
 const createPost = async (formData, token) => {
-   const { data } = await axios.post("http://localhost:5000/api/v1/post", formData, {
+   const { data } = await axios.post(`${API_ENDPOINT}/post`, formData, {
       headers: {
          "Content-Type": "multipart/form-data",
          authorization: `Bearer ${token}`,
@@ -105,7 +118,7 @@ const createPost = async (formData, token) => {
 
 const likePost = async (id, token, add) => {
    const { data } = await axios.patch(
-      `http://localhost:5000/api/v1/post/like?add=${add}`,
+      `${API_ENDPOINT}/post/like?add=${add}`,
       { id },
       {
          headers: {
@@ -118,7 +131,7 @@ const likePost = async (id, token, add) => {
 
 const commentPost = async (id, comment, token) => {
    const { data } = await axios.patch(
-      `http://localhost:5000/api/v1/post/comment`,
+      `${API_ENDPOINT}/post/comment`,
       { id, comment },
       {
          headers: {

@@ -1,0 +1,39 @@
+.home {
+   display: flex;
+   gap: 2rem;
+   max-width: 1200px;
+   margin-inline: auto;
+}
+
+.home__left {
+   flex: 2;
+   position: relative;
+   height: 80vh;
+   overflow: auto;
+}
+
+.home__left::-webkit-scrollbar {
+   display: none;
+}
+
+.home__left > div {
+   position: absolute;
+   width: 100%;
+}
+
+.home__right {
+   flex: 1;
+   position: relative;
+}
+
+.home__right > div {
+   position: absolute;
+   inset: 0;
+}
+
+.home__left > div,
+.home__right > div {
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+}

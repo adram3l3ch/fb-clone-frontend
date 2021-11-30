@@ -1,6 +1,6 @@
 .appbar {
    display: flex;
-   margin-bottom: 2rem;
+   margin-bottom: 1rem;
    align-items: center;
    justify-content: space-between;
    padding-block: 1rem;
@@ -14,16 +14,21 @@
    max-width: 500px;
    border-radius: 10px;
    gap: 1rem;
+   position: relative;
 }
 
 .appbar form button {
+   position: relative;
+   top: 2px;
    width: 20px;
    cursor: pointer;
 }
 
 .appbar form input {
+   position: relative;
+   top: 2px;
    color: white;
-   width: 100%;
+   width: 85%;
 }
 
 .appbar__profile {
@@ -45,4 +50,43 @@
 .appbar__profile__logout {
    width: 30px;
    height: 30px;
+}
+
+.search-results {
+   position: absolute;
+   width: 100%;
+   left: 0;
+   top: calc(100% + 1rem);
+   background-color: var(--primary-500);
+   padding: 2rem 1.5rem;
+   border-radius: 10px;
+   z-index: 10;
+   box-shadow: 0 0 30px rgba(0, 0, 0, 0.466);
+   color: white;
+   display: flex;
+   flex-direction: column;
+   gap: 1.5rem;
+}
+
+.appbar .search-results h3 {
+   margin-bottom: 1em;
+}
+
+.appbar .search-results p {
+   width: 80%;
+   overflow: hidden;
+   white-space: nowrap;
+   text-overflow: ellipsis;
+   font-size: 0.8rem;
+   color: rgba(255, 255, 255, 0.534);
+   margin-bottom: 1em;
+}
+
+.appbar .search-results p:hover {
+   text-decoration: underline;
+}
+
+.appbar .close {
+   transform: scale(1.5);
+   aspect-ratio: 1;
 }

@@ -44,11 +44,12 @@ p {
 }
 
 .post__image {
-   /* height: 400px; */
+   max-height: 450px;
    width: 100%;
    border-radius: 10px;
-   object-fit: cover;
+   object-fit: contain;
    margin-block: 1rem 1rem;
+   background-color: var(--primary-600);
 }
 
 .post__reactions {

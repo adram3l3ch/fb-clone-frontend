@@ -8,6 +8,8 @@ import Auth from "./pages/Auth/Auth";
 import Cookies from "js-cookie";
 import { login } from "./features/userSlice.js";
 import Modal from "./components/Modal/Modal.jsx";
+import Home from "./pages/Home/Home.jsx";
+import NotFound from "./pages/NotFound/NotFound.jsx";
 
 function App() {
    const dispatch = useDispatch();
@@ -28,8 +30,10 @@ function App() {
                <>
                   <Appbar />
                   <Routes>
+                     <Route path="/" element={<Home />} />
                      <Route path="/post/:id" element={<SinglePost />} />
                      <Route path="/user/:id" element={<Profile />} />
+                     <Route path="*" element={<NotFound />} />
                   </Routes>
                </>
             )}
