@@ -56,7 +56,7 @@
 .chat__recieve {
    display: flex;
    align-items: flex-start;
-   gap: 1rem;
+   gap: 0.5rem;
    text-align: left;
    margin-bottom: 1rem;
 }
@@ -68,6 +68,7 @@
    border-radius: 10px;
    max-width: 70%;
    font-weight: 200;
+   font-size: 0.75rem;
 }
 
 .chat__recieve p {
@@ -81,6 +82,7 @@
 
 .chat__sent img {
    width: 25px;
+   margin-top: 0.3rem;
 }
 
 .chat__input {

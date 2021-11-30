@@ -7,6 +7,10 @@ import dp from "../../assets/dp.jpg";
 
 const Chat = () => {
    const [expanded, setExpanded] = useState(false);
+
+   const submitHandler = () => {
+      alert("Working on that");
+   };
    return (
       <div className={expanded ? "chat" : "chat btn"}>
          <header className={expanded ? "" : "hide"}>
@@ -64,7 +68,7 @@ const Chat = () => {
             </div>
          </main>
          <div className="chat__input" onClick={() => setExpanded(true)}>
-            <Input placeholder="Type a message..." />
+            <Input placeholder="Type a message..." handler={submitHandler} />
          </div>
       </div>
    );

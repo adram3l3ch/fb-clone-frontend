@@ -27,6 +27,15 @@ const fetchUser = async (id, token) => {
    return data;
 };
 
+const fetchUsers = async (token) => {
+   const { data } = await axios.get(`http://localhost:5000/api/v1/user`, {
+      headers: {
+         authorization: `Bearer ${token}`,
+      },
+   });
+   return data;
+};
+
 const updateUser = async (name, about, location, token) => {
    const { data } = await axios.patch(
       `http://localhost:5000/api/v1/user/update`,
@@ -122,6 +131,7 @@ const commentPost = async (id, comment, token) => {
 
 export {
    fetchUser,
+   fetchUsers,
    updateUser,
    fetchPosts,
    fetchPost,

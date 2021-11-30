@@ -4,8 +4,12 @@
    margin-bottom: 1.5rem;
 }
 
-.gallery__images > img {
+.gallery__images a {
    width: 30%;
+}
+
+.gallery__images img {
+   width: 100%;
    aspect-ratio: 1;
    object-fit: cover;
    border-radius: 10px;

@@ -56,8 +56,8 @@ const ProfileCard = ({ id, isOwnProfile }) => {
                   </div>
                )}
             </div>
-            <h1>{name}</h1>
-            <h2>{about}</h2>
+            <h1>{name || "User"}</h1>
+            <h2>{about || "About"}</h2>
          </header>
          <article>
             <div className="profilecard__info">

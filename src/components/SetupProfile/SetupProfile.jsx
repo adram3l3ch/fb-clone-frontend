@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import "./setupprofile.css";
 import { update } from "../../features/userSlice";
+import { showModal } from "../../features/modalSlice";
 import { updateUser } from "../../API";
 import Cookies from "js-cookie";
 
@@ -22,7 +23,7 @@ const SetupProfile = ({ setIsEditing, user, setUser }) => {
             dispatch(update({ name: data.user.name }));
          })();
       } catch (error) {
-         console.log(error);
+         dispatch(showModal(error));
       }
    };
 

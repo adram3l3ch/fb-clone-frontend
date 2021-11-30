@@ -66,7 +66,13 @@ const Post = ({ singlepost, post }) => {
    return (
       <article className={singlepost ? "post halfborder" : "post"}>
          <header>
-            <img src={user.profileImage || dp} alt="dp" className="post__dp roundimage" />
+            <Link to={`/user/${post.createdBy}`}>
+               <img
+                  src={user.profileImage || dp}
+                  alt="dp"
+                  className="post__dp roundimage"
+               />
+            </Link>
             <div>
                <h3>{user.name}</h3>
                <p>{createdAt}</p>

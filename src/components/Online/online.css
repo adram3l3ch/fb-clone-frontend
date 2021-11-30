@@ -4,19 +4,26 @@
    background-color: var(--primary-500);
    border-radius: 10px;
    padding: 2rem 1.5rem;
+   color: white;
 }
 
 .online::-webkit-scrollbar {
    display: none;
 }
 
+.online h2 {
+   font-size: 1.1rem;
+   font-weight: 500;
+}
+
 .online > div {
+   margin-top: 2rem;
    display: flex;
    flex-direction: column;
    gap: 1.5rem;
 }
 
-.online > div > div {
+.online .user {
    position: relative;
    display: flex;
    color: white;
@@ -25,18 +32,7 @@
 }
 
 .online img {
-   width: 25px;
-}
-
-.online > div > div::after {
-   content: "";
-   position: absolute;
-   width: 8px;
-   height: 8px;
-   border-radius: 50%;
-   bottom: 0px;
-   left: 18px;
-   background-color: #26ff56;
+   width: 30px;
 }
 
 .online h3 {

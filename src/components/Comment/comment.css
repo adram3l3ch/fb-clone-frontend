@@ -20,12 +20,6 @@
    font-weight: 400;
 }
 
-.comment h3 span {
-   font-size: 0.6rem;
-   font-weight: 300;
-   margin-left: 0.5rem;
-}
-
 .comment p {
    margin-top: 0.5em;
    font-size: 0.75rem;
