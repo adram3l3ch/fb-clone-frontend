@@ -22,13 +22,13 @@ const Profile = () => {
    useEffect(() => {
       try {
          (async () => {
-            const data = await fetchPosts(token);
+            const data = await fetchPosts(token, id);
             dispatch(setPosts(data.posts));
          })();
       } catch (error) {
          console.log(error);
       }
-   }, [token, dispatch]);
+   }, [token, dispatch, id]);
 
    return (
       <div className="profile">
@@ -39,6 +39,7 @@ const Profile = () => {
          <div className="profile__center">
             <div>
                {isOwnProfile && <CreatePost />}
+               {posts.length < 1 && <h2>No Posts</h2>}
                {posts.map((post) => (
                   <Post post={post} />
                ))}

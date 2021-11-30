@@ -2,6 +2,7 @@
    overflow: auto;
    margin-bottom: 1.5rem;
    color: white;
+   height: 100%;
 }
 
 .comments > h3 {

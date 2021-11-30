@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { showModal } from "../../features/modalSlice";
+import { registerUser } from "../../API";
+import { hideModal, showModal } from "../../features/modalSlice";
 import { login } from "../../features/userSlice";
 
 const Register = ({ setIsRegistering }) => {
@@ -14,16 +14,14 @@ const Register = ({ setIsRegistering }) => {
    const registerHandler = async (e) => {
       e.preventDefault();
       try {
-         const { data } = await axios.post("http://localhost:5000/api/v1/auth/register", {
-            name,
-            password,
-            email,
-            dob,
-         });
+         const data = await registerUser(name, email, password, dob);
          dispatch(login(data));
       } catch (error) {
          const { msg } = error.response.data;
          dispatch(showModal(msg));
+         setTimeout(() => {
+            dispatch(hideModal());
+         }, 4000);
       }
    };
 

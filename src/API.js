@@ -1,5 +1,23 @@
 import axios from "axios";
 
+const loginUser = async (email, password) => {
+   const { data } = await axios.post("http://localhost:5000/api/v1/auth/login", {
+      email,
+      password,
+   });
+   return data;
+};
+
+const registerUser = async (name, email, password, dob) => {
+   const { data } = await axios.post("http://localhost:5000/api/v1/auth/register", {
+      name,
+      password,
+      email,
+      dob,
+   });
+   return data;
+};
+
 const fetchUser = async (id, token) => {
    const { data } = await axios.get(`http://localhost:5000/api/v1/user/${id}`, {
       headers: {
@@ -40,8 +58,25 @@ const updateDP = async (formData, token) => {
    return data;
 };
 
-const fetchPosts = async (token) => {
+const fetchPosts = async (token, id) => {
+   if (id) {
+      const { data } = await axios.get(`http://localhost:5000/api/v1/post?by=${id}`, {
+         headers: {
+            authorization: `Bearer ${token}`,
+         },
+      });
+      return data;
+   }
    const { data } = await axios.get("http://localhost:5000/api/v1/post", {
+      headers: {
+         authorization: `Bearer ${token}`,
+      },
+   });
+   return data;
+};
+
+const fetchPost = async (id, token) => {
+   const { data } = await axios.get(`http://localhost:5000/api/v1/post/${id}`, {
       headers: {
          authorization: `Bearer ${token}`,
       },
@@ -60,9 +95,8 @@ const createPost = async (formData, token) => {
 };
 
 const likePost = async (id, token, add) => {
-   console.log(id);
    const { data } = await axios.patch(
-      `http://localhost:5000/api/v1/post?add=${add}`,
+      `http://localhost:5000/api/v1/post/like?add=${add}`,
       { id },
       {
          headers: {
@@ -73,4 +107,28 @@ const likePost = async (id, token, add) => {
    return data;
 };
 
-export { fetchUser, updateUser, fetchPosts, createPost, updateDP, likePost };
+const commentPost = async (id, comment, token) => {
+   const { data } = await axios.patch(
+      `http://localhost:5000/api/v1/post/comment`,
+      { id, comment },
+      {
+         headers: {
+            authorization: `Bearer ${token}`,
+         },
+      }
+   );
+   return data;
+};
+
+export {
+   fetchUser,
+   updateUser,
+   fetchPosts,
+   fetchPost,
+   createPost,
+   updateDP,
+   likePost,
+   loginUser,
+   registerUser,
+   commentPost,
+};

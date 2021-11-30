@@ -28,7 +28,7 @@ function App() {
                <>
                   <Appbar />
                   <Routes>
-                     <Route path="/" element={<SinglePost />} />
+                     <Route path="/post/:id" element={<SinglePost />} />
                      <Route path="/user/:id" element={<Profile />} />
                   </Routes>
                </>

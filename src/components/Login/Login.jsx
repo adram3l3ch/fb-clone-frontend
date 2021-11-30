@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/userSlice";
-import axios from "axios";
-import { showModal } from "../../features/modalSlice";
+import { hideModal, showModal } from "../../features/modalSlice";
+import { loginUser } from "../../API";
 
 const Login = ({ setIsRegistering }) => {
    const [email, setEmail] = useState("");
@@ -12,14 +12,14 @@ const Login = ({ setIsRegistering }) => {
    const loginHandler = async (e) => {
       e.preventDefault();
       try {
-         const { data } = await axios.post("http://localhost:5000/api/v1/auth/login", {
-            email,
-            password,
-         });
+         const data = await loginUser(email, password);
          dispatch(login(data));
       } catch (error) {
          const { msg } = error.response?.data || "Error";
          dispatch(showModal(msg));
+         setTimeout(() => {
+            dispatch(hideModal());
+         }, 4000);
       }
    };
 

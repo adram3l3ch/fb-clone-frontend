@@ -22,8 +22,15 @@
    overflow: auto;
    display: flex;
    flex-direction: column;
+   color: white;
    gap: 1rem;
 }
+
+.profile__center > div > h2 {
+   margin-top: 2rem;
+   margin-inline: auto;
+}
+
 .profile__center > div::-webkit-scrollbar {
    display: none;
 }

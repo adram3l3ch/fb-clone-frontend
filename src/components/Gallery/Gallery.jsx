@@ -1,18 +1,19 @@
 import React from "react";
 import "./gallery.css";
-import img1 from "../../assets/img-1.jpg";
-import img2 from "../../assets/img-2.jpg";
-import img3 from "../../assets/img-3.jpg";
+import { useSelector } from "react-redux";
 
 const Gallery = () => {
+   const { posts } = useSelector((state) => state.post);
+   const postsWithImages = posts.filter((post) => !!post.image);
+   console.log(postsWithImages);
    return (
       <section className="gallery">
          <div className="gallery__images">
-            <img src={img1} alt="" />
-            <img src={img2} alt="" />
-            <img src={img3} alt="" />
+            {postsWithImages.map(
+               (v, i) => i < 3 && <img src={postsWithImages[i]?.image.src} alt="" />
+            )}
          </div>
-         <button>View All</button>
+         {postsWithImages.length > 3 && <button>View All</button>}
       </section>
    );
 };
