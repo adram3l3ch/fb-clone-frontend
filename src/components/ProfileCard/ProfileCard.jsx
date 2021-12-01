@@ -11,12 +11,15 @@ import SetupProfile from "../SetupProfile/SetupProfile";
 import { fetchUser } from "../../API";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { hideModal, showModal } from "../../features/modalSlice";
 
 const ProfileCard = ({ id, isOwnProfile }) => {
    const [user, setUser] = useState({});
    const [isEditing, setIsEditing] = useState(false);
    const [isUploading, setIsUploading] = useState(false);
    const { token } = JSON.parse(Cookies.get("user"));
+   const dispatch = useDispatch();
 
    useEffect(() => {
       try {
@@ -25,9 +28,10 @@ const ProfileCard = ({ id, isOwnProfile }) => {
             setUser(data.user);
          })();
       } catch (error) {
-         console.log(error);
+         dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
+         setTimeout(() => dispatch(hideModal()), 4000);
       }
-   }, [id, token]);
+   }, [id, token, dispatch]);
 
    let { name, email, about, dob, location, createdAt, profileImage } = user;
    dob = new Date(dob);
@@ -47,12 +51,16 @@ const ProfileCard = ({ id, isOwnProfile }) => {
             <div>
                <img
                   src={profileImage || dp}
-                  alt=""
+                  alt="profile_image"
                   className="profilecard__dp roundimage"
                />
                {isOwnProfile && (
                   <div className="dp-upload">
-                     <img src={cameraIcon} alt="" onClick={() => setIsUploading(true)} />
+                     <img
+                        src={cameraIcon}
+                        alt="change_profile_image"
+                        onClick={() => setIsUploading(true)}
+                     />
                   </div>
                )}
             </div>
@@ -61,19 +69,19 @@ const ProfileCard = ({ id, isOwnProfile }) => {
          </header>
          <article>
             <div className="profilecard__info">
-               <img src={clockIcon} alt="" />
+               <img src={clockIcon} alt="join date" />
                <h3>{createdAt}</h3>
             </div>
             <div className="profilecard__info">
-               <img src={locationIcon} alt="" />
+               <img src={locationIcon} alt="location" />
                <h3>{location}</h3>
             </div>
             <div className="profilecard__info">
-               <img src={mailIcon} alt="" />
+               <img src={mailIcon} alt="mail" />
                <h3>{email}</h3>
             </div>
             <div className="profilecard__info">
-               <img src={cakeIcon} alt="" />
+               <img src={cakeIcon} alt="date of birth" />
                <h3>{dob}</h3>
             </div>
          </article>

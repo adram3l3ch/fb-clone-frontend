@@ -10,6 +10,7 @@ import { useParams } from "react-router";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { setSinglePost } from "../../features/postSlice";
+import { hideModal, showModal } from "../../features/modalSlice";
 
 const SinglePost = () => {
    const { id } = useParams();
@@ -24,28 +25,34 @@ const SinglePost = () => {
             const data = await fetchPost(id, token);
             dispatch(setSinglePost(data.posts));
          })();
-      } catch (error) {}
+      } catch (error) {
+         dispatch(showModal("Something went wrong"));
+         setTimeout(() => dispatch(hideModal()), 4000);
+      }
    }, [id, token, dispatch]);
 
    const commentHandler = async (comment) => {
       try {
          const data = await commentPost(post._id, comment, token);
          dispatch(setSinglePost(data.posts));
-      } catch (error) {}
+      } catch (error) {
+         dispatch(showModal("Something went wrong"));
+         setTimeout(() => dispatch(hideModal()), 4000);
+      }
    };
 
    return (
       <section className="singlepost">
-         <div className="singlepost__left">
+         <article className="singlepost__left">
             {post._id && <Post singlepost={true} post={post} />}
-         </div>
-         <div className="singlepost__comments">
+         </article>
+         <article className="singlepost__comments">
             <div>
                <Comments post={post} />
                <Input placeholder="Write a comment..." handler={commentHandler} />
             </div>
-         </div>
-         <div
+         </article>
+         <article
             className={
                isSidebarVisible ? "singlepost__right visible" : "singlepost__right"
             }
@@ -54,7 +61,7 @@ const SinglePost = () => {
                <Online />
                <Chat />
             </div>
-         </div>
+         </article>
       </section>
    );
 };

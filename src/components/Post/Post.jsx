@@ -10,6 +10,7 @@ import { months } from "../../DATE";
 import Input from "../Input/Input";
 import { Link } from "react-router-dom";
 import "./post.css";
+import { hideModal, showModal } from "../../features/modalSlice";
 
 const Post = ({ singlepost, post }) => {
    const [user, setUser] = useState({});
@@ -26,12 +27,17 @@ const Post = ({ singlepost, post }) => {
    } ${createdAt.getFullYear()}`;
 
    useEffect(() => {
-      (async () => {
-         const { createdBy } = post;
-         const { user } = await fetchUser(createdBy, token);
-         setUser(user);
-      })();
-   }, [post, token]);
+      try {
+         (async () => {
+            const { createdBy } = post;
+            const { user } = await fetchUser(createdBy, token);
+            setUser(user);
+         })();
+      } catch (error) {
+         dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
+         setTimeout(() => dispatch(hideModal()), 4000);
+      }
+   }, [post, token, dispatch]);
 
    const clickHandler = async () => {
       try {
@@ -47,7 +53,10 @@ const Post = ({ singlepost, post }) => {
             slicedPosts.splice(index, 1, data.posts);
             dispatch(setPosts(slicedPosts));
          }
-      } catch (error) {}
+      } catch (error) {
+         dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
+         setTimeout(() => dispatch(hideModal()), 4000);
+      }
    };
 
    const commentHandler = async (comment) => {
@@ -60,7 +69,10 @@ const Post = ({ singlepost, post }) => {
          let slicedPosts = [...posts];
          slicedPosts.splice(index, 1, data.posts);
          dispatch(setPosts(slicedPosts));
-      } catch (error) {}
+      } catch (error) {
+         dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
+         setTimeout(() => dispatch(hideModal()), 4000);
+      }
    };
 
    return (
@@ -69,7 +81,7 @@ const Post = ({ singlepost, post }) => {
             <Link to={`/user/${post.createdBy}`}>
                <img
                   src={user.profileImage || dp}
-                  alt="dp"
+                  alt="profileImage"
                   className="post__dp roundimage"
                />
             </Link>
@@ -81,12 +93,16 @@ const Post = ({ singlepost, post }) => {
          <Link to={`/post/${post._id}`}>
             <p>{post.caption}</p>
             {post.image?.src && (
-               <img src={post.image?.src} alt="" className="post__image" />
+               <img src={post.image?.src} alt="post_image" className="post__image" />
             )}
          </Link>
          <div className="post__footer">
             <div className="post__reactions">
-               <img src={isLiked ? like : likeOutlined} alt="" onClick={clickHandler} />
+               <img
+                  src={isLiked ? like : likeOutlined}
+                  alt="like"
+                  onClick={clickHandler}
+               />
                <p>{post.likes.length || ""}</p>
             </div>
             {singlepost || (

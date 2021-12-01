@@ -6,6 +6,7 @@ import Chat from "../../components/Chat/Chat";
 import CreatePost from "../../components/CreatePost/CreatePost";
 import Online from "../../components/Online/Online";
 import Post from "../../components/Post/Post";
+import { hideModal, showModal } from "../../features/modalSlice";
 import { setPosts } from "../../features/postSlice";
 import "./home.css";
 
@@ -16,28 +17,33 @@ const Home = () => {
    const { isSidebarVisible } = useSelector((state) => state.modal);
 
    useEffect(() => {
-      (async () => {
-         const data = await fetchPosts(token);
-         dispatch(setPosts(data.posts));
-      })();
+      try {
+         (async () => {
+            const data = await fetchPosts(token);
+            dispatch(setPosts(data.posts));
+         })();
+      } catch (error) {
+         dispatch(showModal("Something went wrong"));
+         setTimeout(() => dispatch(hideModal()), 4000);
+      }
    }, [dispatch, token]);
 
    return (
       <section className="home">
-         <div className="home__left">
+         <article className="home__left">
             <div>
                <CreatePost />
                {posts.map((post) => (
-                  <Post post={post} />
+                  <Post post={post} key={post._id} />
                ))}
             </div>
-         </div>
-         <div className={isSidebarVisible ? "home__right visible" : "home__right"}>
+         </article>
+         <article className={isSidebarVisible ? "home__right visible" : "home__right"}>
             <div>
                <Online />
                <Chat />
             </div>
-         </div>
+         </article>
       </section>
    );
 };

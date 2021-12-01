@@ -1,5 +1,5 @@
-import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 import { fetchUsersByIDs } from "../../API";
 import Comment from "../Comment/Comment";
 import "./comments.css";
@@ -16,10 +16,14 @@ const Comments = ({ post }) => {
 
    useEffect(() => {
       if (userIDs) {
-         (async () => {
-            const data = await fetchUsersByIDs(userIDs, token);
-            setCommentedUsers(data.user);
-         })();
+         try {
+            (async () => {
+               const data = await fetchUsersByIDs(userIDs, token);
+               setCommentedUsers(data.user);
+            })();
+         } catch (error) {
+            console.log(error);
+         }
       }
    }, [userIDs, token]);
 
@@ -28,6 +32,7 @@ const Comments = ({ post }) => {
          <h3>{post?.comments?.length} Comments</h3>
          {post?.comments?.map((comment, i) => (
             <Comment
+               key={comment._id}
                comment={comment}
                user={commentedUsers.find((user) => user._id === comment.commentedBy)}
             />

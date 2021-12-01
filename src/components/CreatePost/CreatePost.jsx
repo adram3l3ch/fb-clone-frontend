@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./createpost.css";
 import plane from "../../assets/plane.svg";
 import file from "../../assets/file.png";
 import { useDispatch } from "react-redux";
@@ -7,6 +6,7 @@ import { hideModal, showModal } from "../../features/modalSlice";
 import { createPost } from "../../API";
 import Cookies from "js-cookie";
 import { pushPost } from "../../features/postSlice";
+import "./createpost.css";
 
 const CreatePost = () => {
    const [image, setImage] = useState(null);
@@ -31,6 +31,7 @@ const CreatePost = () => {
       formData.append("image", image);
       formData.append("caption", caption);
       try {
+         dispatch(showModal("Hold on, I swear It wont't take so long"));
          const data = await createPost(formData, token);
          dispatch(pushPost(data.post));
          dispatch(showModal("Post Created"));
@@ -59,7 +60,7 @@ const CreatePost = () => {
             <div className="btns">
                <label htmlFor="image">
                   <div>
-                     <img src={file} alt="" />
+                     <img src={file} alt="upload" />
                   </div>
                </label>
                <input
@@ -69,7 +70,7 @@ const CreatePost = () => {
                   onChange={loadImage}
                />
                <button type="submit">
-                  <img src={plane} alt="" />
+                  <img src={plane} alt="send" />
                </button>
             </div>
          </form>

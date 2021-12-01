@@ -20,7 +20,7 @@ const Input = ({ placeholder, handler }) => {
             onChange={(e) => setValue(e.target.value)}
          />
          <button type="submit">
-            <img src={send} alt="" />
+            <img src={send} alt="send" />
          </button>
       </form>
    );

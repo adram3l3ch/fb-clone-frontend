@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import "./appbar.css";
 import dp from "../../assets/dp.jpg";
 import logout from "../../assets/logout.png";
 import close from "../../assets/close.png";
 import search from "../../assets/search.svg";
+import hamburger from "../../assets/hamburger.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout as Logout } from "../../features/userSlice";
 import { fetchPosts, fetchUsers } from "../../API";
 import Cookies from "js-cookie";
-import hamburger from "../../assets/hamburger.png";
 import { toggleSidebar } from "../../features/modalSlice";
+import "./appbar.css";
 
 const Appbar = () => {
    const dispatch = useDispatch();
@@ -28,9 +28,13 @@ const Appbar = () => {
    const searchHandler = async (e) => {
       e.preventDefault();
       if (query) {
-         const { posts } = await fetchPosts(token, null, query);
-         const { user } = await fetchUsers(token, query);
-         setSearchResult({ posts, user });
+         try {
+            const { posts } = await fetchPosts(token, null, query);
+            const { user } = await fetchUsers(token, query);
+            setSearchResult({ posts, user });
+         } catch (error) {
+            console.log(error);
+         }
       }
    };
 
@@ -45,11 +49,11 @@ const Appbar = () => {
             className="hamburger"
             onClick={() => dispatch(toggleSidebar(!isSidebarVisible))}
          >
-            <img src={isSidebarVisible ? close : hamburger} alt="" />
+            <img src={isSidebarVisible ? close : hamburger} alt="hamburger" />
          </div>
          <form onSubmit={searchHandler} className="searchform">
             <button type="submit">
-               <img src={search} alt="" />
+               <img src={search} alt="search" />
             </button>
             <input
                type="text"
@@ -87,7 +91,7 @@ const Appbar = () => {
             <Link to={`/user/${id}`}>
                <img
                   src={profileImage || dp}
-                  alt=""
+                  alt="profileImage"
                   className="appbar__profile__dp"
                   title="profile"
                />
@@ -95,7 +99,7 @@ const Appbar = () => {
             <button onClick={logoutHandler}>
                <img
                   src={logout}
-                  alt=""
+                  alt="logoutIcon"
                   className="appbar__profile__logout"
                   title="logout"
                />

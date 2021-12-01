@@ -15,7 +15,7 @@ const Login = ({ setIsRegistering }) => {
          const data = await loginUser(email, password);
          dispatch(login(data));
       } catch (error) {
-         const { msg } = error.response?.data || "Error";
+         const { msg } = error.response?.data || "Something went wrong";
          dispatch(showModal(msg));
          setTimeout(() => {
             dispatch(hideModal());

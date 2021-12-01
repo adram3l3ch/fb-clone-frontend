@@ -32,25 +32,27 @@ const Profile = () => {
    }, [token, dispatch, id]);
 
    return (
-      <div className="profile">
-         <div className="profile__left">
+      <section className="profile">
+         <article className="profile__left">
             <ProfileCard id={id} isOwnProfile={isOwnProfile} />
             <Gallery />
-         </div>
-         <div className="profile__center">
+         </article>
+         <article className="profile__center">
             <div>
                {isOwnProfile && <CreatePost />}
                {posts.length < 1 && <h2>No Posts</h2>}
                {posts.map((post) => (
-                  <Post post={post} />
+                  <Post post={post} key={post._id} />
                ))}
             </div>
-         </div>
-         <div className={isSidebarVisible ? "profile__right visible" : "profile__right"}>
+         </article>
+         <article
+            className={isSidebarVisible ? "profile__right visible" : "profile__right"}
+         >
             <Online />
             <Chat />
-         </div>
-      </div>
+         </article>
+      </section>
    );
 };
 

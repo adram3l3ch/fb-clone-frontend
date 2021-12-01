@@ -17,7 +17,7 @@ const Register = ({ setIsRegistering }) => {
          const data = await registerUser(name, email, password, dob);
          dispatch(login(data));
       } catch (error) {
-         const { msg } = error.response.data;
+         const { msg } = error?.response?.data || "Something went wrong";
          dispatch(showModal(msg));
          setTimeout(() => {
             dispatch(hideModal());
@@ -33,6 +33,7 @@ const Register = ({ setIsRegistering }) => {
             id="email"
             placeholder="johndoe@example.com"
             value={email}
+            required
             onChange={(e) => setEmail(e.target.value)}
          />
          <label htmlFor="name">Username</label>
@@ -41,12 +42,14 @@ const Register = ({ setIsRegistering }) => {
             id="name"
             placeholder="john doe"
             value={name}
+            required
             onChange={(e) => setName(e.target.value)}
          />
          <label htmlFor="dob">Date of birth</label>
          <input
             type="date"
             id="dob"
+            required
             value={dob}
             onChange={(e) => setDob(e.target.value)}
          />
@@ -55,6 +58,7 @@ const Register = ({ setIsRegistering }) => {
             type="password"
             id="password"
             placeholder="Top secret"
+            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
          />

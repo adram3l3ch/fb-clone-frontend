@@ -21,9 +21,11 @@ const SetupProfile = ({ setIsEditing, user, setUser }) => {
             setUser(data.user);
             setIsEditing(false);
             dispatch(update({ name: data.user.name }));
+            dispatch(showModal("Success"));
          })();
       } catch (error) {
-         dispatch(showModal(error));
+         dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
+         setTimeout(() => dispatch(showModal()), 4000);
       }
    };
 
@@ -34,6 +36,7 @@ const SetupProfile = ({ setIsEditing, user, setUser }) => {
             <input
                type="text"
                value={name}
+               required
                onChange={(e) => {
                   setName(e.target.value);
                }}

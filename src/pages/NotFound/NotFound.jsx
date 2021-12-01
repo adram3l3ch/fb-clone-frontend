@@ -7,7 +7,7 @@ const NotFound = () => {
    const navigate = useNavigate();
    return (
       <div className="notfound">
-         <img src={notfound} alt="" />
+         <img src={notfound} alt="not-found" />
          <h1>Not Found</h1>
          <button onClick={() => navigate("/")}>Go Home</button>
       </div>

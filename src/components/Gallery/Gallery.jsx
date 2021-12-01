@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./gallery.css";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import MainGallery from "../MainGallery/MainGallery";
+import "./gallery.css";
 
 const Gallery = () => {
    const { posts } = useSelector((state) => state.post);
@@ -18,8 +18,8 @@ const Gallery = () => {
             {postsWithImages.map(
                (v, i) =>
                   i < 3 && (
-                     <Link to={`/post/${postsWithImages[i]._id}`}>
-                        <img src={postsWithImages[i]?.image.src} alt="" />
+                     <Link to={`/post/${v._id}`} key={v._id}>
+                        <img src={v?.image.src} alt="postimage" />
                      </Link>
                   )
             )}

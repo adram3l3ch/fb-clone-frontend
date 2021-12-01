@@ -4,6 +4,7 @@ import { updateDP } from "../../API";
 import { useDispatch } from "react-redux";
 import "./imageupload.css";
 import { update } from "../../features/userSlice";
+import { hideModal, showModal } from "../../features/modalSlice";
 
 const ImageUpload = ({ setIsUploading, setUser }) => {
    const [image, setImage] = useState(null);
@@ -26,13 +27,16 @@ const ImageUpload = ({ setIsUploading, setUser }) => {
       const formData = new FormData();
       formData.append("image", image);
       try {
+         dispatch(showModal("Hold on, I swear it won't take so long"));
          const data = await updateDP(formData, token);
          setUser(data.user);
          dispatch(update({ profileImage: data.user.profileImage }));
          setIsUploading(false);
+         dispatch(showModal("Sucess"));
       } catch (error) {
-         console.log(error);
+         dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
       } finally {
+         setTimeout(() => dispatch(hideModal()), 4000);
          setImage(null);
          setPreview(null);
       }
@@ -40,7 +44,7 @@ const ImageUpload = ({ setIsUploading, setUser }) => {
    return (
       <div className="imageupload">
          <form onSubmit={submitHandler}>
-            <img src={preview} alt="" />
+            <img src={preview} alt="upload-preview" />
             <div className="btns">
                <label htmlFor="image">Upload</label>
                <input
