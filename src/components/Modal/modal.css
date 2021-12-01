@@ -3,10 +3,10 @@
    background-color: white;
    color: var(--primary-400);
    left: 50%;
-   transform: translateX(-50%);
+   transform: translate(-50%, -120%);
    position: absolute;
-   top: -30%;
-   transition: top 0.2s linear;
+   top: 0;
+   transition: transform 0.1s linear;
    border-radius: 10px;
    text-align: center;
    z-index: 9;
@@ -17,5 +17,5 @@
 }
 
 .modal.visible {
-   top: 3rem;
+   transform: translate(-50%, 50px);
 }

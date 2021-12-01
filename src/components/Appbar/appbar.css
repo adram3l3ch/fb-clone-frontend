@@ -105,7 +105,7 @@
 @media (max-width: 800px) {
    .appbar form {
       padding: 0.75rem;
-      width: 60%;
+      width: 65%;
    }
    .hamburger {
       display: flex;
