@@ -9,10 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout as Logout } from "../../features/userSlice";
 import { fetchPosts, fetchUsers } from "../../API";
 import Cookies from "js-cookie";
+import hamburger from "../../assets/hamburger.png";
+import { toggleSidebar } from "../../features/modalSlice";
 
 const Appbar = () => {
    const dispatch = useDispatch();
    const { id } = useSelector((state) => state.user);
+   const { isSidebarVisible } = useSelector((state) => state.modal);
    const { profileImage } = useSelector((state) => state.user);
    const [query, setQuery] = useState("");
    const [searchResult, setSearchResult] = useState({});
@@ -38,6 +41,12 @@ const Appbar = () => {
 
    return (
       <div className="appbar">
+         <div
+            className="hamburger"
+            onClick={() => dispatch(toggleSidebar(!isSidebarVisible))}
+         >
+            <img src={isSidebarVisible ? close : hamburger} alt="" />
+         </div>
          <form onSubmit={searchHandler} className="searchform">
             <button type="submit">
                <img src={search} alt="" />

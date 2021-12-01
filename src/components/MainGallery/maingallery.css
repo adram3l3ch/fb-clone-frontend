@@ -1,5 +1,5 @@
 .maingallery {
-   position: absolute;
+   position: fixed;
    inset: 0;
    background-color: rgba(0, 0, 0, 0.76);
    display: flex;
@@ -14,22 +14,22 @@
    overflow: auto;
    background-color: var(--primary-500);
    border-radius: 10px;
-   display: flex;
-   flex-wrap: wrap;
-   gap: 1.3rem;
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 1rem;
    padding: 2rem 1.5rem;
    position: relative;
 }
 
-.images::-webkit-scrollbar {
-   display: none;
-}
-
 .images > * {
-   width: 22%;
+   width: 100%;
    aspect-ratio: 1;
    border-radius: 10px;
    overflow: hidden;
+}
+
+.images > *::-webkit-scrollbar {
+   display: none;
 }
 
 .images img {
@@ -47,4 +47,11 @@
    padding: 0;
    right: 10px;
    top: 10px;
+}
+
+@media (max-width: 800px) {
+   .images {
+      width: 90%;
+      gap: 0.95rem;
+   }
 }

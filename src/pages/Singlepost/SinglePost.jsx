@@ -16,6 +16,7 @@ const SinglePost = () => {
    const { token } = JSON.parse(Cookies.get("user"));
    const dispatch = useDispatch();
    const { singlePost: post } = useSelector((state) => state.post);
+   const { isSidebarVisible } = useSelector((state) => state.modal);
 
    useEffect(() => {
       try {
@@ -44,7 +45,11 @@ const SinglePost = () => {
                <Input placeholder="Write a comment..." handler={commentHandler} />
             </div>
          </div>
-         <div className="singlepost__right">
+         <div
+            className={
+               isSidebarVisible ? "singlepost__right visible" : "singlepost__right"
+            }
+         >
             <div>
                <Online />
                <Chat />

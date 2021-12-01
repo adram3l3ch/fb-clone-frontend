@@ -4,13 +4,13 @@ import Gallery from "../../components/Gallery/Gallery";
 import Online from "../../components/Online/Online";
 import Post from "../../components/Post/Post";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
-import "./profile.css";
 import { useParams } from "react-router";
 import CreatePost from "../../components/CreatePost/CreatePost";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../../API";
 import Cookies from "js-cookie";
 import { setPosts } from "../../features/postSlice";
+import "./profile.css";
 
 const Profile = () => {
    const { id } = useParams();
@@ -18,6 +18,7 @@ const Profile = () => {
    const dispatch = useDispatch();
    const { posts } = useSelector((state) => state.post);
    const isOwnProfile = id === useSelector((state) => state.user.id);
+   const { isSidebarVisible } = useSelector((state) => state.modal);
 
    useEffect(() => {
       try {
@@ -45,7 +46,7 @@ const Profile = () => {
                ))}
             </div>
          </div>
-         <div className="profile__right">
+         <div className={isSidebarVisible ? "profile__right visible" : "profile__right"}>
             <Online />
             <Chat />
          </div>

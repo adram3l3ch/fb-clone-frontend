@@ -48,7 +48,14 @@
 
 @media (max-width: 800px) {
    .singlepost__right {
-      display: none;
+      position: fixed;
+      top: 100px;
+      width: 100%;
+      height: 100%;
+      left: -1rem;
+      transform: translateX(-100%);
+      transition: transform 0.2s linear;
+      z-index: 2;
    }
    .singlepost {
       min-height: auto;

@@ -101,3 +101,9 @@
 .chat.btn {
    max-height: 5.5rem;
 }
+
+@media (max-width: 800px) {
+   .chat {
+      display: none;
+   }
+}

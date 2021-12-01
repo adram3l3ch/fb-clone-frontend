@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
    msg: "",
    visible: false,
+   isSidebarVisible: false,
 };
 
 export const modalSlice = createSlice({
@@ -16,9 +17,12 @@ export const modalSlice = createSlice({
       hideModal: (state) => {
          state.visible = false;
       },
+      toggleSidebar: (state, action) => {
+         state.isSidebarVisible = action.payload;
+      },
    },
 });
 
-export const { showModal, hideModal } = modalSlice.actions;
+export const { showModal, hideModal, toggleSidebar } = modalSlice.actions;
 
 export default modalSlice.reducer;

@@ -39,7 +39,7 @@ p {
 .post > header {
    display: flex;
    align-items: flex-start;
-   gap: 1rem;
+   gap: 0.5rem;
    margin-bottom: 1rem;
 }
 

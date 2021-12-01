@@ -13,6 +13,7 @@ const Home = () => {
    const { token } = JSON.parse(Cookies.get("user"));
    const dispatch = useDispatch();
    const { posts } = useSelector((state) => state.post);
+   const { isSidebarVisible } = useSelector((state) => state.modal);
 
    useEffect(() => {
       (async () => {
@@ -31,7 +32,7 @@ const Home = () => {
                ))}
             </div>
          </div>
-         <div className="home__right">
+         <div className={isSidebarVisible ? "home__right visible" : "home__right"}>
             <div>
                <Online />
                <Chat />

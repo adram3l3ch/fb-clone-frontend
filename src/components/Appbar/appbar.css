@@ -2,8 +2,10 @@
    display: flex;
    margin-bottom: 1rem;
    align-items: center;
-   justify-content: space-between;
+   gap: 0.5rem;
    padding-block: 1rem;
+   position: relative;
+   z-index: 3;
 }
 
 .appbar form {
@@ -35,6 +37,7 @@
    display: flex;
    gap: 1rem;
    align-items: center;
+   margin-left: auto;
 }
 
 .appbar__profile__dp {
@@ -91,8 +94,21 @@
    aspect-ratio: 1;
 }
 
+.hamburger {
+   display: none;
+   width: 30px;
+}
+.hamburger > img {
+   width: 100%;
+}
+
 @media (max-width: 800px) {
    .appbar form {
-      width: 75%;
+      padding: 0.75rem;
+      width: 60%;
+   }
+   .hamburger {
+      display: flex;
+      align-items: center;
    }
 }
