@@ -25,6 +25,7 @@ const SetupProfile = ({ setIsEditing, user, setUser }) => {
          })();
       } catch (error) {
          dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
+      } finally {
          setTimeout(() => dispatch(showModal()), 4000);
       }
    };

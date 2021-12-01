@@ -32,7 +32,7 @@ const ImageUpload = ({ setIsUploading, setUser }) => {
          setUser(data.user);
          dispatch(update({ profileImage: data.user.profileImage }));
          setIsUploading(false);
-         dispatch(showModal("Sucess"));
+         dispatch(showModal("Success"));
       } catch (error) {
          dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
       } finally {
