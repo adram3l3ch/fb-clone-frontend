@@ -1,6 +1,13 @@
 .singlepost {
    display: flex;
    gap: 2px;
+   min-height: 80vh;
+}
+
+.singlepost__left {
+   flex: 2;
+   background-color: var(--primary-500);
+   border-radius: 10px 0 0 10px;
 }
 
 .singlepost__comments {

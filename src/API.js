@@ -28,6 +28,20 @@ const fetchUser = async (id, token) => {
    return data;
 };
 
+const fetchUsersByIDs = async (ids, token) => {
+   if (ids) {
+      let queryString = ids.reduce((str, id, i) => {
+         return (str += `user${i}=${id}&`);
+      }, "");
+      const { data } = await axios.get(`${API_ENDPOINT}/user/multiple?${queryString}`, {
+         headers: {
+            authorization: `Bearer ${token}`,
+         },
+      });
+      return data;
+   }
+};
+
 const fetchUsers = async (token, query) => {
    if (query) {
       const { data } = await axios.get(`${API_ENDPOINT}/user?search=${query}`, {
@@ -145,6 +159,7 @@ const commentPost = async (id, comment, token) => {
 export {
    fetchUser,
    fetchUsers,
+   fetchUsersByIDs,
    updateUser,
    fetchPosts,
    fetchPost,

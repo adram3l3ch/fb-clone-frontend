@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Input from "../../components/Input/Input";
 import Comments from "../../components/Comments/Comments";
 import "./singlepost.css";
@@ -35,7 +35,9 @@ const SinglePost = () => {
 
    return (
       <section className="singlepost">
-         {post._id && <Post singlepost={true} post={post} />}
+         <div className="singlepost__left">
+            {post._id && <Post singlepost={true} post={post} />}
+         </div>
          <div className="singlepost__comments">
             <div>
                <Comments post={post} />

@@ -5,6 +5,7 @@ const initialState = {
    id: "",
    name: "",
    profileImage: "",
+   token: "",
 };
 
 export const userSlice = createSlice({
@@ -12,10 +13,11 @@ export const userSlice = createSlice({
    initialState,
    reducers: {
       login: (state, action) => {
-         const { id, name, profileImage } = action.payload;
+         const { id, name, profileImage, token } = action.payload;
          Cookies.set("user", JSON.stringify(action.payload));
          state.id = id;
          state.name = name;
+         state.token = token;
          state.profileImage = profileImage;
       },
       logout: (state) => {
@@ -27,6 +29,7 @@ export const userSlice = createSlice({
       update: (state, action) => {
          const { payload } = action;
          Object.keys(payload).map((key) => (state[key] = payload[key]));
+         Cookies.set("user", JSON.stringify(state));
       },
    },
 });
