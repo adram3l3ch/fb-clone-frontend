@@ -6,8 +6,9 @@
 }
 
 .profile__left {
-   flex: 1;
+   width: 350px;
    display: flex;
+   margin-inline: auto;
    flex-direction: column;
    gap: 2rem;
 }
@@ -47,4 +48,27 @@
 }
 .profile__right > *:nth-child(2) {
    flex: 3;
+}
+
+@media (max-width: 1100px) {
+   .profile__right {
+      display: none;
+   }
+}
+
+@media (max-width: 800px) {
+   .profile {
+      flex-direction: column;
+      max-width: 450px;
+      margin-inline: auto;
+      margin-top: 2rem;
+   }
+
+   .profile__left {
+      width: 100%;
+   }
+   .profile__center > div {
+      position: relative;
+      margin-bottom: 2rem;
+   }
 }

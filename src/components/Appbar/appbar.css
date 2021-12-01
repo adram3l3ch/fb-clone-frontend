@@ -90,3 +90,9 @@
    transform: scale(1.5);
    aspect-ratio: 1;
 }
+
+@media (max-width: 800px) {
+   .appbar form {
+      width: 75%;
+   }
+}

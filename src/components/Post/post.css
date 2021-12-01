@@ -1,16 +1,16 @@
 h3 {
-   font-size: 0.9rem;
+   font-size: 0.8rem;
    font-weight: 400;
    margin-bottom: 0.2em;
 }
 
 p {
-   font-weight: 300;
-   font-size: 0.9rem;
+   font-weight: 400;
+   font-size: 0.8rem;
 }
 
 .post header p {
-   font-size: 0.7rem;
+   font-size: 0.6rem;
    opacity: 0.5;
 }
 
@@ -33,14 +33,14 @@ p {
 }
 
 .post__dp {
-   width: 40px;
+   width: 2.5rem;
 }
 
 .post > header {
    display: flex;
-   align-items: center;
+   align-items: flex-start;
    gap: 1rem;
-   margin-bottom: 2rem;
+   margin-bottom: 1rem;
 }
 
 .post__image {
@@ -76,4 +76,20 @@ p {
    display: flex;
    justify-content: space-between;
    align-items: center;
+   margin-top: 1.5rem;
+}
+
+@media (max-width: 1100px) {
+   .post__reactions {
+      width: 25%;
+   }
+}
+
+@media (max-width: 800px) {
+   .halfborder {
+      border-radius: 10px;
+   }
+   .post {
+      padding: 1rem;
+   }
 }

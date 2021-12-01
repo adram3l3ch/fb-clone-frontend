@@ -7,7 +7,7 @@
 }
 
 .comment__dp {
-   width: 30px;
+   width: 2rem;
    aspect-ratio: 1;
    object-fit: cover;
    border-radius: 50%;
@@ -21,8 +21,8 @@
 }
 
 .comment p {
-   margin-top: 0.5em;
+   margin-top: 0.1em;
    font-size: 0.75rem;
-   opacity: 0.7;
-   font-weight: 200;
+   opacity: 0.6;
+   font-weight: 300;
 }

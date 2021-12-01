@@ -65,6 +65,9 @@ input::placeholder {
 
 @media (max-width: 900px) {
    :root {
-      font-size: 14px;
+      font-size: 18px;
+   }
+   body {
+      padding: 0.5rem;
    }
 }

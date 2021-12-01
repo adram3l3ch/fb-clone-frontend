@@ -1,11 +1,11 @@
 .modal {
-   padding: 1rem 2rem;
-   background-color: var(--primary-600);
-   color: white;
+   padding: 0.5rem 1rem;
+   background-color: white;
+   color: var(--primary-400);
    left: 50%;
    transform: translateX(-50%);
    position: absolute;
-   top: -100px;
+   top: -150px;
    transition: top 0.2s linear;
    border-radius: 10px;
    text-align: center;

@@ -45,3 +45,25 @@
 .singlepost__right > div > *:nth-child(2) {
    flex: 3;
 }
+
+@media (max-width: 800px) {
+   .singlepost__right {
+      display: none;
+   }
+   .singlepost {
+      min-height: auto;
+      gap: 1rem;
+      flex-direction: column;
+   }
+   .singlepost__left {
+      border-radius: 10px;
+   }
+   .singlepost__comments {
+      flex: initial;
+      border-radius: 10px;
+   }
+   .singlepost__comments > div {
+      padding: 2rem 1rem;
+      position: relative;
+   }
+}

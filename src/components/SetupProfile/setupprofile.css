@@ -1,7 +1,7 @@
 .setup {
-   position: absolute;
+   position: fixed;
    inset: 0;
-   background-color: rgba(0, 0, 0, 0.699);
+   background-color: rgba(0, 0, 0, 0.781);
    z-index: 10;
    display: flex;
    align-items: center;

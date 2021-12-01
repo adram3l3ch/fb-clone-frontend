@@ -80,7 +80,9 @@ const Post = ({ singlepost, post }) => {
          </header>
          <Link to={`/post/${post._id}`}>
             <p>{post.caption}</p>
-            <img src={post.image?.src} alt="" className="post__image" />
+            {post.image?.src && (
+               <img src={post.image?.src} alt="" className="post__image" />
+            )}
          </Link>
          <div className="post__footer">
             <div className="post__reactions">
