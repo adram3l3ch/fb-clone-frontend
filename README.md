@@ -5,6 +5,8 @@ It is a Social media app built using mern stack. You can create an account, crea
 ### Screenshot
 
 ![](./Design/Desktop-2.png)
+
+
 ![](./Design/Desktop-1.png)
 
 ### Links
