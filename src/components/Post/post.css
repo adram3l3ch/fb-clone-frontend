@@ -100,8 +100,8 @@ p {
    background-color: var(--primary-400);
    position: absolute;
    border-radius: 10px;
-   right: 2rem;
-   top: 0;
+   right: 10px;
+   top: 110%;
    overflow: hidden;
    opacity: 0;
    pointer-events: none;
