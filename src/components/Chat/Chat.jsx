@@ -5,7 +5,6 @@ import dp from "../../assets/dp.jpg";
 import Input from "../Input/Input";
 import { io } from "socket.io-client";
 import "./chat.css";
-import { useNavigate } from "react-router";
 
 const Chat = () => {
    const [expanded, setExpanded] = useState(false);

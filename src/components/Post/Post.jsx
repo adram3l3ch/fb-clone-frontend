@@ -112,7 +112,7 @@ const Post = ({ singlepost, post }) => {
                      alt=""
                      onClick={() => setIsOptionsVisible((val) => !val)}
                   />
-                  <ul className={isOptionsVisible && "show"}>
+                  <ul className={isOptionsVisible ? "show" : ""}>
                      <li>Edit</li>
                      <li onClick={deleteHandler}>Delete</li>
                   </ul>
