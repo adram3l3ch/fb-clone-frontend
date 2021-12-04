@@ -42,7 +42,7 @@ const Post = ({ singlepost, post }) => {
       }
    }, [post, token, dispatch]);
 
-   const clickHandler = async () => {
+   const likeHandler = async () => {
       try {
          const data = await likePost(post._id, token, !isLiked);
          if (singlepost) {
@@ -130,7 +130,7 @@ const Post = ({ singlepost, post }) => {
                <img
                   src={isLiked ? like : likeOutlined}
                   alt="like"
-                  onClick={clickHandler}
+                  onClick={likeHandler}
                />
                <p>{post.likes.length || ""}</p>
             </div>
