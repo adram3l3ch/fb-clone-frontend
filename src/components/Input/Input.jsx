@@ -9,7 +9,7 @@ const Input = ({ placeholder, handler }) => {
          className="input__box"
          onSubmit={async (e) => {
             e.preventDefault();
-            await handler(value);
+            if (value) await handler(value);
             setValue("");
          }}
       >

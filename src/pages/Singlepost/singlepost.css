@@ -43,7 +43,7 @@
    flex: 1;
 }
 .singlepost__right > div > *:nth-child(2) {
-   flex: 3;
+   flex: 6;
 }
 
 @media (max-width: 800px) {

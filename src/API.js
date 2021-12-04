@@ -1,5 +1,6 @@
 import axios from "axios";
-const API_ENDPOINT = "https://adramelech-fb-clone.herokuapp.com/api/v1";
+// const API_ENDPOINT = "https://adramelech-fb-clone.herokuapp.com/api/v1";
+const API_ENDPOINT = "http://localhost:5000/api/v1";
 
 const loginUser = async (email, password) => {
    const { data } = await axios.post(`${API_ENDPOINT}/auth/login`, {
@@ -156,6 +157,15 @@ const commentPost = async (id, comment, token) => {
    return data;
 };
 
+const deletePost = async (id, token) => {
+   const { data } = await axios.delete(`${API_ENDPOINT}/post/${id}`, {
+      headers: {
+         authorization: `Bearer ${token}`,
+      },
+   });
+   return data;
+};
+
 export {
    fetchUser,
    fetchUsers,
@@ -166,6 +176,7 @@ export {
    createPost,
    updateDP,
    likePost,
+   deletePost,
    loginUser,
    registerUser,
    commentPost,

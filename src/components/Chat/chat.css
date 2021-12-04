@@ -38,7 +38,7 @@
    padding: 1.5rem;
    color: white;
    text-align: center;
-   padding-block: 5rem;
+   padding-block: 6rem;
    height: 100%;
    overflow: scroll;
 }
@@ -58,12 +58,12 @@
    align-items: flex-start;
    gap: 0.5rem;
    text-align: left;
-   margin-bottom: 1rem;
+   margin-bottom: 0.2rem;
 }
 
 .chat__sent p,
 .chat__recieve p {
-   padding: 1rem;
+   padding: 0.75rem 1rem;
    background: var(--primary-400);
    border-radius: 10px;
    max-width: 70%;
@@ -71,16 +71,16 @@
    font-size: 0.75rem;
 }
 
-.chat__recieve p {
+.chat__sent p {
    margin-left: auto;
    max-width: 70%;
 }
 
-.chat__recieve img {
+.chat__sent img {
    display: none;
 }
 
-.chat__sent img {
+.chat__recieve img {
    width: 25px;
    margin-top: 0.3rem;
 }
@@ -100,6 +100,10 @@
 
 .chat.btn {
    max-height: 5.5rem;
+}
+
+#bottom {
+   height: 3rem;
 }
 
 @media (max-width: 800px) {

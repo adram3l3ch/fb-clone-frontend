@@ -38,6 +38,13 @@
    gap: 1rem;
 }
 
+.home__right .online {
+   flex: 1;
+}
+.home__right .chat {
+   flex: 5;
+}
+
 @media (max-width: 800px) {
    .home__right {
       position: fixed;

@@ -1,16 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import chat from "../../assets/chat.png";
 import close from "../../assets/close.png";
 import dp from "../../assets/dp.jpg";
 import Input from "../Input/Input";
+import { io } from "socket.io-client";
 import "./chat.css";
+import { useNavigate } from "react-router";
 
 const Chat = () => {
    const [expanded, setExpanded] = useState(false);
+   const [socket, setSocket] = useState(null);
+   const [messages, setMessages] = useState([]);
 
-   const submitHandler = () => {
-      alert("Working on that");
+   const submitHandler = (message) => {
+      setMessages((messages) => [
+         ...messages,
+         {
+            message,
+            send: true,
+         },
+      ]);
+      document
+         .querySelector(".chat main")
+         .scrollTo(0, document.getElementById("bottom").getBoundingClientRect().bottom);
+      socket.emit("send message", message);
    };
+
+   useEffect(() => {
+      setSocket(io("http://localhost:5000"));
+   }, []);
+
+   useEffect(() => {
+      socket?.on("recieve message", (message) => {
+         setMessages((messages) => [
+            ...messages,
+            {
+               message,
+               send: false,
+            },
+         ]);
+         document
+            .querySelector(".chat main")
+            .scrollTo(
+               0,
+               document.getElementById("bottom").getBoundingClientRect().bottom
+            );
+      });
+   }, [socket]);
 
    return (
       <div className={expanded ? "chat" : "chat btn"}>
@@ -24,48 +60,13 @@ const Chat = () => {
          <main className={expanded ? "" : "hide"}>
             <div>
                <h4>TODAY</h4>
-               <div className="chat__sent">
-                  <img src={dp} alt="profileImage" className="roundimage" />
-                  <p className="message">
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-                     dolorum
-                  </p>
-               </div>
-               <div className="chat__recieve">
-                  <img src={dp} alt="profileImage" className="roundimage" />
-                  <p className="message">
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur,
-                     dolor!
-                  </p>
-               </div>
-               <div className="chat__sent">
-                  <img src={dp} alt="profileImage" className="roundimage" />
-                  <p className="message">
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-                     dolorum
-                  </p>
-               </div>
-               <div className="chat__recieve">
-                  <img src={dp} alt="profileImage" className="roundimage" />
-                  <p className="message">
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur,
-                     dolor!
-                  </p>
-               </div>
-               <div className="chat__sent">
-                  <img src={dp} alt="profileImage" className="roundimage" />
-                  <p className="message">
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-                     dolorum
-                  </p>
-               </div>
-               <div className="chat__recieve">
-                  <img src={dp} alt="profileImage" className="roundimage" />
-                  <p className="message">
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur,
-                     dolor!
-                  </p>
-               </div>
+               {messages.map((message) => (
+                  <div className={message.send ? "chat__sent" : "chat__recieve"}>
+                     <img src={dp} alt="profileImage" className="roundimage" />
+                     <p className="message">{message.message}</p>
+                  </div>
+               ))}
+               <div id="bottom"></div>
             </div>
          </main>
          <div className="chat__input" onClick={() => setExpanded(true)}>

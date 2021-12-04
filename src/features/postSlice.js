@@ -15,12 +15,15 @@ const postSlice = createSlice({
       pushPost: (state, action) => {
          state.posts = [action.payload, ...state.posts];
       },
+      popPost: (state, action) => {
+         state.posts = [...state.posts.filter((post) => post._id !== action.payload)];
+      },
       setSinglePost: (state, action) => {
          state.singlePost = action.payload;
       },
    },
 });
 
-export const { setPosts, pushPost, setSinglePost } = postSlice.actions;
+export const { setPosts, pushPost, setSinglePost, popPost } = postSlice.actions;
 
 export default postSlice.reducer;
