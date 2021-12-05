@@ -11,25 +11,24 @@ import { fetchPosts } from "../../API";
 import Cookies from "js-cookie";
 import { setPosts } from "../../features/postSlice";
 import "./profile.css";
+import useFetch from "../../hooks/useFetch";
 
 const Profile = () => {
    const { id } = useParams();
    const { token } = JSON.parse(Cookies.get("user"));
-   const dispatch = useDispatch();
    const { posts } = useSelector((state) => state.post);
    const isOwnProfile = id === useSelector((state) => state.user.id);
    const { isSidebarVisible } = useSelector((state) => state.modal);
 
+   const dispatch = useDispatch();
+   const customFetch = useFetch();
+
    useEffect(() => {
-      try {
-         (async () => {
-            const data = await fetchPosts(token, id);
-            dispatch(setPosts(data.posts));
-         })();
-      } catch (error) {
-         console.log(error);
-      }
-   }, [token, dispatch, id]);
+      (async () => {
+         const data = await customFetch(fetchPosts, token, id);
+         if (data) dispatch(setPosts(data.posts));
+      })();
+   }, [token, dispatch, id, customFetch]);
 
    return (
       <section className="profile">

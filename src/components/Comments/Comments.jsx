@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { fetchUsersByIDs } from "../../API";
 import Comment from "../Comment/Comment";
+import useFetch from "../../hooks/useFetch";
 import "./comments.css";
 
 const Comments = ({ post }) => {
    const { token } = JSON.parse(Cookies.get("user"));
    const [commentedUsers, setCommentedUsers] = useState([]);
    const [userIDs, setUserIDs] = useState([]);
+   const customFetch = useFetch();
 
    useEffect(() => {
       const userIds = post?.comments?.map((comment) => comment.commentedBy);
@@ -15,17 +17,13 @@ const Comments = ({ post }) => {
    }, [post?.comments]);
 
    useEffect(() => {
-      if (userIDs) {
-         try {
-            (async () => {
-               const data = await fetchUsersByIDs(userIDs, token);
-               setCommentedUsers(data.user);
-            })();
-         } catch (error) {
-            console.log(error);
+      (async () => {
+         if (userIDs) {
+            const data = await customFetch(fetchUsersByIDs, userIDs, token);
+            if (data) setCommentedUsers(data.user);
          }
-      }
-   }, [userIDs, token]);
+      })();
+   }, [userIDs, token, customFetch]);
 
    return (
       <div className="comments">

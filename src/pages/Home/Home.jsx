@@ -6,27 +6,24 @@ import Chat from "../../components/Chat/Chat";
 import CreatePost from "../../components/CreatePost/CreatePost";
 import Online from "../../components/Online/Online";
 import Post from "../../components/Post/Post";
-import { hideModal, showModal } from "../../features/modalSlice";
 import { setPosts } from "../../features/postSlice";
+import useFetch from "../../hooks/useFetch";
 import "./home.css";
 
 const Home = () => {
    const { token } = JSON.parse(Cookies.get("user"));
-   const dispatch = useDispatch();
    const { posts } = useSelector((state) => state.post);
    const { isSidebarVisible } = useSelector((state) => state.modal);
 
+   const dispatch = useDispatch();
+   const customFetch = useFetch();
+
    useEffect(() => {
-      try {
-         (async () => {
-            const data = await fetchPosts(token);
-            dispatch(setPosts(data.posts));
-         })();
-      } catch (error) {
-         dispatch(showModal("Something went wrong"));
-         setTimeout(() => dispatch(hideModal()), 4000);
-      }
-   }, [dispatch, token]);
+      (async () => {
+         const data = await customFetch(fetchPosts, token);
+         if (data) dispatch(setPosts(data.posts));
+      })();
+   }, [dispatch, token, customFetch]);
 
    return (
       <section className="home">

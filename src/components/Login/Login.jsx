@@ -1,26 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/userSlice";
-import { hideModal, showModal } from "../../features/modalSlice";
 import { loginUser } from "../../API";
+import useFetch from "../../hooks/useFetch";
 
 const Login = ({ setIsRegistering }) => {
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const dispatch = useDispatch();
+   const customFetch = useFetch();
 
    const loginHandler = async (e) => {
       e.preventDefault();
-      try {
-         const data = await loginUser(email, password);
-         dispatch(login(data));
-      } catch (error) {
-         const { msg } = error.response?.data || "Something went wrong";
-         dispatch(showModal(msg));
-         setTimeout(() => {
-            dispatch(hideModal());
-         }, 4000);
-      }
+      const data = await customFetch(loginUser, email, password);
+      if (data) dispatch(login(data));
    };
 
    return (

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import chat from "../../assets/chat.png";
-import close from "../../assets/close.png";
-import dp from "../../assets/dp.jpg";
+import { chatIcon, closeIcon, dp } from "../../assets";
 import Input from "../Input/Input";
 import { io } from "socket.io-client";
 import "./chat.css";
@@ -10,6 +8,10 @@ const Chat = () => {
    const [expanded, setExpanded] = useState(false);
    const [socket, setSocket] = useState(null);
    const [messages, setMessages] = useState([]);
+
+   useEffect(() => {
+      setSocket(io("http://localhost:5000"));
+   }, []);
 
    const submitHandler = (message) => {
       setMessages((messages) => [
@@ -24,10 +26,6 @@ const Chat = () => {
          .scrollTo(0, document.getElementById("bottom").getBoundingClientRect().bottom);
       socket.emit("send message", message);
    };
-
-   useEffect(() => {
-      setSocket(io("http://localhost:5000"));
-   }, []);
 
    useEffect(() => {
       socket?.on("recieve message", (message) => {
@@ -50,10 +48,10 @@ const Chat = () => {
    return (
       <div className={expanded ? "chat" : "chat btn"}>
          <header className={expanded ? "" : "hide"}>
-            <img src={chat} alt="chatIcon" />
+            <img src={chatIcon} alt="chatIcon" />
             <h3>John Doe</h3>
             <button onClick={() => setExpanded(false)}>
-               <img src={close} alt="close" />
+               <img src={closeIcon} alt="close" />
             </button>
          </header>
          <main className={expanded ? "" : "hide"}>

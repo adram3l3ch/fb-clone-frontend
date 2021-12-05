@@ -1,28 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "./online.css";
-import dp from "../../assets/dp.jpg";
+import { dp } from "../../assets";
 import { fetchUsers } from "../../API";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { hideModal, showModal } from "../../features/modalSlice";
+import useFetch from "../../hooks/useFetch";
 
 const Online = () => {
    const { token } = JSON.parse(Cookies.get("user"));
    const [users, setUsers] = useState([]);
-   const dispatch = useDispatch();
+
+   const customFetch = useFetch();
 
    useEffect(() => {
-      try {
-         (async () => {
-            const data = await fetchUsers(token);
-            setUsers(data.user);
-         })();
-      } catch (error) {
-         dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
-         setTimeout(() => dispatch(hideModal()), 4000);
-      }
-   }, [token, dispatch]);
+      (async () => {
+         const data = await customFetch(fetchUsers, token);
+         if (data) setUsers(data.user);
+      })();
+   }, [token, customFetch]);
 
    return (
       <section className="online">

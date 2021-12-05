@@ -3,92 +3,71 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { commentPost, deletePost, fetchUser, likePost } from "../../API";
 import { popPost, setPosts, setSinglePost } from "../../features/postSlice";
-import dp from "../../assets/dp.jpg";
-import like from "../../assets/like.svg";
-import likeOutlined from "../../assets/like-outlined.svg";
-import options from "../../assets/options.png";
-import { months } from "../../DATE";
+import { dp, likeIcon, likeOutlined, optionsIcon } from "../../assets";
 import Input from "../Input/Input";
 import { Link } from "react-router-dom";
 import { hideModal, showModal } from "../../features/modalSlice";
+import useFetch from "../../hooks/useFetch";
+import useDate from "../../hooks/useDate";
 import "./post.css";
 
 const Post = ({ singlepost, post }) => {
    const [user, setUser] = useState({});
    const [isOptionsVisible, setIsOptionsVisible] = useState(false);
    const { token } = JSON.parse(Cookies.get("user"));
+   const createdAt = useDate(post.createdAt);
+
    const dispatch = useDispatch();
+   const customFetch = useFetch();
 
    const { id } = useSelector((state) => state.user);
-   const isOwnPost = id === post.createdBy;
    let { posts } = useSelector((state) => state.post);
+   const isOwnPost = id === post.createdBy;
    const isLiked = post?.likes?.includes(id);
 
-   let createdAt = new Date(post.createdAt);
-   createdAt = `${createdAt.getDate()} ${
-      months[createdAt.getMonth()]
-   } ${createdAt.getFullYear()}`;
-
    useEffect(() => {
-      try {
-         (async () => {
-            const { createdBy } = post;
-            const { user } = await fetchUser(createdBy, token);
-            setUser(user);
-         })();
-      } catch (error) {
-         dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
-         setTimeout(() => dispatch(hideModal()), 4000);
-      }
-   }, [post, token, dispatch]);
+      (async () => {
+         const data = await customFetch(fetchUser, post.createdBy, token);
+         if (data) setUser(data.user);
+      })();
+   }, [post, token, customFetch]);
+
+   const slicePosts = (posts, data) => {
+      const index = posts.reduce((acc, post, i) => {
+         if (post._id === data.posts._id) return i;
+         return acc;
+      }, -1);
+      let slicedPosts = [...posts];
+      slicedPosts.splice(index, 1, data.posts);
+      return slicedPosts;
+   };
 
    const likeHandler = async () => {
-      try {
-         const data = await likePost(post._id, token, !isLiked);
+      const data = await customFetch(likePost, post._id, token, !isLiked);
+      if (data) {
          if (singlepost) {
             dispatch(setSinglePost(data.posts));
          } else {
-            const index = posts.reduce((acc, post, i) => {
-               if (post._id === data.posts._id) return i;
-               return acc;
-            }, -1);
-            let slicedPosts = [...posts];
-            slicedPosts.splice(index, 1, data.posts);
+            let slicedPosts = slicePosts(posts, data);
             dispatch(setPosts(slicedPosts));
          }
-      } catch (error) {
-         dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
-         setTimeout(() => dispatch(hideModal()), 4000);
       }
    };
 
    const commentHandler = async (comment) => {
-      try {
-         const data = await commentPost(post._id, comment, token);
-         const index = posts.reduce((acc, post, i) => {
-            if (post._id === data.posts._id) return i;
-            return acc;
-         }, -1);
-         let slicedPosts = [...posts];
-         slicedPosts.splice(index, 1, data.posts);
+      const data = await await customFetch(commentPost, post._id, comment, token);
+      if (data) {
+         let slicedPosts = slicePosts(posts, data);
          dispatch(setPosts(slicedPosts));
-      } catch (error) {
-         dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
-         setTimeout(() => dispatch(hideModal()), 4000);
       }
    };
 
    const deleteHandler = async () => {
       setIsOptionsVisible(false);
-      try {
-         await deletePost(post._id, token);
-         dispatch(popPost(post._id));
-         dispatch(showModal("Deleted"));
-      } catch (error) {
-         dispatch(showModal(error.response?.data?.mdg || "Something went wrong"));
-      } finally {
-         setTimeout(() => dispatch(hideModal()), 4000);
-      }
+      await customFetch(deletePost, post._id, token);
+      dispatch(popPost(post._id));
+      dispatch(showModal("Deleted"));
+      setTimeout(() => dispatch(hideModal()), 4000);
    };
 
    return (
@@ -108,7 +87,7 @@ const Post = ({ singlepost, post }) => {
             {isOwnPost && (
                <div className="options">
                   <img
-                     src={options}
+                     src={optionsIcon}
                      alt=""
                      onClick={() => setIsOptionsVisible((val) => !val)}
                   />
@@ -128,7 +107,7 @@ const Post = ({ singlepost, post }) => {
          <div className="post__footer">
             <div className="post__reactions">
                <img
-                  src={isLiked ? like : likeOutlined}
+                  src={isLiked ? likeIcon : likeOutlined}
                   alt="like"
                   onClick={likeHandler}
                />

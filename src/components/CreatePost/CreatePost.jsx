@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-import plane from "../../assets/plane.svg";
-import file from "../../assets/file.png";
+import { sendIcon, fileIcon } from "../../assets";
 import { useDispatch } from "react-redux";
 import { hideModal, showModal } from "../../features/modalSlice";
 import { createPost } from "../../API";
 import Cookies from "js-cookie";
 import { pushPost } from "../../features/postSlice";
+import useFetch from "../../hooks/useFetch";
 import "./createpost.css";
 
 const CreatePost = () => {
+   // local states
    const [image, setImage] = useState(null);
    const [preview, setPreview] = useState(null);
    const [caption, setCaption] = useState("");
    const { token } = JSON.parse(Cookies.get("user"));
+
    const dispatch = useDispatch();
+   const customFetch = useFetch();
 
    const loadImage = (e) => {
       const input = e.target;
@@ -30,15 +33,11 @@ const CreatePost = () => {
       const formData = new FormData();
       formData.append("image", image);
       formData.append("caption", caption);
-      try {
-         dispatch(showModal("Hold on, I swear It wont't take so long"));
-         const data = await createPost(formData, token);
+      dispatch(showModal("Hold on, I swear It wont't take so long"));
+      const data = await customFetch(createPost, formData, token);
+      if (data) {
          dispatch(pushPost(data.post));
          dispatch(showModal("Post Created"));
-      } catch (error) {
-         const { msg } = error.response?.data || "Error";
-         dispatch(showModal(msg));
-      } finally {
          setImage(null);
          setPreview(null);
          setCaption("");
@@ -60,7 +59,7 @@ const CreatePost = () => {
             <div className="btns">
                <label htmlFor="image">
                   <div>
-                     <img src={file} alt="upload" />
+                     <img src={fileIcon} alt="upload" />
                   </div>
                </label>
                <input
@@ -70,7 +69,7 @@ const CreatePost = () => {
                   onChange={loadImage}
                />
                <button type="submit">
-                  <img src={plane} alt="send" />
+                  <img src={sendIcon} alt="send" />
                </button>
             </div>
          </form>

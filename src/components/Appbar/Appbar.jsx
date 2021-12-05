@@ -1,41 +1,36 @@
 import React, { useState } from "react";
-import dp from "../../assets/dp.jpg";
-import logout from "../../assets/logout.png";
-import close from "../../assets/close.png";
-import search from "../../assets/search.svg";
-import hamburger from "../../assets/hamburger.png";
+import { dp, logoutIcon, closeIcon, searchIcon, hamburger } from "../../assets";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout as Logout } from "../../features/userSlice";
+import { logout } from "../../features/userSlice";
 import { fetchPosts, fetchUsers } from "../../API";
-import Cookies from "js-cookie";
 import { toggleSidebar } from "../../features/modalSlice";
+import useFetch from "../../hooks/useFetch";
 import "./appbar.css";
 
 const Appbar = () => {
-   const dispatch = useDispatch();
-   const { id } = useSelector((state) => state.user);
-   const { isSidebarVisible } = useSelector((state) => state.modal);
-   const { profileImage } = useSelector((state) => state.user);
+   //global states
+   const {
+      user: { id, token, profileImage },
+      modal: { isSidebarVisible },
+   } = useSelector((state) => state);
+
+   //local states
    const [query, setQuery] = useState("");
    const [searchResult, setSearchResult] = useState({});
-   const { token } = JSON.parse(Cookies.get("user"));
+
+   const dispatch = useDispatch();
+   const customFetch = useFetch();
 
    const logoutHandler = () => {
-      dispatch(Logout());
+      dispatch(logout());
    };
 
    const searchHandler = async (e) => {
       e.preventDefault();
-      if (query) {
-         try {
-            const { posts } = await fetchPosts(token, null, query);
-            const { user } = await fetchUsers(token, query);
-            setSearchResult({ posts, user });
-         } catch (error) {
-            console.log(error);
-         }
-      }
+      const { posts } = await customFetch(fetchPosts, token, null, query);
+      const { user } = await customFetch(fetchUsers, token, query);
+      setSearchResult({ posts, user });
    };
 
    const reset = () => {
@@ -49,11 +44,11 @@ const Appbar = () => {
             className="hamburger"
             onClick={() => dispatch(toggleSidebar(!isSidebarVisible))}
          >
-            <img src={isSidebarVisible ? close : hamburger} alt="hamburger" />
+            <img src={isSidebarVisible ? closeIcon : hamburger} alt="hamburger" />
          </div>
          <form onSubmit={searchHandler} className="searchform">
             <button type="submit">
-               <img src={search} alt="search" />
+               <img src={searchIcon} alt="search" />
             </button>
             <input
                type="text"
@@ -62,7 +57,7 @@ const Appbar = () => {
                onChange={(e) => setQuery(e.target.value)}
             />
             <button onClick={reset}>
-               <img src={close} alt="" className="close" />
+               <img src={closeIcon} alt="" className="close" />
             </button>
             {searchResult.posts || searchResult.user ? (
                <div className="search-results">
@@ -98,7 +93,7 @@ const Appbar = () => {
             </Link>
             <button onClick={logoutHandler}>
                <img
-                  src={logout}
+                  src={logoutIcon}
                   alt="logoutIcon"
                   className="appbar__profile__logout"
                   title="logout"

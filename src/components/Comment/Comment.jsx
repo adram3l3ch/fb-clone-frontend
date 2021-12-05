@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import dp from "../../assets/dp.jpg";
+import { dp } from "../../assets";
 import "./comment.css";
 
 const Comment = ({ comment, user }) => {

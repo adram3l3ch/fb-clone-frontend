@@ -1,43 +1,38 @@
 import React, { useEffect, useState } from "react";
 import "./profilecard.css";
-import dp from "../../assets/dp.jpg";
-import clockIcon from "../../assets/clock.svg";
-import cakeIcon from "../../assets/cake.svg";
-import locationIcon from "../../assets/location.svg";
-import mailIcon from "../../assets/mail.svg";
-import cameraIcon from "../../assets/camera.svg";
-import { months } from "../../DATE";
+import {
+   dp,
+   clockIcon,
+   cakeIcon,
+   locationIcon,
+   mailIcon,
+   cameraIcon,
+} from "../../assets";
 import SetupProfile from "../SetupProfile/SetupProfile";
 import { fetchUser } from "../../API";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import Cookies from "js-cookie";
-import { useDispatch } from "react-redux";
-import { hideModal, showModal } from "../../features/modalSlice";
+import useFetch from "../../hooks/useFetch";
+import useDate from "../../hooks/useDate";
 
 const ProfileCard = ({ id, isOwnProfile }) => {
    const [user, setUser] = useState({});
    const [isEditing, setIsEditing] = useState(false);
    const [isUploading, setIsUploading] = useState(false);
+
    const { token } = JSON.parse(Cookies.get("user"));
-   const dispatch = useDispatch();
+   const customFetch = useFetch();
 
    useEffect(() => {
-      try {
-         (async () => {
-            const data = await fetchUser(id, token);
-            setUser(data.user);
-         })();
-      } catch (error) {
-         dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
-         setTimeout(() => dispatch(hideModal()), 4000);
-      }
-   }, [id, token, dispatch]);
+      (async () => {
+         const data = await customFetch(fetchUser, id, token);
+         if (data) setUser(data.user);
+      })();
+   }, [id, token, customFetch]);
 
    let { name, email, about, dob, location, createdAt, profileImage } = user;
-   dob = new Date(dob);
-   createdAt = new Date(createdAt);
-   createdAt = `Joined on ${months[createdAt.getMonth()]} ${createdAt.getFullYear()}`;
-   dob = `${dob.getDate()} ${months[dob.getMonth()]} ${dob.getFullYear()}`;
+   createdAt = `Joined on ${useDate(createdAt)}`;
+   dob = useDate(dob);
 
    return (
       <section className="profilecard">

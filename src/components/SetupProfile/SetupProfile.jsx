@@ -4,6 +4,7 @@ import "./setupprofile.css";
 import { update } from "../../features/userSlice";
 import { showModal } from "../../features/modalSlice";
 import { updateUser } from "../../API";
+import useFetch from "../../hooks/useFetch";
 import Cookies from "js-cookie";
 
 const SetupProfile = ({ setIsEditing, user, setUser }) => {
@@ -11,21 +12,18 @@ const SetupProfile = ({ setIsEditing, user, setUser }) => {
    const [about, setAbout] = useState(user.about);
    const [location, setLocation] = useState(user.location);
    const { token } = JSON.parse(Cookies.get("user"));
+
    const dispatch = useDispatch();
+   const customFetch = useFetch();
 
    const clickHandler = async (e) => {
       e.preventDefault();
-      try {
-         (async () => {
-            const data = await updateUser(name, about, location, token);
-            setUser(data.user);
-            setIsEditing(false);
-            dispatch(update({ name: data.user.name }));
-            dispatch(showModal("Success"));
-         })();
-      } catch (error) {
-         dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
-      } finally {
+      const data = await customFetch(updateUser, name, about, location, token);
+      if (data) {
+         setUser(data.user);
+         setIsEditing(false);
+         dispatch(update({ name: data.user.name }));
+         dispatch(showModal("Success"));
          setTimeout(() => dispatch(showModal()), 4000);
       }
    };

@@ -10,35 +10,27 @@ import { useParams } from "react-router";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { setSinglePost } from "../../features/postSlice";
-import { hideModal, showModal } from "../../features/modalSlice";
+import useFetch from "../../hooks/useFetch";
 
 const SinglePost = () => {
    const { id } = useParams();
    const { token } = JSON.parse(Cookies.get("user"));
-   const dispatch = useDispatch();
    const { singlePost: post } = useSelector((state) => state.post);
    const { isSidebarVisible } = useSelector((state) => state.modal);
 
+   const dispatch = useDispatch();
+   const customFetch = useFetch();
+
    useEffect(() => {
-      try {
-         (async () => {
-            const data = await fetchPost(id, token);
-            dispatch(setSinglePost(data.posts));
-         })();
-      } catch (error) {
-         dispatch(showModal("Something went wrong"));
-         setTimeout(() => dispatch(hideModal()), 4000);
-      }
-   }, [id, token, dispatch]);
+      (async () => {
+         const data = await customFetch(fetchPost, id, token);
+         if (data) dispatch(setSinglePost(data.posts));
+      })();
+   }, [id, token, dispatch, customFetch]);
 
    const commentHandler = async (comment) => {
-      try {
-         const data = await commentPost(post._id, comment, token);
-         dispatch(setSinglePost(data.posts));
-      } catch (error) {
-         dispatch(showModal("Something went wrong"));
-         setTimeout(() => dispatch(hideModal()), 4000);
-      }
+      const data = await customFetch(commentPost, post._id, comment, token);
+      if (data) dispatch(setSinglePost(data.posts));
    };
 
    return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import send from "../../assets/plane.svg";
+import { sendIcon } from "../../assets";
 import "./input.css";
 
 const Input = ({ placeholder, handler }) => {
@@ -20,7 +20,7 @@ const Input = ({ placeholder, handler }) => {
             onChange={(e) => setValue(e.target.value)}
          />
          <button type="submit">
-            <img src={send} alt="send" />
+            <img src={sendIcon} alt="send" />
          </button>
       </form>
    );

@@ -2,15 +2,17 @@ import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { updateDP } from "../../API";
 import { useDispatch } from "react-redux";
-import "./imageupload.css";
 import { update } from "../../features/userSlice";
 import { hideModal, showModal } from "../../features/modalSlice";
+import "./imageupload.css";
+import useFetch from "../../hooks/useFetch";
 
 const ImageUpload = ({ setIsUploading, setUser }) => {
    const [image, setImage] = useState(null);
    const [preview, setPreview] = useState(null);
    const { token } = JSON.parse(Cookies.get("user"));
    const dispatch = useDispatch();
+   const customFetch = useFetch();
 
    const loadImage = (e) => {
       const input = e.target;
@@ -26,21 +28,19 @@ const ImageUpload = ({ setIsUploading, setUser }) => {
       e.preventDefault();
       const formData = new FormData();
       formData.append("image", image);
-      try {
-         dispatch(showModal("Hold on, I swear it won't take so long"));
-         const data = await updateDP(formData, token);
+      dispatch(showModal("Hold on, I swear it won't take so long"));
+      const data = await customFetch(updateDP, formData, token);
+      if (data) {
          setUser(data.user);
          dispatch(update({ profileImage: data.user.profileImage }));
          setIsUploading(false);
          dispatch(showModal("Success"));
-      } catch (error) {
-         dispatch(showModal(error.response?.data?.msg || "Something went wrong"));
-      } finally {
          setTimeout(() => dispatch(hideModal()), 4000);
          setImage(null);
          setPreview(null);
       }
    };
+
    return (
       <div className="imageupload">
          <form onSubmit={submitHandler}>
