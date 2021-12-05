@@ -30,7 +30,8 @@ const Post = ({ singlepost, post }) => {
          const data = await customFetch(fetchUser, post.createdBy, token);
          if (data) setUser(data.user);
       })();
-   }, [post, token, customFetch]);
+      //eslint-disable-next-line
+   }, [post, token]);
 
    const slicePosts = (posts, data) => {
       const index = posts.reduce((acc, post, i) => {

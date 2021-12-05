@@ -23,7 +23,7 @@ const Comments = ({ post }) => {
             if (data) setCommentedUsers(data.user);
          }
       })();
-   }, [userIDs, token, customFetch]);
+   }, [userIDs, token]);
 
    return (
       <div className="comments">

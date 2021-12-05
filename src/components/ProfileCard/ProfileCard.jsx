@@ -28,7 +28,8 @@ const ProfileCard = ({ id, isOwnProfile }) => {
          const data = await customFetch(fetchUser, id, token);
          if (data) setUser(data.user);
       })();
-   }, [id, token, customFetch]);
+      //eslint-disable-next-line
+   }, [id, token]);
 
    let { name, email, about, dob, location, createdAt, profileImage } = user;
    createdAt = `Joined on ${useDate(createdAt)}`;
