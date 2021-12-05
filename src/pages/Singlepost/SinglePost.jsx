@@ -26,8 +26,7 @@ const SinglePost = () => {
          const data = await customFetch(fetchPost, id, token);
          if (data) dispatch(setSinglePost(data.posts));
       })();
-      //eslint-disable-next-line
-   }, [id, token, dispatch]);
+   }, [id, token, dispatch, customFetch]);
 
    const commentHandler = async (comment) => {
       const data = await customFetch(commentPost, post._id, comment, token);

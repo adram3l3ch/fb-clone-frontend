@@ -17,8 +17,7 @@ const Online = () => {
          const data = await customFetch(fetchUsers, token);
          if (data) setUsers(data.user);
       })();
-      // eslint-disable-next-line
-   }, [token]);
+   }, [token, customFetch]);
 
    return (
       <section className="online">

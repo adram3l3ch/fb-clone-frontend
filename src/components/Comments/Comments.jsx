@@ -23,8 +23,7 @@ const Comments = ({ post }) => {
             if (data) setCommentedUsers(data.user);
          }
       })();
-      //eslint-disable-next-line
-   }, [userIDs, token]);
+   }, [userIDs, token, customFetch]);
 
    return (
       <div className="comments">
