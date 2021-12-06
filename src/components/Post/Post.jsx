@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { commentPost, deletePost, fetchUser, likePost } from "../../API";
+import { commentPost, deletePost, likePost } from "../../API";
 import { popPost, setPosts, setSinglePost } from "../../features/postSlice";
 import { dp, likeIcon, likeOutlined } from "../../assets";
 import Input from "../Input/Input";
