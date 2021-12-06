@@ -3,23 +3,24 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { commentPost, deletePost, fetchUser, likePost } from "../../API";
 import { popPost, setPosts, setSinglePost } from "../../features/postSlice";
-import { dp, likeIcon, likeOutlined, optionsIcon } from "../../assets";
+import { dp, likeIcon, likeOutlined } from "../../assets";
 import Input from "../Input/Input";
 import { Link } from "react-router-dom";
 import { hideModal, showModal } from "../../features/modalSlice";
 import useFetch from "../../hooks/useFetch";
 import useDate from "../../hooks/useDate";
 import "./post.css";
+import Options from "../Options/Options";
 
 const Post = ({ singlepost, post }) => {
    const [user, setUser] = useState({});
-   const [isOptionsVisible, setIsOptionsVisible] = useState(false);
    const { token } = JSON.parse(Cookies.get("user"));
    const createdAt = useDate(post.createdAt);
 
    const dispatch = useDispatch();
    const customFetch = useFetch();
 
+   //global states
    const { id } = useSelector((state) => state.user);
    let { posts } = useSelector((state) => state.post);
    const isOwnPost = id === post.createdBy;
@@ -63,7 +64,6 @@ const Post = ({ singlepost, post }) => {
    };
 
    const deleteHandler = async () => {
-      setIsOptionsVisible(false);
       await customFetch(deletePost, post._id, token);
       dispatch(popPost(post._id));
       dispatch(showModal("Deleted"));
@@ -84,19 +84,7 @@ const Post = ({ singlepost, post }) => {
                <h3>{user.name}</h3>
                <p>{createdAt}</p>
             </div>
-            {isOwnPost && (
-               <div className="options">
-                  <img
-                     src={optionsIcon}
-                     alt=""
-                     onClick={() => setIsOptionsVisible((val) => !val)}
-                  />
-                  <ul className={isOptionsVisible ? "show" : ""}>
-                     <li>Edit</li>
-                     <li onClick={deleteHandler}>Delete</li>
-                  </ul>
-               </div>
-            )}
+            {isOwnPost && <Options deleteHandler={deleteHandler} />}
          </header>
          <Link to={`/post/${post._id}`}>
             <p>{post.caption}</p>

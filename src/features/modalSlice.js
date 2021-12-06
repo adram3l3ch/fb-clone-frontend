@@ -4,6 +4,7 @@ const initialState = {
    msg: "",
    visible: false,
    isSidebarVisible: false,
+   isLoading: false,
 };
 
 export const modalSlice = createSlice({
@@ -20,9 +21,12 @@ export const modalSlice = createSlice({
       toggleSidebar: (state, action) => {
          state.isSidebarVisible = action.payload;
       },
+      setIsLoading: (state, action) => {
+         state.isLoading = action.payload;
+      },
    },
 });
 
-export const { showModal, hideModal, toggleSidebar } = modalSlice.actions;
+export const { showModal, hideModal, toggleSidebar, setIsLoading } = modalSlice.actions;
 
 export default modalSlice.reducer;

@@ -1,0 +1,42 @@
+.options {
+   margin-left: auto;
+   cursor: pointer;
+   position: relative;
+   height: 40px;
+   aspect-ratio: 1;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 50%;
+}
+
+.options:hover {
+   background-color: var(--primary-400);
+}
+
+.options ul {
+   list-style: none;
+   background-color: var(--primary-400);
+   position: absolute;
+   border-radius: 10px;
+   right: 10px;
+   top: 110%;
+   overflow: hidden;
+   opacity: 0;
+   pointer-events: none;
+   transition: opacity 0.1s linear;
+}
+
+ul.show {
+   opacity: 1;
+   pointer-events: all;
+}
+
+.options ul li {
+   padding: 0.5rem 1rem;
+   font-size: 0.8rem;
+}
+
+.options ul li:hover {
+   background-color: var(--primary-600);
+}

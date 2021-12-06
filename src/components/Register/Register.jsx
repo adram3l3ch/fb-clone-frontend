@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../API";
+import { setIsLoading } from "../../features/modalSlice";
 import { login } from "../../features/userSlice";
 import useFetch from "../../hooks/useFetch";
 
@@ -15,8 +16,10 @@ const Register = ({ setIsRegistering }) => {
 
    const registerHandler = async (e) => {
       e.preventDefault();
+      dispatch(setIsLoading(true));
       const data = await customFetch(registerUser, name, email, password, dob);
       if (data) dispatch(login(data));
+      dispatch(setIsLoading(false));
    };
 
    return (

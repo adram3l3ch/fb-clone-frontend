@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import "./setupprofile.css";
 import { update } from "../../features/userSlice";
-import { showModal } from "../../features/modalSlice";
+import { hideModal, showModal } from "../../features/modalSlice";
 import { updateUser } from "../../API";
 import useFetch from "../../hooks/useFetch";
 import Cookies from "js-cookie";
+import "./setupprofile.css";
 
 const SetupProfile = ({ setIsEditing, user, setUser }) => {
    const [name, setName] = useState(user.name);
@@ -24,7 +24,7 @@ const SetupProfile = ({ setIsEditing, user, setUser }) => {
          setIsEditing(false);
          dispatch(update({ name: data.user.name }));
          dispatch(showModal("Success"));
-         setTimeout(() => dispatch(showModal()), 4000);
+         setTimeout(() => dispatch(hideModal()), 4000);
       }
    };
 

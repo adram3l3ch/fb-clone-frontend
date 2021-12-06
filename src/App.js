@@ -10,10 +10,14 @@ import { login } from "./features/userSlice.js";
 import Modal from "./components/Modal/Modal.jsx";
 import Home from "./pages/Home/Home.jsx";
 import NotFound from "./pages/NotFound/NotFound.jsx";
+import Loading from "./components/Loading/Loading.jsx";
 
 function App() {
    const dispatch = useDispatch();
-   const { id } = useSelector((state) => state.user);
+   const {
+      user: { id },
+      modal: { isLoading },
+   } = useSelector((state) => state);
 
    useEffect(() => {
       const user = Cookies.get("user");
@@ -23,6 +27,7 @@ function App() {
    return (
       <Router>
          <div className="container">
+            {isLoading && <Loading />}
             <Modal />
             {!id ? (
                <Auth />

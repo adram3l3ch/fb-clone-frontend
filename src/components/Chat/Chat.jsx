@@ -10,7 +10,7 @@ const Chat = () => {
    const [messages, setMessages] = useState([]);
 
    useEffect(() => {
-      setSocket(io("http://localhost:5000"));
+      setSocket(io("https://adramelech-fb-clone.herokuapp.com"));
    }, []);
 
    const submitHandler = (message) => {
