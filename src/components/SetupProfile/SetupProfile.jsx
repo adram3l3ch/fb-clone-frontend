@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { update } from "../../features/userSlice";
+import { setPosts } from "../../features/postSlice";
 import { hideModal, showModal } from "../../features/modalSlice";
 import { updateUser } from "../../API";
 import useFetch from "../../hooks/useFetch";
@@ -23,6 +24,8 @@ const SetupProfile = ({ setIsEditing, user, setUser }) => {
          setUser(data.user);
          setIsEditing(false);
          dispatch(update({ name: data.user.name }));
+         console.log(data);
+         dispatch(setPosts(data.posts));
          dispatch(showModal("Success"));
          setTimeout(() => dispatch(hideModal()), 4000);
       }
