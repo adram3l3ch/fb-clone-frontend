@@ -13,7 +13,6 @@ import "./post.css";
 import Options from "../Options/Options";
 
 const Post = ({ singlepost, post }) => {
-   const [user, setUser] = useState({});
    const { token } = JSON.parse(Cookies.get("user"));
    const createdAt = useDate(post.createdAt);
 
@@ -25,13 +24,6 @@ const Post = ({ singlepost, post }) => {
    let { posts } = useSelector((state) => state.post);
    const isOwnPost = id === post.createdBy;
    const isLiked = post?.likes?.includes(id);
-
-   useEffect(() => {
-      (async () => {
-         const data = await customFetch(fetchUser, post.createdBy, token);
-         if (data) setUser(data.user);
-      })();
-   }, [post, token, customFetch]);
 
    const slicePosts = (posts, data) => {
       const index = posts.reduce((acc, post, i) => {
@@ -75,13 +67,13 @@ const Post = ({ singlepost, post }) => {
          <header>
             <Link to={`/user/${post.createdBy}`}>
                <img
-                  src={user.profileImage || dp}
+                  src={post.userDetails.image || dp}
                   alt="profileImage"
                   className="post__dp roundimage"
                />
             </Link>
             <div>
-               <h3>{user.name}</h3>
+               <h3>{post.userDetails.name}</h3>
                <p>{createdAt}</p>
             </div>
             {isOwnPost && <Options deleteHandler={deleteHandler} />}
