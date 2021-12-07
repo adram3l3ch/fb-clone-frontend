@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { dp, logoutIcon, closeIcon, searchIcon, hamburger } from "../../assets";
+import { dp, logoutIcon, closeIcon, searchIcon, hamburger, chatIcon } from "../../assets";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/userSlice";
@@ -13,7 +13,7 @@ const Appbar = () => {
    const {
       user: { id, token, profileImage },
       modal: { isSidebarVisible },
-   } = useSelector((state) => state);
+   } = useSelector(state => state);
 
    //local states
    const [query, setQuery] = useState("");
@@ -26,7 +26,7 @@ const Appbar = () => {
       dispatch(logout());
    };
 
-   const searchHandler = async (e) => {
+   const searchHandler = async e => {
       e.preventDefault();
       const { posts } = await customFetch(fetchPosts, token, null, query);
       const { user } = await customFetch(fetchUsers, token, query);
@@ -54,7 +54,7 @@ const Appbar = () => {
                type="text"
                placeholder="Tap to search..."
                value={query}
-               onChange={(e) => setQuery(e.target.value)}
+               onChange={e => setQuery(e.target.value)}
             />
             <button onClick={reset}>
                <img src={closeIcon} alt="" className="close" />
@@ -63,7 +63,7 @@ const Appbar = () => {
                <div className="search-results">
                   <div>
                      <h3>Posts</h3>
-                     {searchResult.posts?.map((post) => (
+                     {searchResult.posts?.map(post => (
                         <Link to={`/post/${post._id}`}>
                            <p onClick={reset}>{post.caption}</p>
                         </Link>
@@ -71,7 +71,7 @@ const Appbar = () => {
                   </div>
                   <div>
                      <h3>Users</h3>
-                     {searchResult.user?.map((val) => (
+                     {searchResult.user?.map(val => (
                         <Link to={`/user/${val._id}`}>
                            <p onClick={reset}>{val.name}</p>
                         </Link>
@@ -90,6 +90,9 @@ const Appbar = () => {
                   className="appbar__profile__dp"
                   title="profile"
                />
+            </Link>
+            <Link to="/chat">
+               <img src={chatIcon} alt="chat" className="chat" />
             </Link>
             <button onClick={logoutHandler}>
                <img

@@ -9,7 +9,7 @@ export { default as notFound } from "./not-found.svg";
 export { default as sendIcon } from "./plane.svg";
 export { default as searchIcon } from "./search.svg";
 
-export { default as chatIcon } from "./chat.png";
+export { default as chatIcon } from "./chat.svg";
 export { default as closeIcon } from "./close.png";
 export { default as fileIcon } from "./file.png";
 export { default as hamburger } from "./hamburger.png";

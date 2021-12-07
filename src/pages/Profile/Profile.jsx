@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Chat from "../../components/Chat/Chat";
 import Gallery from "../../components/Gallery/Gallery";
 import Online from "../../components/Online/Online";
 import Post from "../../components/Post/Post";
@@ -16,9 +15,9 @@ import useFetch from "../../hooks/useFetch";
 const Profile = () => {
    const { id } = useParams();
    const { token } = JSON.parse(Cookies.get("user"));
-   const { posts } = useSelector((state) => state.post);
-   const isOwnProfile = id === useSelector((state) => state.user.id);
-   const { isSidebarVisible } = useSelector((state) => state.modal);
+   const { posts } = useSelector(state => state.post);
+   const isOwnProfile = id === useSelector(state => state.user.id);
+   const { isSidebarVisible } = useSelector(state => state.modal);
 
    const dispatch = useDispatch();
    const customFetch = useFetch();
@@ -40,7 +39,7 @@ const Profile = () => {
             <div>
                {isOwnProfile && <CreatePost />}
                {posts.length < 1 && <h2>No Posts</h2>}
-               {posts.map((post) => (
+               {posts.map(post => (
                   <Post post={post} key={post._id} />
                ))}
             </div>
@@ -49,7 +48,6 @@ const Profile = () => {
             className={isSidebarVisible ? "profile__right visible" : "profile__right"}
          >
             <Online />
-            <Chat />
          </article>
       </section>
    );

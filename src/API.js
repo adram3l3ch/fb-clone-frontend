@@ -1,6 +1,6 @@
 import axios from "axios";
-const API_ENDPOINT = "https://adramelech-fb-clone.herokuapp.com/api/v1";
-// const API_ENDPOINT = "http://localhost:5000/api/v1";
+// const API_ENDPOINT = "https://adramelech-fb-clone.herokuapp.com/api/v1";
+const API_ENDPOINT = "http://localhost:5000/api/v1";
 
 const loginUser = async (email, password) => {
    const { data } = await axios.post(`${API_ENDPOINT}/auth/login`, {
@@ -166,6 +166,50 @@ const deletePost = async (id, token) => {
    return data;
 };
 
+const getChats = async token => {
+   const { data } = await axios.get(`${API_ENDPOINT}/chat`, {
+      headers: {
+         authorization: `Bearer ${token}`,
+      },
+   });
+   return data;
+};
+
+const createChat = async (id, token) => {
+   const { data } = await axios.post(
+      `${API_ENDPOINT}/chat/${id}`,
+      {},
+      {
+         headers: {
+            authorization: `Bearer ${token}`,
+         },
+      }
+   );
+   return data;
+};
+
+const createMessage = async (id, text, token) => {
+   const { data } = await axios.post(
+      `${API_ENDPOINT}/message/${id}`,
+      { text },
+      {
+         headers: {
+            authorization: `Bearer ${token}`,
+         },
+      }
+   );
+   return data;
+};
+
+const fetchMessage = async (id, token) => {
+   const { data } = await axios.get(`${API_ENDPOINT}/message/${id}`, {
+      headers: {
+         authorization: `Bearer ${token}`,
+      },
+   });
+   return data;
+};
+
 export {
    fetchUser,
    fetchUsers,
@@ -180,4 +224,8 @@ export {
    loginUser,
    registerUser,
    commentPost,
+   getChats,
+   createChat,
+   createMessage,
+   fetchMessage,
 };

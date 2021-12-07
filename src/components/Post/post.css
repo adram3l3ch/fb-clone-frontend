@@ -19,7 +19,7 @@ p {
    padding: 2rem 1.5rem;
    color: white;
    border-radius: 10px;
-   flex: 2;
+   flex: 0;
 }
 
 .halfborder {

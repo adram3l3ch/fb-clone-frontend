@@ -9,19 +9,23 @@ import {
    cameraIcon,
 } from "../../assets";
 import SetupProfile from "../SetupProfile/SetupProfile";
-import { fetchUser } from "../../API";
+import { createChat, fetchUser } from "../../API";
 import ImageUpload from "../ImageUpload/ImageUpload";
-import Cookies from "js-cookie";
 import useFetch from "../../hooks/useFetch";
 import useDate from "../../hooks/useDate";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setChatID, setReceiverID } from "../../features/messageSlice";
 
 const ProfileCard = ({ id, isOwnProfile }) => {
    const [user, setUser] = useState({});
    const [isEditing, setIsEditing] = useState(false);
    const [isUploading, setIsUploading] = useState(false);
 
-   const { token } = JSON.parse(Cookies.get("user"));
+   const { token } = useSelector(state => state.user);
    const customFetch = useFetch();
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
 
    useEffect(() => {
       (async () => {
@@ -33,6 +37,15 @@ const ProfileCard = ({ id, isOwnProfile }) => {
    let { name, email, about, dob, location, createdAt, profileImage } = user;
    createdAt = `Joined on ${useDate(createdAt)}`;
    dob = useDate(dob);
+
+   const message = async () => {
+      const data = await customFetch(createChat, id, token);
+      if (data) {
+         dispatch(setChatID(data.cid));
+         dispatch(setReceiverID(id));
+      }
+      navigate("/chat");
+   };
 
    return (
       <section className="profilecard">
@@ -83,7 +96,7 @@ const ProfileCard = ({ id, isOwnProfile }) => {
          {isOwnProfile ? (
             <button onClick={() => setIsEditing(true)}>Edit Profile</button>
          ) : (
-            <button disabled>Message</button>
+            <button onClick={message}>Message</button>
          )}
       </section>
    );

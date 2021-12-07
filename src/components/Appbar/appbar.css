@@ -102,13 +102,25 @@
    width: 100%;
 }
 
+.appbar__profile .chat {
+   height: 85%;
+}
+
+a {
+   display: flex;
+   align-items: center;
+}
+
 @media (max-width: 800px) {
    .appbar form {
       padding: 0.75rem;
-      width: 65%;
+      width: 70%;
    }
    .hamburger {
       display: flex;
       align-items: center;
+   }
+   .appbar__profile {
+      gap: 1rem;
    }
 }

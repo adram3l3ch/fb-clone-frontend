@@ -11,13 +11,14 @@ import Modal from "./components/Modal/Modal.jsx";
 import Home from "./pages/Home/Home.jsx";
 import NotFound from "./pages/NotFound/NotFound.jsx";
 import Loading from "./components/Loading/Loading.jsx";
+import Chat from "./pages/Chat/Chat.jsx";
 
 function App() {
    const dispatch = useDispatch();
    const {
       user: { id },
       modal: { isLoading },
-   } = useSelector((state) => state);
+   } = useSelector(state => state);
 
    useEffect(() => {
       const user = Cookies.get("user");
@@ -38,6 +39,7 @@ function App() {
                      <Route path="/" element={<Home />} />
                      <Route path="/post/:id" element={<SinglePost />} />
                      <Route path="/user/:id" element={<Profile />} />
+                     <Route path="/chat" element={<Chat />} />
                      <Route path="*" element={<NotFound />} />
                   </Routes>
                </>

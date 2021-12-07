@@ -4,7 +4,6 @@ import Comments from "../../components/Comments/Comments";
 import "./singlepost.css";
 import Post from "../../components/Post/Post";
 import Online from "../../components/Online/Online";
-import Chat from "../../components/Chat/Chat";
 import { fetchPost, commentPost } from "../../API";
 import { useParams } from "react-router";
 import Cookies from "js-cookie";
@@ -15,8 +14,8 @@ import useFetch from "../../hooks/useFetch";
 const SinglePost = () => {
    const { id } = useParams();
    const { token } = JSON.parse(Cookies.get("user"));
-   const { singlePost: post } = useSelector((state) => state.post);
-   const { isSidebarVisible } = useSelector((state) => state.modal);
+   const { singlePost: post } = useSelector(state => state.post);
+   const { isSidebarVisible } = useSelector(state => state.modal);
 
    const dispatch = useDispatch();
    const customFetch = useFetch();
@@ -28,7 +27,7 @@ const SinglePost = () => {
       })();
    }, [id, token, dispatch, customFetch]);
 
-   const commentHandler = async (comment) => {
+   const commentHandler = async comment => {
       const data = await customFetch(commentPost, post._id, comment, token);
       if (data) dispatch(setSinglePost(data.posts));
    };
@@ -49,10 +48,7 @@ const SinglePost = () => {
                isSidebarVisible ? "singlepost__right visible" : "singlepost__right"
             }
          >
-            <div>
-               <Online />
-               <Chat />
-            </div>
+            <Online />
          </article>
       </section>
    );
