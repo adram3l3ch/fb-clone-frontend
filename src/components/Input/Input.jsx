@@ -7,17 +7,17 @@ const Input = ({ placeholder, handler }) => {
    return (
       <form
          className="input__box"
-         onSubmit={async (e) => {
+         onSubmit={async e => {
             e.preventDefault();
-            if (value) await handler(value);
             setValue("");
+            if (value) await handler(value);
          }}
       >
          <input
             type="text"
             placeholder={placeholder}
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={e => setValue(e.target.value)}
          />
          <button type="submit">
             <img src={sendIcon} alt="send" />
