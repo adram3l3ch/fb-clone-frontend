@@ -40,7 +40,7 @@ const Chat = () => {
    }, [customFetch, token]);
 
    useEffect(() => {
-      setSocket(io("http://localhost:5000"));
+      setSocket(io("https://adramelech-fb-clone.herokuapp.com"));
    }, []);
 
    useEffect(() => {
