@@ -14,13 +14,13 @@ export const userSlice = createSlice({
    reducers: {
       login: (state, action) => {
          const { id, name, profileImage, token } = action.payload;
-         Cookies.set("user", JSON.stringify(action.payload));
+         Cookies.set("user", JSON.stringify(action.payload), { expires: 30 });
          state.id = id;
          state.name = name;
          state.token = token;
          state.profileImage = profileImage;
       },
-      logout: (state) => {
+      logout: state => {
          Cookies.remove("user");
          state.id = "";
          state.name = "";
@@ -28,7 +28,7 @@ export const userSlice = createSlice({
       },
       update: (state, action) => {
          const { payload } = action;
-         Object.keys(payload).map((key) => (state[key] = payload[key]));
+         Object.keys(payload).map(key => (state[key] = payload[key]));
          Cookies.set("user", JSON.stringify(state));
       },
    },
