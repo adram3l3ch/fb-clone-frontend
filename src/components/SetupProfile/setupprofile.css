@@ -48,3 +48,9 @@
 .setup button:last-child {
    background: none;
 }
+
+@media (max-width: 420px) {
+   .setup form {
+      width: 350px;
+   }
+}

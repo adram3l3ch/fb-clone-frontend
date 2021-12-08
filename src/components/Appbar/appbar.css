@@ -2,7 +2,7 @@
    display: flex;
    margin-bottom: 1rem;
    align-items: center;
-   gap: 0.5rem;
+   gap: 1rem;
    padding-block: 1rem;
    position: relative;
    z-index: 3;
@@ -106,7 +106,7 @@
    height: 85%;
 }
 
-a {
+.appbar a {
    display: flex;
    align-items: center;
 }
@@ -114,7 +114,7 @@ a {
 @media (max-width: 800px) {
    .appbar form {
       padding: 0.75rem;
-      width: 70%;
+      flex: 1;
    }
    .hamburger {
       display: flex;

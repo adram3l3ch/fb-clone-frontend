@@ -10,7 +10,7 @@ const MainGallery = ({ posts, handler }) => {
             <button onClick={() => handler(false)}>
                <img src={closeIcon} alt="close" />
             </button>
-            {posts.map((post) => (
+            {posts.map(post => (
                <Link to={`/post/${post._id}`}>
                   <img src={post.image.src} alt="post-images" />
                </Link>

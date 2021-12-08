@@ -1,11 +1,8 @@
 .gallery__images {
-   display: flex;
-   justify-content: space-evenly;
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 1rem;
    margin-bottom: 1.5rem;
-}
-
-.gallery__images a {
-   width: 30%;
 }
 
 .gallery__images img {

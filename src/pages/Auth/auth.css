@@ -4,6 +4,7 @@
    display: flex;
    align-items: center;
    justify-content: center;
+   padding: 1rem;
 }
 
 .login,
@@ -75,4 +76,10 @@
 .auth p span:hover {
    cursor: pointer;
    text-decoration: underline;
+}
+
+@media (max-width: 420px) {
+   .auth form {
+      width: 350px;
+   }
 }

@@ -38,13 +38,13 @@
    object-fit: cover;
 }
 
-.maingallery button {
+.images > button {
    position: absolute;
-   width: 30px;
-   height: 30px;
-   background-color: var(--primary-600);
-   border-radius: 50%;
-   padding: 0;
+   width: 30px !important;
+   aspect-ratio: 1;
+   background-color: red !important;
+   border-radius: 50% !important;
+   padding: 0 !important;
    right: 10px;
    top: 10px;
 }

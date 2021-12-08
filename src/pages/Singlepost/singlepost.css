@@ -32,7 +32,7 @@
    overflow: auto;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1200px) {
    .singlepost__right {
       position: fixed;
       top: 100px;
@@ -43,6 +43,9 @@
       transition: transform 0.2s linear;
       z-index: 2;
    }
+}
+
+@media (max-width: 800px) {
    .singlepost {
       min-height: auto;
       gap: 1rem;
