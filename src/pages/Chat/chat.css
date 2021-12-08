@@ -41,6 +41,8 @@
 
 .chat__page__messenger header img {
    width: 30px;
+   aspect-ratio:1;
+   object-fit:cover;
    border-radius: 50%;
 }
 
