@@ -9,7 +9,7 @@
    transition: transform 0.1s linear;
    border-radius: 10px;
    text-align: center;
-   z-index: 9;
+   z-index: 99;
 }
 
 .modal p {

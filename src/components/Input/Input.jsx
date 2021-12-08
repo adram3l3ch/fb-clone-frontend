@@ -3,16 +3,15 @@ import { sendIcon } from "../../assets";
 import "./input.css";
 
 const Input = ({ placeholder, handler }) => {
+   const submitHandler = async e => {
+      e.preventDefault();
+      setValue("");
+      if (value) await handler(value);
+   };
+
    const [value, setValue] = useState("");
    return (
-      <form
-         className="input__box"
-         onSubmit={async e => {
-            e.preventDefault();
-            setValue("");
-            if (value) await handler(value);
-         }}
-      >
+      <form className="input__box" onSubmit={submitHandler}>
          <input
             type="text"
             placeholder={placeholder}

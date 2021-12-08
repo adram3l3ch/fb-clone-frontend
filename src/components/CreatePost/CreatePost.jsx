@@ -6,6 +6,7 @@ import { createPost } from "../../API";
 import Cookies from "js-cookie";
 import { pushPost } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
+import Compress from "compress.js";
 import "./createpost.css";
 
 const CreatePost = () => {
@@ -17,18 +18,31 @@ const CreatePost = () => {
 
    const dispatch = useDispatch();
    const customFetch = useFetch();
+   const compress = new Compress();
 
-   const loadImage = (e) => {
+   const loadImage = e => {
       const input = e.target;
       var reader = new FileReader();
       reader.onload = function (e) {
          setPreview(e.target.result);
       };
       input.files[0] && reader.readAsDataURL(input.files[0]);
-      setImage(input.files[0]);
+      const files = [...input.files];
+      compress
+         .compress(files, {
+            size: 1,
+            quality: 0.75,
+            maxWidth: 1920,
+            maxHeight: 1920,
+            resize: true,
+            rotate: false,
+         })
+         .then(data => {
+            setImage(Compress.convertBase64ToFile(data[0]?.data, data[0]?.ext));
+         });
    };
 
-   const submitHandler = async (e) => {
+   const submitHandler = async e => {
       e.preventDefault();
       const formData = new FormData();
       formData.append("image", image);
@@ -48,26 +62,15 @@ const CreatePost = () => {
    return (
       <article className="createpost">
          <form onSubmit={submitHandler}>
-            <textarea
-               placeholder="What's on your mind?"
-               value={caption}
-               onChange={(e) => setCaption(e.target.value)}
-            />
-            {preview && (
-               <img src={preview} alt="uploaded file" className="uploaded-image" />
-            )}
+            <textarea placeholder="What's on your mind?" value={caption} onChange={e => setCaption(e.target.value)} />
+            {preview && <img src={preview} alt="uploaded file" className="uploaded-image" />}
             <div className="btns">
                <label htmlFor="image">
                   <div>
                      <img src={fileIcon} alt="upload" />
                   </div>
                </label>
-               <input
-                  type="file"
-                  id="image"
-                  accept="image/png, image/jpeg"
-                  onChange={loadImage}
-               />
+               <input type="file" id="image" accept="image/png, image/jpeg" onChange={loadImage} />
                <button type="submit">
                   <img src={sendIcon} alt="send" />
                </button>

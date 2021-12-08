@@ -26,19 +26,19 @@ const Home = () => {
 
    return (
       <section className="home">
-         <article className="home__left">
+         <main className="home__left">
             <div>
                <CreatePost />
                {posts.map(post => (
                   <Post post={post} key={post._id} />
                ))}
             </div>
-         </article>
-         <article className={isSidebarVisible ? "home__right visible" : "home__right"}>
+         </main>
+         <aside className={isSidebarVisible ? "home__right visible" : "home__right"}>
             <div>
                <Online />
             </div>
-         </article>
+         </aside>
       </section>
    );
 };

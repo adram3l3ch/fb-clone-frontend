@@ -8,9 +8,9 @@ import Input from "../../components/Input/Input";
 import { useDispatch } from "react-redux";
 import { addMessages, clearMessage } from "../../features/messageSlice";
 import SingleChat from "../../components/SingleChat/SingleChat";
-import "./chat.css";
 import { io } from "socket.io-client";
 import Online from "../../components/Online/Online";
+import "./chat.css";
 
 const Chat = () => {
    const {
@@ -33,24 +33,22 @@ const Chat = () => {
    const dispatch = useDispatch();
 
    useEffect(() => {
-      (async () => {
-         const data = await customFetch(getChats, token);
-         if (data) setChats(data.chat);
-      })();
-   }, [customFetch, token]);
-
-   useEffect(() => {
       setSocket(io("https://adramelech-fb-clone.herokuapp.com"));
    }, []);
 
    useEffect(() => {
       socket?.emit("add user", id);
       socket?.on("recieve message", message => {
-         dispatch(
-            addMessages({ text: message, send: false, createdAt: String(new Date()) })
-         );
+         dispatch(addMessages({ text: message, send: false, createdAt: String(new Date()) }));
       });
    }, [socket, id, dispatch]);
+
+   useEffect(() => {
+      (async () => {
+         const data = await customFetch(getChats, token);
+         if (data) setChats(data.chat);
+      })();
+   }, [customFetch, token]);
 
    useEffect(() => {
       (async () => {
@@ -95,14 +93,7 @@ const Chat = () => {
                   <main ref={scroll}>
                      <div className="messenger">
                         {messages.map((message, i, messages) => {
-                           return (
-                              <SingleChat
-                                 key={i}
-                                 message={message}
-                                 index={i}
-                                 messages={messages}
-                              />
-                           );
+                           return <SingleChat key={i} message={message} index={i} messages={messages} />;
                         })}
                      </div>
                   </main>
@@ -111,13 +102,9 @@ const Chat = () => {
                   </footer>
                </>
             ) : (
-               <h2>Select a conversation</h2>
+               <h4>Select a conversation</h4>
             )}
-            <article
-               className={
-                  isSidebarVisible ? "singlepost__right visible" : "singlepost__right"
-               }
-            >
+            <article className={isSidebarVisible ? "singlepost__right visible" : "singlepost__right"}>
                <Online />
             </article>
          </section>

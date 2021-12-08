@@ -3,26 +3,30 @@ import useDate from "../../hooks/useDate";
 import "./singlechat.css";
 
 const SingleChat = ({ message, index, messages }) => {
-   const diff = new Date().getDate() - new Date(message.createdAt).getDate();
-   const formatedDate = useDate(message.createdAt);
-   const date = diff <= 1 ? "TODAY" : diff <= 2 ? "YESTERDAY" : formatedDate;
-   const showDate =
-      new Date(message.createdAt).getDate() -
-         (new Date(messages[index - 1]?.createdAt).getDate() || 0) >
-      0;
+   const today = new Date();
+   const createdAt = new Date(message.createdAt);
+   const prevMessageDate = new Date(messages[index - 1]?.createdAt);
+   const diff = today.getDate() - createdAt.getDate();
+   const formatedDate = useDate(createdAt);
+
+   const date = diff === 1 ? "YESTERDAY" : diff === 0 ? "TODAY" : formatedDate;
+   const showDate = createdAt.getDate() - (prevMessageDate.getDate() || 0) > 0;
+
+   const getTime = () => {
+      return `${createdAt.getHours()}:${
+         createdAt.getMinutes() > 9
+            ? createdAt.getMinutes()
+            : "0" + createdAt.getMinutes()
+      }`;
+   };
+
    return (
       <div>
          {showDate && <h4>{date}</h4>}
          <div className={message.send ? "chat__sent" : "chat__recieve"}>
             <p className="message">
                {message.text}
-               <span className="time">
-                  {`${new Date(message.createdAt).getHours()}:${
-                     new Date(message.createdAt).getMinutes() > 9
-                        ? new Date(message.createdAt).getMinutes()
-                        : "0" + new Date(message.createdAt).getMinutes()
-                  }`}
-               </span>
+               <span className="time">{getTime()}</span>
             </p>
          </div>
       </div>
