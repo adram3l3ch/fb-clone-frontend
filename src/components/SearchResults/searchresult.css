@@ -1,0 +1,33 @@
+.search-results {
+   position: absolute;
+   width: 100%;
+   left: 0;
+   top: calc(100% + 1rem);
+   background-color: var(--primary-500);
+   padding: 2rem 1.5rem;
+   border-radius: 10px;
+   z-index: 10;
+   box-shadow: 0 0 30px rgba(0, 0, 0, 0.466);
+   color: white;
+   display: flex;
+   flex-direction: column;
+   gap: 1.5rem;
+}
+
+.search-results h3 {
+   margin-bottom: 1em;
+}
+
+.search-results p {
+   width: 80%;
+   overflow: hidden;
+   white-space: nowrap;
+   text-overflow: ellipsis;
+   font-size: 0.8rem;
+   color: rgba(255, 255, 255, 0.534);
+   margin-bottom: 1em;
+}
+
+.search-results p:hover {
+   text-decoration: underline;
+}

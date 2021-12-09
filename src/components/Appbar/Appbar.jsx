@@ -6,6 +6,7 @@ import { logout } from "../../features/userSlice";
 import { fetchPosts, fetchUsers } from "../../API";
 import { toggleSidebar } from "../../features/modalSlice";
 import useFetch from "../../hooks/useFetch";
+import SearchResults from "../SearchResults/SearchResults";
 import "./appbar.css";
 
 const Appbar = () => {
@@ -39,71 +40,32 @@ const Appbar = () => {
    };
 
    return (
-      <div className="appbar">
-         <div
-            className="hamburger"
-            onClick={() => dispatch(toggleSidebar(!isSidebarVisible))}
-         >
+      <header className="appbar">
+         <div className="hamburger" onClick={() => dispatch(toggleSidebar(!isSidebarVisible))}>
             <img src={isSidebarVisible ? closeIcon : hamburger} alt="hamburger" />
          </div>
          <form onSubmit={searchHandler} className="searchform">
             <button type="submit">
                <img src={searchIcon} alt="search" />
             </button>
-            <input
-               type="text"
-               placeholder="Tap to search..."
-               value={query}
-               onChange={e => setQuery(e.target.value)}
-            />
-            <button onClick={reset}>
+            <input type="text" placeholder="Tap to search..." value={query} onChange={e => setQuery(e.target.value)} />
+            <button onClick={reset} type="button">
                <img src={closeIcon} alt="" className="close" />
             </button>
-            {searchResult.posts || searchResult.user ? (
-               <div className="search-results">
-                  <div>
-                     <h3>Posts</h3>
-                     {searchResult.posts?.map(post => (
-                        <Link to={`/post/${post._id}`}>
-                           <p onClick={reset}>{post.caption}</p>
-                        </Link>
-                     ))}
-                  </div>
-                  <div>
-                     <h3>Users</h3>
-                     {searchResult.user?.map(val => (
-                        <Link to={`/user/${val._id}`}>
-                           <p onClick={reset}>{val.name}</p>
-                        </Link>
-                     ))}
-                  </div>
-               </div>
-            ) : (
-               ""
-            )}
+            {(searchResult.posts || searchResult.user) && <SearchResults searchResult={searchResult} reset={reset} />}
          </form>
          <nav className="appbar__profile">
             <Link to={`/user/${id}`}>
-               <img
-                  src={profileImage || dp}
-                  alt="profileImage"
-                  className="appbar__profile__dp"
-                  title="profile"
-               />
+               <img src={profileImage || dp} alt="profileImage" className="appbar__profile__dp" title="profile" />
             </Link>
             <Link to="/chat">
                <img src={chatIcon} alt="chat" className="chat" />
             </Link>
             <button onClick={logoutHandler}>
-               <img
-                  src={logoutIcon}
-                  alt="logoutIcon"
-                  className="appbar__profile__logout"
-                  title="logout"
-               />
+               <img src={logoutIcon} alt="logoutIcon" className="appbar__profile__logout" title="logout" />
             </button>
          </nav>
-      </div>
+      </header>
    );
 };
 

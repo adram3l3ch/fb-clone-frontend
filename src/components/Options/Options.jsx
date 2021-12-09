@@ -6,13 +6,8 @@ const Options = ({ deleteHandler }) => {
    const [isOptionsVisible, setIsOptionsVisible] = useState(false);
    return (
       <div className="options">
-         <img
-            src={optionsIcon}
-            alt=""
-            onClick={() => setIsOptionsVisible((val) => !val)}
-         />
+         <img src={optionsIcon} alt="" onClick={() => setIsOptionsVisible(val => !val)} />
          <ul className={isOptionsVisible ? "show" : ""}>
-            <li>Edit</li>
             <li
                onClick={() => {
                   setIsOptionsVisible(false);

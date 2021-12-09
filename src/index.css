@@ -21,7 +21,6 @@ body {
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
    background-color: var(--primary-400);
-   padding: 1rem 2rem;
 }
 
 img {
@@ -53,6 +52,7 @@ a {
 
 .container {
    max-width: 1440px;
+   padding: 1rem 2rem;
    margin-inline: auto;
 }
 
