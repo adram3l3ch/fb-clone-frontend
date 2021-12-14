@@ -74,7 +74,7 @@ input::placeholder {
       font-size: 17px;
    }
    .container {
-      padding: 0.5rem;
+      padding: 1rem 0.5rem;
       max-width: 500px;
    }
 }

@@ -7,7 +7,7 @@ h3 {
 .post__caption {
    font-weight: 400;
    font-size: 0.8rem;
-   margin-top: 1rem;
+   margin-bottom: 0.5rem;
 }
 
 .post header p {
@@ -34,6 +34,7 @@ h3 {
    display: flex;
    align-items: flex-start;
    gap: 0.5rem;
+   margin-bottom: 1.5rem;
 }
 
 .post__image {
@@ -42,14 +43,13 @@ h3 {
    border-radius: 10px;
    object-fit: contain;
    background-color: var(--primary-600);
-   margin-top: 1.5rem;
+   margin-bottom: 1.5rem;
 }
 
 .post__footer {
    display: flex;
    justify-content: space-between;
    align-items: center;
-   margin-top: 1.5rem;
 }
 
 .post__reactions {
