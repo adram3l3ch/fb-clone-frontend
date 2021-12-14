@@ -20,8 +20,8 @@ const Post = ({ singlepost, post }) => {
    const customFetch = useFetch();
 
    //global states
-   const { id } = useSelector((state) => state.user);
-   let { posts } = useSelector((state) => state.post);
+   const { id } = useSelector(state => state.user);
+   let { posts } = useSelector(state => state.post);
    const isOwnPost = id === post.createdBy;
    const isLiked = post?.likes?.includes(id);
 
@@ -47,7 +47,7 @@ const Post = ({ singlepost, post }) => {
       }
    };
 
-   const commentHandler = async (comment) => {
+   const commentHandler = async comment => {
       const data = await await customFetch(commentPost, post._id, comment, token);
       if (data) {
          let slicedPosts = slicePosts(posts, data);
@@ -66,11 +66,7 @@ const Post = ({ singlepost, post }) => {
       <article className={singlepost ? "post halfborder" : "post"}>
          <header>
             <Link to={`/user/${post.createdBy}`}>
-               <img
-                  src={post.userDetails.image || dp}
-                  alt="profileImage"
-                  className="post__dp roundimage"
-               />
+               <img src={post.userDetails.image || dp} alt="profileImage" className="post__dp roundimage" />
             </Link>
             <div>
                <h3>{post.userDetails.name}</h3>
@@ -79,23 +75,15 @@ const Post = ({ singlepost, post }) => {
             {isOwnPost && <Options deleteHandler={deleteHandler} />}
          </header>
          <Link to={`/post/${post._id}`}>
-            <p>{post.caption}</p>
-            {post.image?.src && (
-               <img src={post.image?.src} alt="post_image" className="post__image" />
-            )}
+            {post.caption && <p className="post__caption">{post.caption}</p>}
+            {post.image?.src && <img src={post.image?.src} alt="post_image" className="post__image" />}
          </Link>
          <div className="post__footer">
             <div className="post__reactions">
-               <img
-                  src={isLiked ? likeIcon : likeOutlined}
-                  alt="like"
-                  onClick={likeHandler}
-               />
+               <img src={isLiked ? likeIcon : likeOutlined} alt="like" onClick={likeHandler} />
                <p>{post.likes.length || ""}</p>
             </div>
-            {singlepost || (
-               <Input placeholder={"Write a comment"} handler={commentHandler} />
-            )}
+            {singlepost || <Input placeholder={"Write a comment"} handler={commentHandler} />}
          </div>
       </article>
    );
