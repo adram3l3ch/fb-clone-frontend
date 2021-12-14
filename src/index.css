@@ -52,8 +52,13 @@ a {
 
 .container {
    max-width: 1440px;
-   padding: 1rem 2rem;
+   height: 100vh;
+   min-height: 750px;
+   padding: 2rem;
    margin-inline: auto;
+   display: flex;
+   flex-direction: column;
+   gap: 2rem;
 }
 
 button:disabled {

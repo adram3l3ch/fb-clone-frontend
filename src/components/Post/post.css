@@ -76,7 +76,6 @@ p {
    display: flex;
    justify-content: space-between;
    align-items: center;
-   margin-top: 1.5rem;
 }
 
 @media (max-width: 1100px) {

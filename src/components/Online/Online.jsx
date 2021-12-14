@@ -24,8 +24,8 @@ const Online = () => {
 
    return (
       <section className="online">
-         <h2>Users</h2>
          <div>
+            <h2>Users</h2>
             {users.map(user => (
                <Link
                   to={`/user/${user._id}`}
@@ -35,11 +35,7 @@ const Online = () => {
                   }}
                >
                   <div className="user">
-                     <img
-                        src={user.profileImage || dp}
-                        alt={user.name + " image"}
-                        className="roundimage"
-                     />
+                     <img src={user.profileImage || dp} alt={user.name + " image"} className="roundimage" />
                      <h3>{user.name}</h3>
                   </div>
                </Link>

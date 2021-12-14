@@ -1,7 +1,7 @@
 .singlepost {
    display: flex;
    gap: 2px;
-   max-height: 80vh;
+   height: 100%;
 }
 
 .singlepost__left {
@@ -50,6 +50,7 @@
       min-height: auto;
       gap: 1rem;
       flex-direction: column;
+      height: auto;
    }
    .singlepost__left {
       border-radius: 10px;

@@ -1,9 +1,7 @@
 .appbar {
    display: flex;
-   margin-bottom: 1rem;
    align-items: center;
    gap: 1rem;
-   padding-block: 1rem;
    position: relative;
    z-index: 3;
 }

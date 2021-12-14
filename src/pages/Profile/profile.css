@@ -1,8 +1,7 @@
 .profile {
    display: flex;
    gap: 1rem;
-   height: 80vh;
-   min-height: 650px;
+   height: 100%;
 }
 
 .profile__left {
@@ -10,7 +9,7 @@
    display: flex;
    margin-inline: auto;
    flex-direction: column;
-   gap: 2rem;
+   gap: 1rem;
 }
 .profile__center {
    flex: 2;
