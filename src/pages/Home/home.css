@@ -2,47 +2,29 @@
    display: flex;
    gap: 2rem;
    max-width: 1200px;
+   height: 80vh;
    margin-inline: auto;
 }
 
-.home__left {
-   flex: 2;
-   position: relative;
-   height: 80vh;
-   overflow: auto;
-}
-
-.home__left::-webkit-scrollbar {
-   display: none;
-}
-
-.home__left > div {
-   position: absolute;
-   width: 100%;
-}
-
+.home__left,
 .home__right {
-   flex: 1;
    position: relative;
-}
-
-.home__right > div {
-   position: absolute;
-   inset: 0;
-}
-
-.home__left > div,
-.home__right > div {
    display: flex;
    flex-direction: column;
    gap: 1rem;
 }
 
-.home__right .online {
+.home__left {
+   flex: 2;
+   height: 80vh;
+   overflow: auto;
+}
+
+.home__right {
    flex: 1;
 }
-.home__right .chat {
-   flex: 5;
+.home__left::-webkit-scrollbar {
+   display: none;
 }
 
 @media (max-width: 800px) {

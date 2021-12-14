@@ -1,7 +1,7 @@
 .singlepost {
    display: flex;
    gap: 2px;
-   min-height: 80vh;
+   max-height: 80vh;
 }
 
 .singlepost__left {
