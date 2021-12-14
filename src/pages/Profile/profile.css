@@ -59,7 +59,7 @@
    .profile {
       flex-direction: column;
       margin-inline: auto;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
    }
 
    .profile__left {

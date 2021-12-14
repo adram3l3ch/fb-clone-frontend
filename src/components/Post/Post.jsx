@@ -74,7 +74,7 @@ const Post = ({ singlepost, post }) => {
             </div>
             {isOwnPost && <Options deleteHandler={deleteHandler} />}
          </header>
-         <Link to={`/post/${post._id}`}>
+         <Link to={`/post/${post._id}`} className="post__details">
             {post.caption && <p className="post__caption">{post.caption}</p>}
             {post.image?.src && <img src={post.image?.src} alt="post_image" className="post__image" />}
          </Link>
