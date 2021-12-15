@@ -71,7 +71,7 @@ input::placeholder {
 
 @media (max-width: 800px) {
    :root {
-      font-size: 17px;
+      font-size: 18px;
    }
    .container {
       padding: 1rem 0.75rem;
