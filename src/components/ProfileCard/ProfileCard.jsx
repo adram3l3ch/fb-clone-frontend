@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./profilecard.css";
-import {
-   dp,
-   clockIcon,
-   cakeIcon,
-   locationIcon,
-   mailIcon,
-   cameraIcon,
-} from "../../assets";
+import { dp, clockIcon, cakeIcon, locationIcon, mailIcon, cameraIcon } from "../../assets";
 import SetupProfile from "../SetupProfile/SetupProfile";
 import { createChat, fetchUser } from "../../API";
 import ImageUpload from "../ImageUpload/ImageUpload";
@@ -49,26 +42,14 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 
    return (
       <section className="profilecard">
-         {isEditing && (
-            <SetupProfile setIsEditing={setIsEditing} user={user} setUser={setUser} />
-         )}
-         {isUploading && (
-            <ImageUpload setIsUploading={setIsUploading} setUser={setUser} />
-         )}
+         {isEditing && <SetupProfile setIsEditing={setIsEditing} user={user} setUser={setUser} />}
+         {isUploading && <ImageUpload setIsUploading={setIsUploading} setUser={setUser} />}
          <header>
             <div>
-               <img
-                  src={profileImage || dp}
-                  alt="profile_image"
-                  className="profilecard__dp roundimage"
-               />
+               <img src={profileImage || dp} alt="profile_image" className="profilecard__dp roundimage" />
                {isOwnProfile && (
                   <div className="dp-upload">
-                     <img
-                        src={cameraIcon}
-                        alt="change_profile_image"
-                        onClick={() => setIsUploading(true)}
-                     />
+                     <img src={cameraIcon} alt="change_profile_image" onClick={() => setIsUploading(true)} />
                   </div>
                )}
             </div>
@@ -93,11 +74,7 @@ const ProfileCard = ({ id, isOwnProfile }) => {
                <h3>{dob}</h3>
             </div>
          </article>
-         {isOwnProfile ? (
-            <button onClick={() => setIsEditing(true)}>Edit Profile</button>
-         ) : (
-            <button onClick={message}>Message</button>
-         )}
+         {isOwnProfile ? <button onClick={() => setIsEditing(true)}>Edit Profile</button> : <button onClick={message}>Message</button>}
       </section>
    );
 };

@@ -19,11 +19,13 @@
 .home__left {
    flex: 2;
    overflow: auto;
+   scrollbar-width: none; /*to work in moz*/
 }
 
 .home__right {
    flex: 1;
 }
+
 .home__left::-webkit-scrollbar {
    display: none;
 }

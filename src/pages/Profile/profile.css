@@ -25,6 +25,7 @@
    flex-direction: column;
    color: white;
    gap: 1rem;
+   scrollbar-width: none; /*to work in moz*/
 }
 
 .profile__center > div > h2 {
@@ -32,14 +33,14 @@
    margin-inline: auto;
 }
 
-.profile__center > div::-webkit-scrollbar,
-.profile__right::-webkit-scrollbar {
+.profile__center > div::-webkit-scrollbar {
    display: none;
 }
 
 .profile__right {
    flex: 1;
 }
+
 @media (max-width: 1200px) {
    .profile__right {
       position: fixed;
