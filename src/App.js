@@ -14,6 +14,7 @@ import NotFound from "./pages/NotFound/NotFound.jsx";
 import Loading from "./components/Loading/Loading.jsx";
 import { io } from "socket.io-client";
 import Chat from "./pages/Chat/Chat.jsx";
+import Messenger from "./pages/Messenger/Messenger.jsx";
 
 function App() {
    const dispatch = useDispatch();
@@ -59,6 +60,7 @@ function App() {
                      <Route path="/post/:id" element={<SinglePost />} />
                      <Route path="/user/:id" element={<Profile />} />
                      <Route path="/chat" element={<Chat />} />
+                     <Route path="/chat/messenger" element={<Messenger />} />
                      <Route path="*" element={<NotFound />} />
                   </Routes>
                </>
