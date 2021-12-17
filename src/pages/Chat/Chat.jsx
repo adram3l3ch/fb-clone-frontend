@@ -16,7 +16,7 @@ const Chat = () => {
       user: { token, id },
       message: { messages, conversationID, to },
       modal: { isSidebarVisible },
-      socket: { socket },
+      socket: { socket, usersOnline },
    } = useSelector(state => state);
 
    const [chats, setChats] = useState([]);
@@ -82,7 +82,10 @@ const Chat = () => {
                <>
                   <header>
                      <img src={receiver.profileImage || dp} alt="chatIcon" />
-                     <h3>{receiver.name}</h3>
+                     <div>
+                        <h3>{receiver.name}</h3>
+                        {usersOnline.some(u => u.id === receiver._id) && <p>Online</p>}
+                     </div>
                   </header>
                   <main ref={scroll}>
                      <div className="messenger">

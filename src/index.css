@@ -69,6 +69,21 @@ input::placeholder {
    font-size: 0.8rem;
 }
 
+.green {
+   position: relative;
+}
+
+.green::after {
+   content: "";
+   position: absolute;
+   width: 30%;
+   aspect-ratio: 1;
+   background-color: rgb(21, 214, 31);
+   border-radius: 50%;
+   right: 0;
+   bottom: 15%;
+}
+
 @media (max-width: 800px) {
    :root {
       font-size: 18px;

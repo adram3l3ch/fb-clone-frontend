@@ -8,7 +8,10 @@ import "./chatcard.css";
 
 const ChatCard = ({ chat }) => {
    const { id, token } = useSelector(state => state.user);
-   const { conversationID } = useSelector(state => state.message);
+   const {
+      message: { conversationID },
+      socket: { usersOnline },
+   } = useSelector(state => state);
 
    const [receiver, setReceiver] = useState({});
    const [lastMessage, setLastMessage] = useState("");
@@ -36,7 +39,9 @@ const ChatCard = ({ chat }) => {
             dispatch(setReceiverID(receiverId));
          }}
       >
-         <img src={receiver.profileImage || dp} alt="" className="roundimage" />
+         <div className={usersOnline.some(u => u.id === receiverId) ? "green" : ""}>
+            <img src={receiver.profileImage || dp} alt="" className="roundimage" />
+         </div>
          <div>
             <h2>{receiver.name || "User"}</h2>
             <p>{lastMessage || "Send a hi..."}</p>

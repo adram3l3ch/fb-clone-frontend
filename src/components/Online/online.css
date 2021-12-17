@@ -41,14 +41,3 @@
    font-weight: 300;
    font-size: 0.8rem;
 }
-
-.green::after {
-   content: "";
-   position: absolute;
-   width: 10px;
-   aspect-ratio: 1;
-   background-color: rgb(21, 214, 31);
-   border-radius: 50%;
-   top: 20px;
-   left: 20px;
-}

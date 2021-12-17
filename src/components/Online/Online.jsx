@@ -39,8 +39,10 @@ const Online = () => {
                      dispatch(toggleSidebar(false));
                   }}
                >
-                  <div className={usersOnline.some(u => u.id === user._id) ? "user green" : "user"}>
-                     <img src={user.profileImage || dp} alt={user.name + " image"} className="roundimage" />
+                  <div className="user">
+                     <div className={usersOnline.some(u => u.id === user._id) ? "green" : ""}>
+                        <img src={user.profileImage || dp} alt={user.name + " image"} className="roundimage" />
+                     </div>
                      <h3>{user.name}</h3>
                   </div>
                </Link>
