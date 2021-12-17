@@ -14,8 +14,6 @@ const Online = () => {
       socket: { usersOnline },
    } = useSelector(state => state);
 
-   console.log(usersOnline);
-
    const [users, setUsers] = useState([]);
    const customFetch = useFetch();
    const dispatch = useDispatch();
