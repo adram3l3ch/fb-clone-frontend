@@ -7,7 +7,7 @@ const initialState = {
    isLoading: false,
 };
 
-export const modalSlice = createSlice({
+const modalSlice = createSlice({
    name: "modal",
    initialState,
    reducers: {
@@ -15,7 +15,7 @@ export const modalSlice = createSlice({
          state.msg = action.payload;
          state.visible = true;
       },
-      hideModal: (state) => {
+      hideModal: state => {
          state.visible = false;
       },
       toggleSidebar: (state, action) => {

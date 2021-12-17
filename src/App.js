@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Auth from "./pages/Auth/Auth";
 import Cookies from "js-cookie";
 import { login } from "./features/userSlice.js";
+import { setSocket, usersOnline } from "./features/socketSlice";
 import Modal from "./components/Modal/Modal.jsx";
 import Home from "./pages/Home/Home.jsx";
 import NotFound from "./pages/NotFound/NotFound.jsx";
 import Loading from "./components/Loading/Loading.jsx";
+import { io } from "socket.io-client";
 import Chat from "./pages/Chat/Chat.jsx";
 
 function App() {
@@ -18,12 +20,29 @@ function App() {
    const {
       user: { id },
       modal: { isLoading },
+      socket: { socket },
    } = useSelector(state => state);
 
    useEffect(() => {
       const user = Cookies.get("user");
       user && dispatch(login(JSON.parse(user)));
    }, [dispatch]);
+
+   useEffect(() => {
+      if (id) {
+         // setSocket(io("https://adramelech-fb-clone.herokuapp.com"));
+         dispatch(setSocket(io("http://localhost:5000")));
+      }
+   }, [id, dispatch]);
+
+   useEffect(() => {
+      if (socket) {
+         socket.emit("add user", id);
+         socket.on("usersOnline", users => {
+            dispatch(usersOnline(users));
+         });
+      }
+   }, [socket, id, dispatch]);
 
    return (
       <Router>

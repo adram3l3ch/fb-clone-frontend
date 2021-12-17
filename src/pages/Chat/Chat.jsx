@@ -8,7 +8,6 @@ import Input from "../../components/Input/Input";
 import { useDispatch } from "react-redux";
 import { addMessages, clearMessage } from "../../features/messageSlice";
 import SingleChat from "../../components/SingleChat/SingleChat";
-import { io } from "socket.io-client";
 import Online from "../../components/Online/Online";
 import "./chat.css";
 
@@ -17,10 +16,10 @@ const Chat = () => {
       user: { token, id },
       message: { messages, conversationID, to },
       modal: { isSidebarVisible },
+      socket: { socket },
    } = useSelector(state => state);
 
    const [chats, setChats] = useState([]);
-   const [socket, setSocket] = useState(null);
    const [receiver, setReceiver] = useState({});
 
    const scroll = useRef();
@@ -33,16 +32,10 @@ const Chat = () => {
    const dispatch = useDispatch();
 
    useEffect(() => {
-      // setSocket(io("https://adramelech-fb-clone.herokuapp.com"));
-      setSocket(io("http://localhost:5000"));
-   }, []);
-
-   useEffect(() => {
-      socket?.emit("add user", id);
       socket?.on("receive message", (message, senderID) => {
          senderID === to && dispatch(addMessages({ text: message, send: false, createdAt: String(new Date()) }));
       });
-   }, [socket, id, dispatch, to]);
+   }, [socket, dispatch, to]);
 
    useEffect(() => {
       (async () => {
