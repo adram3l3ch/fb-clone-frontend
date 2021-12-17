@@ -1,6 +1,6 @@
 import axios from "axios";
-const API_ENDPOINT = "https://adramelech-fb-clone.herokuapp.com/api/v1";
-// const API_ENDPOINT = "http://localhost:5000/api/v1";
+// const API_ENDPOINT = "https://adramelech-fb-clone.herokuapp.com/api/v1";
+const API_ENDPOINT = "http://localhost:5000/api/v1";
 
 const loginUser = async (email, password) => {
    const { data } = await axios.post(`${API_ENDPOINT}/auth/login`, {

@@ -33,15 +33,16 @@ const Chat = () => {
    const dispatch = useDispatch();
 
    useEffect(() => {
-      setSocket(io("https://adramelech-fb-clone.herokuapp.com"));
+      // setSocket(io("https://adramelech-fb-clone.herokuapp.com"));
+      setSocket(io("http://localhost:5000"));
    }, []);
 
    useEffect(() => {
       socket?.emit("add user", id);
-      socket?.on("recieve message", message => {
-         dispatch(addMessages({ text: message, send: false, createdAt: String(new Date()) }));
+      socket?.on("receive message", (message, senderID) => {
+         senderID === to && dispatch(addMessages({ text: message, send: false, createdAt: String(new Date()) }));
       });
-   }, [socket, id, dispatch]);
+   }, [socket, id, dispatch, to]);
 
    useEffect(() => {
       (async () => {
