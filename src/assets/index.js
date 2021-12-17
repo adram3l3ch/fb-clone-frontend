@@ -10,10 +10,10 @@ export { default as sendIcon } from "./plane.svg";
 export { default as searchIcon } from "./search.svg";
 
 export { default as chatIcon } from "./chat.svg";
-export { default as closeIcon } from "./close.png";
-export { default as fileIcon } from "./file.png";
-export { default as hamburger } from "./hamburger.png";
-export { default as optionsIcon } from "./options.png";
-export { default as logoutIcon } from "./logout.png";
+export { default as closeIcon } from "./close.svg";
+export { default as fileIcon } from "./file.svg";
+export { default as hamburger } from "./hamburger.svg";
+export { default as optionsIcon } from "./options.svg";
+export { default as logoutIcon } from "./logout.svg";
 
 export { default as dp } from "./dp.jpg";
