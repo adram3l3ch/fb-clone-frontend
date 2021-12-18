@@ -13,44 +13,41 @@ import "./profile.css";
 import useFetch from "../../hooks/useFetch";
 
 const Profile = () => {
-   const { id } = useParams();
-   const { token } = JSON.parse(Cookies.get("user"));
-   const { posts } = useSelector(state => state.post);
-   const isOwnProfile = id === useSelector(state => state.user.id);
-   const { isSidebarVisible } = useSelector(state => state.modal);
+    const { id } = useParams();
+    const { token } = JSON.parse(Cookies.get("user"));
+    const { posts } = useSelector(state => state.post);
+    const isOwnProfile = id === useSelector(state => state.user.id);
 
-   const dispatch = useDispatch();
-   const customFetch = useFetch();
+    const dispatch = useDispatch();
+    const customFetch = useFetch();
 
-   useEffect(() => {
-      (async () => {
-         const data = await customFetch(fetchPosts, token, id);
-         if (data) dispatch(setPosts(data.posts));
-      })();
-   }, [token, dispatch, id, customFetch]);
+    useEffect(() => {
+        (async () => {
+            const data = await customFetch(fetchPosts, token, id);
+            if (data) dispatch(setPosts(data.posts));
+        })();
+    }, [token, dispatch, id, customFetch]);
 
-   return (
-      <section className="profile">
-         <article className="profile__left">
-            <ProfileCard id={id} isOwnProfile={isOwnProfile} />
-            <Gallery />
-         </article>
-         <article className="profile__center">
-            <div>
-               {isOwnProfile && <CreatePost />}
-               {posts.length < 1 && <h2>No Posts</h2>}
-               {posts.map(post => (
-                  <Post post={post} key={post._id} />
-               ))}
-            </div>
-         </article>
-         <article
-            className={isSidebarVisible ? "profile__right visible" : "profile__right"}
-         >
-            <Online />
-         </article>
-      </section>
-   );
+    return (
+        <section className="profile">
+            <article className="profile__left">
+                <ProfileCard id={id} isOwnProfile={isOwnProfile} />
+                <Gallery />
+            </article>
+            <article className="profile__center">
+                <div>
+                    {isOwnProfile && <CreatePost />}
+                    {posts.length < 1 && <h2>No Posts</h2>}
+                    {posts.map(post => (
+                        <Post post={post} key={post._id} />
+                    ))}
+                </div>
+            </article>
+            <article className="profile__right">
+                <Online />
+            </article>
+        </section>
+    );
 };
 
 export default Profile;

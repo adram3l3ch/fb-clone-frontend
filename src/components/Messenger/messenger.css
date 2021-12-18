@@ -28,10 +28,9 @@
 }
 
 .chat__page__messenger header p {
-    font-size: 0.6rem;
-    font-weight: 300;
+    font-size: 0.7rem;
     opacity: 0.5;
-    margin-top: -2px;
+    margin-top: -4px;
 }
 
 .chat__page__messenger main {

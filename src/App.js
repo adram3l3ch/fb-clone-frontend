@@ -15,59 +15,68 @@ import Loading from "./components/Loading/Loading.jsx";
 import { io } from "socket.io-client";
 import Chat from "./pages/Chat/Chat.jsx";
 import Messenger from "./pages/Messenger/Messenger.jsx";
+import Online from "./components/Online/Online.jsx";
+import { hideModal, showModal } from "./features/modalSlice.js";
 
 function App() {
-   const dispatch = useDispatch();
-   const {
-      user: { id },
-      modal: { isLoading },
-      socket: { socket },
-   } = useSelector(state => state);
+    const dispatch = useDispatch();
+    const {
+        user: { id },
+        modal: { isLoading, isSidebarVisible },
+        socket: { socket },
+    } = useSelector(state => state);
 
-   useEffect(() => {
-      const user = Cookies.get("user");
-      user && dispatch(login(JSON.parse(user)));
-   }, [dispatch]);
+    useEffect(() => {
+        const user = Cookies.get("user");
+        user && dispatch(login(JSON.parse(user)));
+    }, [dispatch]);
 
-   useEffect(() => {
-      if (id) {
-         // dispatch(setSocket(io("http://localhost:5000")));
-         dispatch(setSocket(io("https://adramelech-fb-clone.herokuapp.com")));
-      }
-   }, [id, dispatch]);
+    useEffect(() => {
+        if (id) {
+            // dispatch(setSocket(io("http://localhost:5000")));
+            dispatch(setSocket(io("https://adramelech-fb-clone.herokuapp.com")));
+        }
+    }, [id, dispatch]);
 
-   useEffect(() => {
-      if (socket) {
-         socket.emit("add user", id);
-         socket.on("usersOnline", users => {
-            dispatch(usersOnline(users));
-         });
-      }
-   }, [socket, id, dispatch]);
+    useEffect(() => {
+        if (socket) {
+            socket.emit("add user", id);
+            socket.on("usersOnline", users => {
+                dispatch(usersOnline(users));
+            });
+            socket.on("receive message", () => {
+                dispatch(showModal("1 new message"));
+                setTimeout(() => dispatch(hideModal()), 4000);
+            });
+        }
+    }, [socket, id, dispatch]);
 
-   return (
-      <Router>
-         <div className="container">
-            {isLoading && <Loading />}
-            <Modal />
-            {!id ? (
-               <Auth />
-            ) : (
-               <>
-                  <Appbar />
-                  <Routes>
-                     <Route path="/" element={<Home />} />
-                     <Route path="/post/:id" element={<SinglePost />} />
-                     <Route path="/user/:id" element={<Profile />} />
-                     <Route path="/chat" element={<Chat />} />
-                     <Route path="/chat/messenger" element={<Messenger />} />
-                     <Route path="*" element={<NotFound />} />
-                  </Routes>
-               </>
-            )}
-         </div>
-      </Router>
-   );
+    return (
+        <Router>
+            <div className="container">
+                {isLoading && <Loading />}
+                <Modal />
+                {!id ? (
+                    <Auth />
+                ) : (
+                    <>
+                        <Appbar />
+                        <div className={isSidebarVisible ? "sidebar visible" : "sidebar"}>
+                            <Online />
+                        </div>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/post/:id" element={<SinglePost />} />
+                            <Route path="/user/:id" element={<Profile />} />
+                            <Route path="/chat" element={<Chat />} />
+                            <Route path="/chat/messenger" element={<Messenger />} />
+                            <Route path="*" element={<NotFound />} />
+                        </Routes>
+                    </>
+                )}
+            </div>
+        </Router>
+    );
 }
 
 export default App;

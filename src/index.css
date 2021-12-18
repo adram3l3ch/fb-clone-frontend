@@ -1,95 +1,110 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&family=Roboto:wght@300;400&display=swap");
 
 :root {
-   --primary-400: #0b0c27;
-   --primary-500: #191a35;
-   --primary-600: #2b2c44;
+    --primary-400: #0b0c27;
+    --primary-500: #191a35;
+    --primary-600: #2b2c44;
 }
 
 *,
 *::after,
 *::before {
-   margin: 0;
-   padding: 0;
-   letter-spacing: 0.1em;
-   box-sizing: border-box;
-   -webkit-tap-highlight-color: transparent;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-   font-family: poppins, sans-serif;
-   -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
-   background-color: var(--primary-400);
+    font-family: poppins, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--primary-400);
 }
 
 img {
-   max-width: 100%;
+    max-width: 100%;
+    display: block;
 }
 
 button,
 input,
 textarea {
-   border: none;
-   outline: none;
-   font-family: inherit;
-   background: none;
-   height: min-content;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    background: none;
 }
 
 button,
 a {
-   cursor: pointer;
-   text-decoration: none;
-   color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 
 .roundimage {
-   aspect-ratio: 1;
-   border-radius: 50%;
-   object-fit: cover;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .container {
-   max-width: 1440px;
-   height: 100vh;
-   min-height: 750px;
-   padding: 2rem;
-   margin-inline: auto;
-   display: flex;
-   flex-direction: column;
-   gap: 2rem;
+    max-width: 1700px;
+    height: 100vh;
+    min-height: 750px;
+    padding: 2rem;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 button:disabled {
-   cursor: not-allowed;
+    cursor: not-allowed;
 }
 
 input::placeholder {
-   font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 .green {
-   position: relative;
+    position: relative;
+}
+
+.sidebar {
+    position: absolute;
+    width: 400px;
+    opacity: 0;
+    z-index: 999;
+    border-radius: 10px;
+    top: 100px;
+    bottom: 10px;
+    left: -40px;
+    transition: all 0.2s linear;
+    pointer-events: none;
 }
 
 .green::after {
-   content: "";
-   position: absolute;
-   width: 30%;
-   aspect-ratio: 1;
-   background-color: rgb(21, 214, 31);
-   border-radius: 50%;
-   right: 0;
-   bottom: 15%;
+    content: "";
+    position: absolute;
+    width: 30%;
+    aspect-ratio: 1;
+    background-color: rgb(21, 214, 31);
+    border-radius: 50%;
+    right: 0;
+    bottom: 0;
 }
 
 @media (max-width: 800px) {
-   :root {
-      font-size: 18px;
-   }
-   .container {
-      padding: 1rem 0.75rem;
-      max-width: 500px;
-   }
+    .container {
+        padding: 1rem 0.75rem;
+        max-width: 500px;
+    }
+    .visible {
+        left: 0;
+        opacity: 1;
+        pointer-events: all;
+        box-shadow: 0 10px 100px rgb(0, 0, 0);
+    }
 }

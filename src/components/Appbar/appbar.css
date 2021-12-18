@@ -1,90 +1,88 @@
 .appbar {
-   display: flex;
-   align-items: center;
-   gap: 1rem;
-   position: relative;
-   z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 3;
 }
 
 .appbar form {
-   display: flex;
-   padding: 0.75rem 1.5rem;
-   background-color: var(--primary-500);
-   width: 50%;
-   max-width: 500px;
-   border-radius: 10px;
-   gap: 1rem;
-   position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-500);
+    width: 50%;
+    max-width: 500px;
+    border-radius: 10px;
+    gap: 1rem;
+    position: relative;
 }
 
 .appbar form button {
-   position: relative;
-   top: 2px;
-   width: 20px;
-   cursor: pointer;
+    width: 20px;
+    cursor: pointer;
 }
 
 .appbar form input {
-   position: relative;
-   top: 2px;
-   color: white;
-   width: 85%;
+    color: white;
+    width: 85%;
 }
 
 .appbar__profile {
-   display: flex;
-   gap: 1rem;
-   align-items: center;
-   margin-left: auto;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-left: auto;
 }
 
 .appbar__profile__dp {
-   width: 40px;
-   aspect-ratio: 1;
-   object-fit: cover;
-   border-radius: 50%;
+    width: 40px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
 }
 .appbar__profile a {
-   height: 40px;
+    height: 40px;
 }
 
 .appbar__profile__logout {
-   width: 30px;
-   height: 30px;
+    width: 22px;
+    margin-bottom: 5px;
 }
 
 .appbar .close {
-   transform: scale(1.5);
-   aspect-ratio: 1;
+    transform: scale(1.5);
+    aspect-ratio: 1;
 }
 
 .hamburger {
-   display: none;
-   width: 30px;
+    display: none;
+    width: 22px;
 }
+
 .hamburger > img {
-   width: 100%;
+    width: 100%;
 }
 
 .appbar__profile .chat {
-   height: 85%;
+    height: 85%;
 }
 
 .appbar a {
-   display: flex;
-   align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 @media (max-width: 800px) {
-   .appbar form {
-      padding: 0.75rem;
-      flex: 1;
-   }
-   .hamburger {
-      display: flex;
-      align-items: center;
-   }
-   .appbar__profile {
-      gap: 1rem;
-   }
+    .appbar form {
+        padding: 0.75rem;
+        flex: 1;
+    }
+    .hamburger {
+        display: flex;
+        align-items: center;
+    }
+    .appbar__profile {
+        gap: 1rem;
+    }
 }

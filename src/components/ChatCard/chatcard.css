@@ -1,38 +1,36 @@
 .chatcard {
-   width: 100%;
-   display: flex;
-   align-items: center;
-   gap: 1rem;
-   color: white;
-   padding: 1rem 1.5rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+    padding: 1rem 1.5rem;
 }
 
 .chatcard:hover,
 .active {
-   background-color: var(--primary-600);
-   cursor: pointer;
+    background-color: var(--primary-600);
+    cursor: pointer;
 }
 
 .chatcard img {
-   height: 2.5rem;
+    height: 2.5rem;
 }
 
 .chatcard div {
-   overflow: hidden;
+    overflow: hidden;
 }
 
 .chatcard h2 {
-   font-weight: 500;
-   font-size: 0.8rem;
+    font-weight: 500;
+    font-size: 0.9rem;
 }
 
 .chatcard p {
-   max-width: 300px;
-   white-space: nowrap;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   font-size: 0.7rem;
-   font-weight: 300;
-   opacity: 0.6;
-   margin-top: 0.2em;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.8rem;
+    opacity: 0.6;
 }

@@ -1,29 +1,26 @@
 .comment {
-   display: flex;
-   align-items: flex-start;
-   gap: 1rem;
-   color: white;
-   margin-bottom: 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: white;
+    margin-bottom: 2rem;
 }
 
 .comment__dp {
-   width: 2rem;
-   aspect-ratio: 1;
-   object-fit: cover;
-   border-radius: 50%;
-   position: relative;
-   top: 3px;
-   flex-shrink: 0;
+    width: 2.5rem;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
 }
 
 .comment h3 {
-   font-size: 0.8rem;
-   font-weight: 400;
+    font-size: 0.85rem;
+    font-weight: 500;
 }
 
 .comment p {
-   margin-top: 0.1em;
-   font-size: 0.75rem;
-   opacity: 0.6;
-   font-weight: 300;
+    font-size: 0.75rem;
+    opacity: 0.5;
 }

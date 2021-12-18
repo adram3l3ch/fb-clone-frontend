@@ -17,18 +17,11 @@
     display: none;
 }
 
-.chat__page .singlepost__right {
-    display: none;
-}
-
 @media (max-width: 800px) {
     .chat__page .chat__page__messenger {
         display: none;
     }
     .messenger {
         padding: 2rem 1rem;
-    }
-    .chat__page .singlepost__right {
-        display: block;
     }
 }

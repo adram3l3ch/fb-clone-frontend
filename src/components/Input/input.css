@@ -1,21 +1,19 @@
 .input__box {
-   background: var(--primary-400);
-   width: 100%;
-   padding: 0.6rem 1rem;
-   border-radius: 10px;
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
+    background: var(--primary-400);
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .input__box > input {
-   color: white;
-   width: 85%;
+    color: white;
+    width: 85%;
 }
 
 .input__box button img {
-   height: 1rem;
-   cursor: pointer;
-   position: relative;
-   top: 2px;
+    height: 1rem;
+    cursor: pointer;
 }
