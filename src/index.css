@@ -81,7 +81,8 @@ input::placeholder {
 	border-radius: 10px;
 	top: 100px;
 	bottom: 10px;
-	left: -40px;
+	left: 0;
+	transform: translateX(-20%);
 	transition: all 0.2s linear;
 	pointer-events: none;
 }
@@ -106,7 +107,7 @@ input::placeholder {
 		display: block;
 	}
 	.visible {
-		left: 0;
+		transform: translateX(0);
 		opacity: 1;
 		pointer-events: all;
 		box-shadow: 0 10px 100px rgb(0, 0, 0);
