@@ -17,7 +17,6 @@ const Home = () => {
 	const customFetch = useFetch();
 
 	useEffect(() => {
-		console.log('fetching');
 		(async () => {
 			const data = await customFetch(fetchPosts, token);
 			if (data) dispatch(setPosts(data.posts));
