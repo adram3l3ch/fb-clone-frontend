@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { commentPost, deletePost, likePost } from '../../API';
-import { popPost, setPosts, setSinglePost } from '../../features/postSlice';
+import { popPost, setPosts, setSinglePost, setUserPosts } from '../../features/postSlice';
 import { dp, likeIcon, likeOutlined } from '../../assets';
 import Input from '../Input/Input';
 import { Link } from 'react-router-dom';
@@ -21,7 +21,7 @@ const Post = ({ singlepost, post }) => {
 
 	//global states
 	const { id } = useSelector(state => state.user);
-	let { posts } = useSelector(state => state.post);
+	let { posts, userPosts } = useSelector(state => state.post);
 	const isOwnPost = id === post.createdBy;
 	const isLiked = post?.likes?.includes(id);
 
@@ -43,6 +43,8 @@ const Post = ({ singlepost, post }) => {
 			} else {
 				let slicedPosts = slicePosts(posts, data);
 				dispatch(setPosts(slicedPosts));
+				if (userPosts.some(_post => _post._id === post._id))
+					dispatch(setUserPosts(slicePosts(userPosts, data)));
 			}
 		}
 	};
