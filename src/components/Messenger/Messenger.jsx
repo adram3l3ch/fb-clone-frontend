@@ -10,7 +10,7 @@ import './messenger.css';
 
 const Messenger = () => {
 	const {
-		user: { token, id },
+		user: { token },
 		message: { messages, conversationID, to },
 		socket: { socket, usersOnline },
 	} = useSelector(state => state);
@@ -31,16 +31,7 @@ const Messenger = () => {
 				if (data) setReceiver(data.user);
 			}
 		})();
-	}, [conversationID, customFetch, dispatch, token, id, to]);
-
-	useEffect(() => {
-		socket?.on('receive message', (message, senderID) => {
-			senderID === to &&
-				dispatch(
-					addMessages({ text: message, send: false, createdAt: String(new Date()) })
-				);
-		});
-	}, [socket, to, dispatch]);
+	}, [conversationID, customFetch, token, to]);
 
 	const submitHandler = async message => {
 		socket.emit('send message', message, to);

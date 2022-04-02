@@ -19,6 +19,7 @@ import Online from './components/Online/Online.jsx';
 import { hideModal, showModal } from './features/modalSlice.js';
 import useFetch from './hooks/useFetch.js';
 import { fetchUsers } from './API.js';
+import { addMessages } from './features/messageSlice.js';
 
 function App() {
 	const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function App() {
 		user: { id, token },
 		modal: { isLoading, isSidebarVisible },
 		socket: { socket },
+		message: { to },
 	} = useSelector(state => state);
 
 	useEffect(() => {
@@ -55,17 +57,21 @@ function App() {
 	}, [id, dispatch]);
 
 	useEffect(() => {
-		if (socket) {
+		if (socket && to) {
 			socket.emit('add user', id);
 			socket.on('usersOnline', users => {
 				dispatch(usersOnline(users));
 			});
-			socket.on('receive message', () => {
+			socket.on('receive message', (message, senderID) => {
 				dispatch(showModal('1 new message'));
 				setTimeout(() => dispatch(hideModal()), 4000);
+				senderID === to &&
+					dispatch(
+						addMessages({ text: message, send: false, createdAt: String(new Date()) })
+					);
 			});
 		}
-	}, [socket, id, dispatch]);
+	}, [socket, id, dispatch, to]);
 
 	return (
 		<div className='container'>
