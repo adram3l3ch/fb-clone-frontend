@@ -1,31 +1,40 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-   conversationID: "",
-   to: "",
-   messages: [],
+	conversationID: '',
+	to: '',
+	messages: [],
 };
 
 const messageSlice = createSlice({
-   name: "message",
-   initialState,
-   reducers: {
-      addMessages: (state, action) => {
-         state.messages = [...state.messages, action.payload];
-      },
-      clearMessage: (state, action) => {
-         state.messages = [];
-      },
-      setChatID: (state, action) => {
-         state.conversationID = action.payload;
-      },
-      setReceiverID: (state, action) => {
-         state.to = action.payload;
-      },
-   },
+	name: 'message',
+	initialState,
+	reducers: {
+		addMessages: (state, action) => {
+			state.messages = [...state.messages, action.payload];
+		},
+		clearMessage: (state, action) => {
+			state.messages = [];
+		},
+		setChatID: (state, action) => {
+			state.conversationID = action.payload;
+		},
+		setReceiverID: (state, action) => {
+			state.to = action.payload;
+		},
+		setMessages: (state, action) => {
+			state.messages = action.payload.messages.map(message => {
+				return {
+					text: message.text,
+					send: message.sender === action.payload.id,
+					createdAt: message.createdAt,
+				};
+			});
+		},
+	},
 });
 
-export const { addMessages, clearMessage, setChatID, setReceiverID } =
-   messageSlice.actions;
+export const { addMessages, clearMessage, setChatID, setReceiverID, setMessages } =
+	messageSlice.actions;
 
 export default messageSlice.reducer;
