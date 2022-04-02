@@ -40,7 +40,8 @@ const Messenger = () => {
 					addMessages({ text: message, send: false, createdAt: String(new Date()) })
 				);
 		});
-	}, [socket, dispatch, to]);
+		//eslint-disable-next-line
+	}, []);
 
 	const submitHandler = async message => {
 		socket.emit('send message', message, to);

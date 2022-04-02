@@ -49,7 +49,7 @@ function App() {
 
 	useEffect(() => {
 		if (id) {
-			// dispatch(setSocket(io("http://localhost:5000")));
+			// dispatch(setSocket(io('http://localhost:5000')));
 			dispatch(setSocket(io('https://adramelech-fb-clone.herokuapp.com')));
 		}
 	}, [id, dispatch]);
