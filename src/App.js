@@ -57,19 +57,25 @@ function App() {
 	}, [id, dispatch]);
 
 	useEffect(() => {
-		if (socket && to) {
+		if (socket) {
 			socket.emit('add user', id);
 			socket.on('usersOnline', users => {
 				dispatch(usersOnline(users));
 			});
-			socket.on('receive message', (message, senderID) => {
-				dispatch(showModal('1 new message'));
-				setTimeout(() => dispatch(hideModal()), 4000);
-				senderID === to &&
-					dispatch(
-						addMessages({ text: message, send: false, createdAt: String(new Date()) })
-					);
-			});
+			if (to) {
+				socket.on('receive message', (message, senderID) => {
+					dispatch(showModal('1 new message'));
+					setTimeout(() => dispatch(hideModal()), 4000);
+					senderID === to &&
+						dispatch(
+							addMessages({
+								text: message,
+								send: false,
+								createdAt: String(new Date()),
+							})
+						);
+				});
+			}
 		}
 	}, [socket, id, dispatch, to]);
 
