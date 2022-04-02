@@ -64,6 +64,11 @@ const Post = ({ singlepost, post }) => {
 		setTimeout(() => dispatch(hideModal()), 4000);
 	};
 
+	const getParagraphs = text => {
+		const paragraphArray = text.split(/[\n\r]/g);
+		return paragraphArray.map(para => para && <p className='post__caption'>{para}</p>);
+	};
+
 	return (
 		<article className={singlepost ? 'post halfborder' : 'post'}>
 			<header>
@@ -81,7 +86,7 @@ const Post = ({ singlepost, post }) => {
 				{isOwnPost && <Options deleteHandler={deleteHandler} />}
 			</header>
 			<Link to={`/post/${post._id}`} className='post__details'>
-				{post.caption && <p className='post__caption'>{post.caption}</p>}
+				{post.caption && getParagraphs(post.caption)}
 				{post.image?.src && (
 					<img src={post.image?.src} alt='post_image' className='post__image' />
 				)}
