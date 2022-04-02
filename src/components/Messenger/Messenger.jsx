@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
-import { createMessage, fetchMessage, fetchUser } from '../../API';
+import { createMessage, fetchUser } from '../../API';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessages, clearMessage, setMessages } from '../../features/messageSlice';
+import { addMessages } from '../../features/messageSlice';
 import SingleChat from '../SingleChat/SingleChat';
 import Input from '../Input/Input';
 import { dp } from '../../assets';
@@ -29,9 +29,6 @@ const Messenger = () => {
 			if (conversationID) {
 				let data = await customFetch(fetchUser, to, token);
 				if (data) setReceiver(data.user);
-				data = await customFetch(fetchMessage, conversationID, token);
-				dispatch(clearMessage());
-				dispatch(setMessages({ messages: data.message, id }));
 			}
 		})();
 	}, [conversationID, customFetch, dispatch, token, id, to]);

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dp } from '../../assets';
-import { setChatID, setReceiverID } from '../../features/messageSlice';
+import { clearMessage, setChatID, setMessages, setReceiverID } from '../../features/messageSlice';
 import { useNavigate } from 'react-router-dom';
 import './chatcard.css';
+import useFetch from '../../hooks/useFetch';
+import { fetchMessage } from '../../API';
 
 const ChatCard = ({ chat, users }) => {
-	const { id } = useSelector(state => state.user);
+	const { id, token } = useSelector(state => state.user);
 	const {
 		message: { conversationID },
 		socket: { usersOnline },
@@ -18,6 +20,7 @@ const ChatCard = ({ chat, users }) => {
 	const active = conversationID === chat._id;
 
 	const dispatch = useDispatch();
+	const customFetch = useFetch();
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -27,7 +30,11 @@ const ChatCard = ({ chat, users }) => {
 	const setChat = () => {
 		dispatch(setChatID(chat._id));
 		dispatch(setReceiverID(receiverId));
-		if (window.innerWidth < 801) navigate('/chat/messenger');
+		customFetch(fetchMessage, chat._id, token).then(data => {
+			dispatch(clearMessage());
+			dispatch(setMessages({ messages: data.message, id }));
+			if (window.innerWidth < 801) navigate('/chat/messenger');
+		});
 	};
 
 	return (
