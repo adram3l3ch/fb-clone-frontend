@@ -11,7 +11,7 @@ const useFetch = () => {
 			try {
 				return await callback(...props);
 			} catch (error) {
-				if (error.response.status === 404) navigate('/not-found');
+				if (error.response?.status === 404) navigate('/not-found');
 				const { msg } = error.response?.data || 'Something went wrong';
 				dispatch(showModal(msg));
 				setTimeout(() => dispatch(hideModal()), 3000);
