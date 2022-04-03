@@ -62,19 +62,19 @@ p {
 .post__reactions {
 	display: flex;
 	align-items: center;
-	gap: 1rem;
+	gap: 0.5rem;
 	width: 50%;
 	flex-shrink: 0;
 }
 
 .post__reactions img {
-	height: 25px;
+	height: 23px;
 	cursor: pointer;
 }
 
 .post__reactions p {
 	transform: translateY(3px);
-	font-size: 1rem;
+	font-size: 0.9rem;
 	font-weight: 400;
 }
 
