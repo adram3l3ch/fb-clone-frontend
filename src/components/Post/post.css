@@ -1,95 +1,94 @@
 h3 {
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-bottom: 0.2em;
+	font-size: 0.9rem;
+	font-weight: 500;
+	margin-bottom: 0.2em;
 }
 
 p {
-    font-size: 0.9rem;
+	font-size: 0.9rem;
 }
 
 .post header p {
-    font-size: 0.7rem;
-    margin-top: -3px;
-    opacity: 0.4;
+	font-size: 0.7rem;
+	margin-top: -3px;
+	opacity: 0.4;
 }
 
 .post {
-    background: var(--primary-500);
-    padding: 2rem 1.5rem;
-    color: white;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+	background: var(--primary-500);
+	padding: 2rem 1.5rem;
+	color: white;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
 
 .halfborder {
-    border-radius: 10px 0 0 10px;
+	border-radius: 10px 0 0 10px;
 }
 
 .post__dp {
-    width: 2.5rem;
+	width: 2.5rem;
 }
 
 .post > header {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
 }
 
 .post__details {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
 }
 
 .post__image {
-    max-height: 450px;
-    width: 100%;
-    border-radius: 10px;
-    object-fit: contain;
-    background-color: var(--primary-600);
+	max-height: 450px;
+	width: 100%;
+	border-radius: 10px;
+	object-fit: contain;
+	background-color: var(--primary-600);
 }
 
 .post__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 0.5rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 0.5rem;
 }
 
 .post__reactions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 50%;
-    flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	width: 50%;
+	flex-shrink: 0;
 }
 
 .post__reactions img {
-    height: 25px;
-    cursor: pointer;
+	height: 25px;
+	cursor: pointer;
 }
 
 .post__reactions p {
-    position: relative;
-    top: 1.5px;
-    font-size: 1rem;
-    font-weight: 400;
+	transform: translateY(3px);
+	font-size: 1rem;
+	font-weight: 400;
 }
 
 @media (max-width: 1100px) {
-    .post__reactions {
-        width: 25%;
-    }
+	.post__reactions {
+		width: 25%;
+	}
 }
 
 @media (max-width: 800px) {
-    .halfborder {
-        border-radius: 10px;
-    }
-    .post {
-        padding: 1rem;
-    }
+	.halfborder {
+		border-radius: 10px;
+	}
+	.post {
+		padding: 1rem;
+	}
 }

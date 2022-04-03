@@ -44,6 +44,15 @@ const Post = ({ singlepost, post }) => {
 		);
 	};
 
+	const likes = () => {
+		if (post.likes.length) {
+			return post.likes.includes(id)
+				? `You and ${post.likes.length - 1} others`
+				: post.likes.length;
+		}
+		return false;
+	};
+
 	return (
 		<article className={singlepost ? 'post halfborder' : 'post'}>
 			<header>
@@ -69,7 +78,7 @@ const Post = ({ singlepost, post }) => {
 			<div className='post__footer'>
 				<div className='post__reactions'>
 					<img src={isLiked ? likeIcon : likeOutlined} alt='like' onClick={likeHandler} />
-					<p>{post.likes.length || ''}</p>
+					<p>{likes() || ''}</p>
 				</div>
 				{singlepost || (
 					<Input placeholder={'Write a comment...'} handler={commentHandler} />
