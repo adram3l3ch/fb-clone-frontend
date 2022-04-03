@@ -11,7 +11,7 @@ const ChatCard = ({ chat, users }) => {
 	const { id, token } = useSelector(state => state.user);
 	const {
 		message: { conversationID },
-		socket: { usersOnline },
+		users: { usersOnline },
 	} = useSelector(state => state);
 
 	const [receiver, setReceiver] = useState({});

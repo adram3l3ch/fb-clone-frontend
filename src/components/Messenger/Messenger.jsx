@@ -12,7 +12,8 @@ const Messenger = () => {
 	const {
 		user: { token },
 		message: { messages, conversationID, to },
-		socket: { socket, usersOnline },
+		socket: { socket },
+		users: { usersOnline },
 	} = useSelector(state => state);
 
 	const customFetch = useFetch();

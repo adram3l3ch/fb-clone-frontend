@@ -6,13 +6,14 @@ const SingleChat = ({ message, index, messages }) => {
 	const today = new Date();
 	const createdAt = new Date(message.createdAt);
 	const prevMessageDate = messages[index - 1] && new Date(messages[index - 1]?.createdAt);
-	const oneDay = 24 * 60 * 60 * 1000;
 	const diff = today.getDate() - createdAt.getDate();
 	const formatedDate = useDate(createdAt);
 
 	const date = diff === 1 ? 'YESTERDAY' : diff === 0 ? 'TODAY' : formatedDate;
 	const showDate = prevMessageDate
-		? Math.floor((createdAt - prevMessageDate) / oneDay) > 0
+		? createdAt.getDate() - prevMessageDate.getDate() > 0
+			? true
+			: false
 		: true;
 
 	const getTime = () => {
