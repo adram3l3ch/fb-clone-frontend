@@ -66,7 +66,6 @@ function App() {
 				dispatch(updateChats({ lastMessage: message, id: senderID, customFetch }));
 				senderID === to && dispatch(addMessages({ text: message }));
 			});
-			return () => socket.off();
 		}
 		// eslint-disable-next-line
 	}, [socket, id, dispatch, customFetch]);
