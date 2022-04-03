@@ -22,10 +22,10 @@ const ChatCard = ({ chat }) => {
 	const navigate = useNavigate();
 
 	const setChat = () => {
-		dispatch(setChatID(chat._id));
 		dispatch(setReceiverID(userDetails._id));
 		customFetch(fetchMessage, chat._id, token).then(data => {
 			dispatch(clearMessage());
+			dispatch(setChatID(chat._id));
 			dispatch(setMessages({ messages: data.message, id }));
 			if (window.innerWidth < 801) navigate('/chat/messenger');
 		});

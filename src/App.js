@@ -34,11 +34,13 @@ function App() {
 		message: { to },
 	} = useSelector(state => state);
 
+	//login
 	useEffect(() => {
 		const user = Cookies.get('user');
 		user && dispatch(login(JSON.parse(user)));
 	}, [dispatch]);
 
+	//get users and chats
 	useEffect(() => {
 		if (token) {
 			dispatch(getUsers({ customFetch }));
@@ -46,6 +48,7 @@ function App() {
 		}
 	}, [token, customFetch, dispatch]);
 
+	//init socket
 	useEffect(() => {
 		if (id) {
 			// dispatch(setSocket(io('http://localhost:5000')));
@@ -53,6 +56,7 @@ function App() {
 		}
 	}, [id, dispatch]);
 
+	//socket events
 	useEffect(() => {
 		if (socket) {
 			socket.emit('add user', id);
@@ -62,6 +66,7 @@ function App() {
 				dispatch(updateChats({ lastMessage: message, id: senderID, customFetch }));
 				senderID === to && dispatch(addMessages({ text: message }));
 			});
+			return () => socket.off();
 		}
 		// eslint-disable-next-line
 	}, [socket, id, dispatch, customFetch]);
