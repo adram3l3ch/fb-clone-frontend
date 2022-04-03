@@ -79,8 +79,13 @@ p {
 }
 
 @media (max-width: 1100px) {
+	.post__footer {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 1rem;
+	}
 	.post__reactions {
-		width: 25%;
+		width: 100%;
 	}
 }
 
