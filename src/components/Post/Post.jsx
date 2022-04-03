@@ -6,7 +6,7 @@ import { popPost, setPosts, setSinglePost, setUserPosts } from '../../features/p
 import { dp, likeIcon, likeOutlined } from '../../assets';
 import Input from '../Input/Input';
 import { Link } from 'react-router-dom';
-import { hideModal, showModal } from '../../features/modalSlice';
+import { showModal } from '../../features/modalSlice';
 import useFetch from '../../hooks/useFetch';
 import useDate from '../../hooks/useDate';
 import './post.css';
@@ -58,10 +58,10 @@ const Post = ({ singlepost, post }) => {
 	};
 
 	const deleteHandler = async () => {
+		dispatch(showModal({}));
 		await customFetch(deletePost, post._id, token);
 		dispatch(popPost(post._id));
-		dispatch(showModal('Deleted'));
-		setTimeout(() => dispatch(hideModal()), 4000);
+		dispatch(showModal({ msg: 'Deleted' }));
 	};
 
 	const getParagraphs = text => {

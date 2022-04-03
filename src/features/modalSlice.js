@@ -1,32 +1,58 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-   msg: "",
-   visible: false,
-   isSidebarVisible: false,
-   isLoading: false,
+	msg: '',
+	visible: false,
+	isSidebarVisible: false,
+	isLoading: false,
 };
 
+let timeout;
+
+const hide = dispatch => {
+	clearTimeout(timeout);
+	return new Promise(
+		resolve =>
+			(timeout = setTimeout(() => {
+				dispatch(modalSlice.actions.hideModal());
+				resolve();
+			}, 4000))
+	);
+};
+
+export const showModal = createAsyncThunk(
+	'/modal/show',
+	async ({ msg }, { fulfillWithValue, dispatch }) => {
+		hide(dispatch);
+		return fulfillWithValue({
+			msg: msg || "Hold on I swear it won't take so long",
+			visible: true,
+		});
+	}
+);
+
 const modalSlice = createSlice({
-   name: "modal",
-   initialState,
-   reducers: {
-      showModal: (state, action) => {
-         state.msg = action.payload;
-         state.visible = true;
-      },
-      hideModal: state => {
-         state.visible = false;
-      },
-      toggleSidebar: (state, action) => {
-         state.isSidebarVisible = action.payload;
-      },
-      setIsLoading: (state, action) => {
-         state.isLoading = action.payload;
-      },
-   },
+	name: 'modal',
+	initialState,
+	reducers: {
+		hideModal: state => {
+			state.visible = false;
+		},
+		toggleSidebar: (state, action) => {
+			state.isSidebarVisible = action.payload;
+		},
+		setIsLoading: (state, action) => {
+			state.isLoading = action.payload;
+		},
+	},
+	extraReducers: {
+		[showModal.fulfilled]: (state, action) => {
+			state.msg = action.payload.msg;
+			state.visible = action.payload.visible;
+		},
+	},
 });
 
-export const { showModal, hideModal, toggleSidebar, setIsLoading } = modalSlice.actions;
+export const { hideModal, toggleSidebar, setIsLoading } = modalSlice.actions;
 
 export default modalSlice.reducer;

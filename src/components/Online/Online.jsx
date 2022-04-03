@@ -7,10 +7,14 @@ import './online.css';
 
 const Online = () => {
 	const {
-		socket: { usersOnline, users },
+		users: { usersOnline, users },
 	} = useSelector(state => state);
 
 	const dispatch = useDispatch();
+
+	const isOnline = user => {
+		return usersOnline.some(u => u.id === user._id);
+	};
 
 	return (
 		<section className='online'>
@@ -25,9 +29,7 @@ const Online = () => {
 						}}
 					>
 						<div className='user'>
-							<div
-								className={usersOnline.some(u => u.id === user._id) ? 'green' : ''}
-							>
+							<div className={isOnline(user) ? 'green' : ''}>
 								<img
 									src={user.profileImage || dp}
 									alt={user.name + ' image'}

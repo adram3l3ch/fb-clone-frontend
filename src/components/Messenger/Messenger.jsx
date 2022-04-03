@@ -35,7 +35,7 @@ const Messenger = () => {
 
 	const submitHandler = async message => {
 		socket.emit('send message', message, to);
-		dispatch(addMessages({ text: message, send: true, createdAt: String(new Date()) }));
+		dispatch(addMessages({ text: message, send: true }));
 		await customFetch(createMessage, conversationID, message, token);
 	};
 

@@ -2,8 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	socket: null,
-	usersOnline: [],
-	users: [],
 };
 
 const socketSlice = createSlice({
@@ -13,15 +11,9 @@ const socketSlice = createSlice({
 		setSocket: (state, action) => {
 			state.socket = action.payload;
 		},
-		usersOnline: (state, action) => {
-			state.usersOnline = action.payload;
-		},
-		setUsers: (state, action) => {
-			state.users = action.payload;
-		},
 	},
 });
 
-export const { setSocket, usersOnline, setUsers } = socketSlice.actions;
+export const { setSocket } = socketSlice.actions;
 
 export default socketSlice.reducer;

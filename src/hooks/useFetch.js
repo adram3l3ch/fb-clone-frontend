@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { hideModal, showModal } from '../features/modalSlice';
+import { showModal } from '../features/modalSlice';
 
 const useFetch = () => {
 	const dispatch = useDispatch();
@@ -13,8 +13,7 @@ const useFetch = () => {
 			} catch (error) {
 				if (error.response?.status === 404) navigate('/not-found');
 				const { msg } = error.response?.data || 'Something went wrong';
-				dispatch(showModal(msg));
-				setTimeout(() => dispatch(hideModal()), 3000);
+				dispatch(showModal({ msg }));
 			}
 		},
 		//if I add navigate here, it will be re-rendered every time

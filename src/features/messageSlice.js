@@ -11,7 +11,14 @@ const messageSlice = createSlice({
 	initialState,
 	reducers: {
 		addMessages: (state, action) => {
-			state.messages = [...state.messages, action.payload];
+			state.messages = [
+				...state.messages,
+				{
+					text: action.payload.text,
+					send: action.payload.send || false,
+					createdAt: String(new Date()),
+				},
+			];
 		},
 		clearMessage: (state, action) => {
 			state.messages = [];
