@@ -58,7 +58,7 @@ function App() {
 			socket.on('usersOnline', users => dispatch(addOnline(users)));
 			socket.on('receive message', (message, senderID) => {
 				dispatch(showModal({ msg: '1 new message' }));
-				to && senderID === to && dispatch(addMessages({ text: message }));
+				senderID === to && dispatch(addMessages({ text: message }));
 			});
 		}
 	}, [socket, id, dispatch, to]);
