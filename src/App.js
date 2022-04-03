@@ -59,12 +59,7 @@ function App() {
 			if (to) {
 				socket.on('receive message', (message, senderID) => {
 					dispatch(showModal({ msg: '1 new message' }));
-					senderID === to &&
-						dispatch(
-							addMessages({
-								text: message,
-							})
-						);
+					senderID === to && dispatch(addMessages({ text: message }));
 				});
 			}
 		}

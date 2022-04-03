@@ -10,10 +10,7 @@ const initialState = {
 };
 
 const slicePosts = (posts, data) => {
-	const index = posts.reduce((acc, post, i) => {
-		if (post._id === data.posts._id) return i;
-		return acc;
-	}, -1);
+	const index = posts.findIndex(post => post._id === data.posts._id);
 	let slicedPosts = [...posts];
 	slicedPosts.splice(index, 1, data.posts);
 	return slicedPosts;
@@ -21,7 +18,7 @@ const slicePosts = (posts, data) => {
 
 export const setPosts = createAsyncThunk(
 	'/post/set',
-	async ({ customFetch }, { getState, fulfillWithValue, rejectWithValue, dispatch }) => {
+	async ({ customFetch }, { getState, rejectWithValue, dispatch }) => {
 		try {
 			const data = await customFetch(fetchPosts, getState().user.token);
 			if (!data) throw new Error();
@@ -58,14 +55,11 @@ export const _likePost = createAsyncThunk(
 		try {
 			const data = await customFetch(likePost, id, user.token, !isLiked);
 			if (!data) throw new Error();
-			if (singlepost) {
-				dispatch(postSlice.actions.setSinglePost(data.posts));
-			} else {
-				let slicedPosts = slicePosts(post.posts, data);
-				dispatch(postSlice.actions.updatePost(slicedPosts));
-				if (post.userPosts.some(_post => _post._id === id))
-					dispatch(postSlice.actions.setUserPosts(slicePosts(post.userPosts, data)));
-			}
+			if (singlepost) dispatch(postSlice.actions.setSinglePost(data.posts));
+			let slicedPosts = slicePosts(post.posts, data);
+			dispatch(postSlice.actions.updatePost(slicedPosts));
+			if (post.userPosts.some(_post => _post._id === id))
+				dispatch(postSlice.actions.setUserPosts(slicePosts(post.userPosts, data)));
 			return;
 		} catch (error) {
 			rejectWithValue(error);
@@ -80,12 +74,9 @@ export const _commentPost = createAsyncThunk(
 		try {
 			const data = await customFetch(commentPost, id, comment, user.token);
 			if (!data) throw new Error();
-			if (singlepost) {
-				dispatch(postSlice.actions.setSinglePost(data.posts));
-			} else {
-				let slicedPosts = slicePosts(post.posts, data);
-				dispatch(postSlice.actions.updatePost(slicedPosts));
-			}
+			if (singlepost) dispatch(postSlice.actions.setSinglePost(data.posts));
+			let slicedPosts = slicePosts(post.posts, data);
+			dispatch(postSlice.actions.updatePost(slicedPosts));
 			return;
 		} catch (error) {
 			rejectWithValue(error);

@@ -5,7 +5,7 @@ import { showModal } from '../features/modalSlice';
 
 const useFetch = () => {
 	const dispatch = useDispatch();
-	const navigate = useCallback(useNavigate, [])();
+	const navigate = useNavigate();
 	return useCallback(
 		async (callback, ...props) => {
 			try {

@@ -34,7 +34,14 @@ const Post = ({ singlepost, post }) => {
 
 	const getParagraphs = text => {
 		const paragraphArray = text.split(/[\n\r]/g);
-		return paragraphArray.map(para => para && <p className='post__caption'>{para}</p>);
+		return paragraphArray.map(
+			(para, i) =>
+				para && (
+					<p className='post__caption' key={i}>
+						{para}
+					</p>
+				)
+		);
 	};
 
 	return (
