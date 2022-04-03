@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import useFetch from '../../hooks/useFetch';
-import { createMessage, fetchUser } from '../../API';
+import { createMessage } from '../../API';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessages } from '../../features/messageSlice';
+import { addMessages, updateChats } from '../../features/messageSlice';
 import SingleChat from '../SingleChat/SingleChat';
 import Input from '../Input/Input';
 import { dp } from '../../assets';
@@ -11,32 +11,25 @@ import './messenger.css';
 const Messenger = () => {
 	const {
 		user: { token },
-		message: { messages, conversationID, to },
+		message: { messages, conversationID, to, chats },
 		socket: { socket },
 		users: { usersOnline },
 	} = useSelector(state => state);
 
+	const { userDetails } = chats?.find(chat => chat._id === conversationID) || {};
+
 	const customFetch = useFetch();
 	const dispatch = useDispatch();
 	const scroll = useRef();
-	const [receiver, setReceiver] = useState({});
 
 	useEffect(() => {
 		if (scroll.current) scroll.current.scrollTop = scroll.current.scrollHeight;
 	}, [messages]);
 
-	useEffect(() => {
-		(async () => {
-			if (conversationID) {
-				let data = await customFetch(fetchUser, to, token);
-				if (data) setReceiver(data.user);
-			}
-		})();
-	}, [conversationID, customFetch, token, to]);
-
 	const submitHandler = async message => {
 		socket.emit('send message', message, to);
 		dispatch(addMessages({ text: message, send: true }));
+		dispatch(updateChats({ id: to, lastMessage: message, customFetch }));
 		await customFetch(createMessage, conversationID, message, token);
 	};
 
@@ -45,10 +38,10 @@ const Messenger = () => {
 			{conversationID ? (
 				<>
 					<header>
-						<img src={receiver.profileImage || dp} alt='chatIcon' />
+						<img src={userDetails.profileImage || dp} alt='chatIcon' />
 						<div>
-							<h3>{receiver.name}</h3>
-							{usersOnline.some(u => u.id === receiver._id) && <p>Online</p>}
+							<h3>{userDetails.name}</h3>
+							{usersOnline.some(u => u.id === userDetails._id) && <p>Online</p>}
 						</div>
 					</header>
 					<main ref={scroll}>

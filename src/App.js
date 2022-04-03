@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from './features/userSlice.js';
 import { setSocket } from './features/socketSlice';
 import { showModal } from './features/modalSlice.js';
-import { addMessages } from './features/messageSlice.js';
+import { addMessages, updateChats, _getChats } from './features/messageSlice.js';
 //components
 import SinglePost from './pages/Singlepost/SinglePost.jsx';
 import Profile from './pages/Profile/Profile.jsx';
@@ -42,6 +42,7 @@ function App() {
 	useEffect(() => {
 		if (token) {
 			dispatch(getUsers({ customFetch }));
+			dispatch(_getChats({ customFetch }));
 		}
 	}, [token, customFetch, dispatch]);
 
@@ -58,10 +59,12 @@ function App() {
 			socket.on('usersOnline', users => dispatch(addOnline(users)));
 			socket.on('receive message', (message, senderID) => {
 				dispatch(showModal({ msg: '1 new message' }));
+				dispatch(updateChats({ lastMessage: message, id: senderID, customFetch }));
 				senderID === to && dispatch(addMessages({ text: message }));
 			});
 		}
-	}, [socket, id, dispatch, to]);
+		// eslint-disable-next-line
+	}, [socket, id, dispatch, customFetch]);
 
 	return (
 		<div className='container'>
