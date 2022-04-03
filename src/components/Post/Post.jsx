@@ -1,19 +1,15 @@
-import Cookies from 'js-cookie';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { commentPost, deletePost, likePost } from '../../API';
-import { popPost, setPosts, setSinglePost, setUserPosts } from '../../features/postSlice';
+import { removePost, _commentPost, _likePost } from '../../features/postSlice';
 import { dp, likeIcon, likeOutlined } from '../../assets';
 import Input from '../Input/Input';
 import { Link } from 'react-router-dom';
-import { showModal } from '../../features/modalSlice';
 import useFetch from '../../hooks/useFetch';
 import useDate from '../../hooks/useDate';
 import './post.css';
 import Options from '../Options/Options';
 
 const Post = ({ singlepost, post }) => {
-	const { token } = JSON.parse(Cookies.get('user'));
 	const createdAt = useDate(post.createdAt);
 
 	const dispatch = useDispatch();
@@ -21,47 +17,19 @@ const Post = ({ singlepost, post }) => {
 
 	//global states
 	const { id } = useSelector(state => state.user);
-	let { posts, userPosts } = useSelector(state => state.post);
 	const isOwnPost = id === post.createdBy;
 	const isLiked = post?.likes?.includes(id);
 
-	const slicePosts = (posts, data) => {
-		const index = posts.reduce((acc, post, i) => {
-			if (post._id === data.posts._id) return i;
-			return acc;
-		}, -1);
-		let slicedPosts = [...posts];
-		slicedPosts.splice(index, 1, data.posts);
-		return slicedPosts;
-	};
-
 	const likeHandler = async () => {
-		const data = await customFetch(likePost, post._id, token, !isLiked);
-		if (data) {
-			if (singlepost) {
-				dispatch(setSinglePost(data.posts));
-			} else {
-				let slicedPosts = slicePosts(posts, data);
-				dispatch(setPosts(slicedPosts));
-				if (userPosts.some(_post => _post._id === post._id))
-					dispatch(setUserPosts(slicePosts(userPosts, data)));
-			}
-		}
+		dispatch(_likePost({ customFetch, id: post._id, isLiked, singlepost }));
 	};
 
 	const commentHandler = async comment => {
-		const data = await await customFetch(commentPost, post._id, comment, token);
-		if (data) {
-			let slicedPosts = slicePosts(posts, data);
-			dispatch(setPosts(slicedPosts));
-		}
+		dispatch(_commentPost({ customFetch, id: post._id, comment }));
 	};
 
 	const deleteHandler = async () => {
-		dispatch(showModal({}));
-		await customFetch(deletePost, post._id, token);
-		dispatch(popPost(post._id));
-		dispatch(showModal({ msg: 'Deleted' }));
+		dispatch(removePost({ customFetch, id: post._id }));
 	};
 
 	const getParagraphs = text => {

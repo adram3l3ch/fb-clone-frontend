@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import { sendIcon, fileIcon } from '../../assets';
 import { useDispatch } from 'react-redux';
-import { showModal } from '../../features/modalSlice';
-import { createPost } from '../../API';
-import Cookies from 'js-cookie';
-import { pushPost } from '../../features/postSlice';
+import { addPost } from '../../features/postSlice';
 import useFetch from '../../hooks/useFetch';
 import Compress from 'compress.js';
 import './createpost.css';
 
+const initialForm = { image: null, preview: null, caption: '' };
+
 const CreatePost = () => {
 	// local states
-	const [image, setImage] = useState(null);
-	const [preview, setPreview] = useState(null);
-	const [caption, setCaption] = useState('');
-	const { token } = JSON.parse(Cookies.get('user'));
+	const [form, setForm] = useState(initialForm);
 
 	const dispatch = useDispatch();
 	const customFetch = useFetch();
@@ -24,7 +20,7 @@ const CreatePost = () => {
 		const input = e.target;
 		var reader = new FileReader();
 		reader.onload = function (e) {
-			setPreview(e.target.result);
+			setForm(form => ({ ...form, preview: e.target.result }));
 		};
 		input.files[0] && reader.readAsDataURL(input.files[0]);
 		const files = [...input.files];
@@ -38,24 +34,20 @@ const CreatePost = () => {
 				rotate: false,
 			})
 			.then(data => {
-				setImage(Compress.convertBase64ToFile(data[0]?.data, data[0]?.ext));
+				setForm(form => ({
+					...form,
+					image: Compress.convertBase64ToFile(data[0]?.data, data[0]?.ext),
+				}));
 			});
 	};
 
 	const submitHandler = async e => {
 		e.preventDefault();
 		const formData = new FormData();
-		formData.append('image', image);
-		formData.append('caption', caption);
-		dispatch(showModal({}));
-		const data = await customFetch(createPost, formData, token);
-		if (data) {
-			dispatch(pushPost(data.post));
-			dispatch(showModal({ msg: 'Post Created' }));
-			setImage(null);
-			setPreview(null);
-			setCaption('');
-		}
+		formData.append('image', form.image);
+		formData.append('caption', form.caption);
+		dispatch(addPost({ customFetch, formData }));
+		setForm(initialForm);
 	};
 
 	return (
@@ -63,10 +55,12 @@ const CreatePost = () => {
 			<form onSubmit={submitHandler}>
 				<textarea
 					placeholder="What's on your mind?"
-					value={caption}
-					onChange={e => setCaption(e.target.value)}
+					value={form.caption}
+					onChange={e => setForm({ ...form, caption: e.target.value })}
 				/>
-				{preview && <img src={preview} alt='uploaded file' className='uploaded-image' />}
+				{form.preview && (
+					<img src={form.preview} alt='uploaded file' className='uploaded-image' />
+				)}
 				<div className='btns'>
 					<label htmlFor='image' aria-label='select file'>
 						<div>
