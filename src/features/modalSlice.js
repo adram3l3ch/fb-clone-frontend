@@ -20,16 +20,13 @@ const hide = dispatch => {
 	);
 };
 
-export const showModal = createAsyncThunk(
-	'/modal/show',
-	async ({ msg }, { fulfillWithValue, dispatch }) => {
-		hide(dispatch);
-		return fulfillWithValue({
-			msg: msg || "Hold on I swear it won't take so long",
-			visible: true,
-		});
-	}
-);
+export const showModal = createAsyncThunk('/modal/show', async (props, thunkAPI) => {
+	let { msg } = props;
+	msg = msg || "Hold on I swear it won't take so long";
+	const { fulfillWithValue, dispatch } = thunkAPI;
+	hide(dispatch);
+	return fulfillWithValue({ msg, visible: true });
+});
 
 const modalSlice = createSlice({
 	name: 'modal',

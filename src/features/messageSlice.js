@@ -71,6 +71,9 @@ const messageSlice = createSlice({
 				};
 			});
 		},
+		[_getChats.rejected]: (state, action) => {
+			return state;
+		},
 		[updateChats.fulfilled]: (state, action) => {
 			const updatingChat = state.chats[action.payload.index];
 			state.chats = [

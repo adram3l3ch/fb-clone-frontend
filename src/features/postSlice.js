@@ -16,87 +16,57 @@ const slicePosts = (posts, data) => {
 	return slicedPosts;
 };
 
-export const setPosts = createAsyncThunk(
-	'/post/set',
-	async ({ customFetch }, { getState, rejectWithValue, dispatch }) => {
-		try {
-			const data = await customFetch(fetchPosts, getState().user.token);
-			if (!data) throw new Error();
-			dispatch(postSlice.actions.updatePost(data.posts));
-			return;
-		} catch (err) {
-			return rejectWithValue(err);
-		}
-	}
-);
+export const setPosts = createAsyncThunk('/post/set', async (props, thunkAPI) => {
+	const { customFetch } = props;
+	const { getState, rejectWithValue, dispatch } = thunkAPI;
+	const data = await customFetch(fetchPosts, getState().user.token);
+	if (!data) return rejectWithValue();
+	dispatch(postSlice.actions.updatePost(data.posts));
+	return;
+});
 
-export const addPost = createAsyncThunk(
-	'/post/add',
-	async (
-		{ customFetch, formData },
-		{ fulfillWithValue, dispatch, getState, rejectWithValue }
-	) => {
-		dispatch(showModal({}));
-		try {
-			const data = await customFetch(createPost, formData, getState().user.token);
-			if (!data) throw new Error();
-			dispatch(showModal({ msg: 'Post created' }));
-			return fulfillWithValue(data.post);
-		} catch (err) {
-			return rejectWithValue(err);
-		}
-	}
-);
+export const addPost = createAsyncThunk('/post/add', async (props, thunkAPI) => {
+	const { customFetch, formData } = props;
+	const { fulfillWithValue, dispatch, getState, rejectWithValue } = thunkAPI;
+	dispatch(showModal({}));
+	const data = await customFetch(createPost, formData, getState().user.token);
+	if (!data) return rejectWithValue();
+	dispatch(showModal({ msg: 'Post created' }));
+	return fulfillWithValue(data.post);
+});
 
-export const _likePost = createAsyncThunk(
-	'post/like',
-	async ({ customFetch, id, isLiked, singlepost }, { getState, dispatch, rejectWithValue }) => {
-		const { user, post } = getState();
-		try {
-			const data = await customFetch(likePost, id, user.token, !isLiked);
-			if (!data) throw new Error();
-			if (singlepost) dispatch(postSlice.actions.setSinglePost(data.posts));
-			let slicedPosts = slicePosts(post.posts, data);
-			dispatch(postSlice.actions.updatePost(slicedPosts));
-			if (post.userPosts.some(_post => _post._id === id))
-				dispatch(postSlice.actions.setUserPosts(slicePosts(post.userPosts, data)));
-			return;
-		} catch (error) {
-			rejectWithValue(error);
-		}
-	}
-);
+export const _likePost = createAsyncThunk('post/like', async (props, thunkAPI) => {
+	const { customFetch, id, isLiked, singlepost } = props;
+	const { getState, dispatch, rejectWithValue } = thunkAPI;
+	const { user, post } = getState();
+	const data = await customFetch(likePost, id, user.token, !isLiked);
+	if (!data) return rejectWithValue();
+	if (singlepost) dispatch(postSlice.actions.setSinglePost(data.posts));
+	let slicedPosts = slicePosts(post.posts, data);
+	dispatch(postSlice.actions.updatePost(slicedPosts));
+	if (post.userPosts.some(_post => _post._id === id))
+		dispatch(postSlice.actions.setUserPosts(slicePosts(post.userPosts, data)));
+});
 
-export const _commentPost = createAsyncThunk(
-	'post/like',
-	async ({ customFetch, id, comment, singlepost }, { getState, dispatch, rejectWithValue }) => {
-		const { user, post } = getState();
-		try {
-			const data = await customFetch(commentPost, id, comment, user.token);
-			if (!data) throw new Error();
-			if (singlepost) dispatch(postSlice.actions.setSinglePost(data.posts));
-			let slicedPosts = slicePosts(post.posts, data);
-			dispatch(postSlice.actions.updatePost(slicedPosts));
-			return;
-		} catch (error) {
-			rejectWithValue(error);
-		}
-	}
-);
+export const _commentPost = createAsyncThunk('post/like', async (props, thunkAPI) => {
+	const { customFetch, id, comment, singlepost } = props;
+	const { getState, dispatch, rejectWithValue } = thunkAPI;
+	const { user, post } = getState();
+	const data = await customFetch(commentPost, id, comment, user.token);
+	if (!data) return rejectWithValue();
+	if (singlepost) dispatch(postSlice.actions.setSinglePost(data.posts));
+	let slicedPosts = slicePosts(post.posts, data);
+	dispatch(postSlice.actions.updatePost(slicedPosts));
+});
 
-export const removePost = createAsyncThunk(
-	'post/delete',
-	async ({ customFetch, id }, { dispatch, fulfillWithValue, rejectWithValue, getState }) => {
-		dispatch(showModal({}));
-		try {
-			await customFetch(deletePost, id, getState().user.token);
-			dispatch(showModal({ msg: 'Post Deleted' }));
-			return fulfillWithValue(id);
-		} catch (err) {
-			return rejectWithValue(err);
-		}
-	}
-);
+export const removePost = createAsyncThunk('post/delete', async (props, thunkAPI) => {
+	const { customFetch, id } = props;
+	const { dispatch, fulfillWithValue, getState } = thunkAPI;
+	dispatch(showModal({}));
+	await customFetch(deletePost, id, getState().user.token);
+	dispatch(showModal({ msg: 'Post Deleted' }));
+	return fulfillWithValue(id);
+});
 
 const postSlice = createSlice({
 	name: 'post',

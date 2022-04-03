@@ -6,14 +6,14 @@ const initialState = {
 	usersOnline: [],
 };
 
-export const getUsers = createAsyncThunk(
-	'/users/getUsers',
-	async (props, { getState, fulfillWithValue }) => {
-		const { user } = getState();
-		const data = await props.customFetch(fetchUsers, user.token);
-		return fulfillWithValue(data.user);
-	}
-);
+export const getUsers = createAsyncThunk('/users/getUsers', async (props, thunkAPI) => {
+	const { customFetch } = props;
+	const { getState, fulfillWithValue, rejectWithValue } = thunkAPI;
+	const { user } = getState();
+	const data = await customFetch(fetchUsers, user.token);
+	if (!data) return rejectWithValue();
+	return fulfillWithValue(data.user);
+});
 
 const usersSlice = createSlice({
 	name: 'users',
@@ -26,6 +26,9 @@ const usersSlice = createSlice({
 	extraReducers: {
 		[getUsers.fulfilled]: (state, action) => {
 			state.users = action.payload;
+		},
+		[getUsers.rejected]: (state, action) => {
+			return state;
 		},
 	},
 });
