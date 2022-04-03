@@ -61,14 +61,18 @@ function App() {
 		if (socket) {
 			socket.emit('add user', id);
 			socket.on('usersOnline', users => dispatch(addOnline(users)));
-			socket.on('receive message', (message, senderID) => {
+		}
+	}, [socket, id, dispatch]);
+
+	useEffect(() => {
+		if (socket) {
+			socket.off('receive message').on('receive message', (message, senderID) => {
 				dispatch(showModal({ msg: '1 new message' }));
 				dispatch(updateChats({ lastMessage: message, id: senderID, customFetch }));
 				senderID === to && dispatch(addMessages({ text: message }));
 			});
 		}
-		// eslint-disable-next-line
-	}, [socket, id, dispatch, customFetch]);
+	}, [customFetch, dispatch, socket, to]);
 
 	return (
 		<div className='container'>
