@@ -7,7 +7,10 @@ const Options = ({ deleteHandler }) => {
 	const [isOptionsVisible, setIsOptionsVisible] = useState(false);
 
 	const handleOutsideClick = e => {
-		if (!e.target.classList.contains('options')) {
+		if (
+			!e.target.classList.contains('options') &&
+			!e.target.classList.contains('options__icon')
+		) {
 			setIsOptionsVisible(false);
 		}
 	};
@@ -18,7 +21,7 @@ const Options = ({ deleteHandler }) => {
 	});
 	return (
 		<div className='options' onClick={() => setIsOptionsVisible(val => !val)}>
-			<img src={optionsIcon} alt='options' />
+			<img src={optionsIcon} alt='options' className='options__icon' />
 			<ul className={isOptionsVisible ? 'show' : ''}>
 				<li
 					onClick={() => {

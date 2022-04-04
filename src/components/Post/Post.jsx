@@ -57,8 +57,19 @@ const Post = ({ singlepost, post }) => {
 		return false;
 	};
 
+	const postDetails = () => {
+		return (
+			<>
+				{post.caption && getParagraphs(post.caption)}
+				{post.image?.src && (
+					<img src={post.image?.src} alt='post_image' className='post__image' />
+				)}
+			</>
+		);
+	};
+
 	return (
-		<article className={singlepost ? 'post halfborder' : 'post'}>
+		<article className={singlepost ? 'post halfborder single' : 'post'}>
 			<header>
 				<Link to={`/user/${post.createdBy}`}>
 					<img
@@ -73,12 +84,15 @@ const Post = ({ singlepost, post }) => {
 				</div>
 				{isOwnPost && <Options deleteHandler={deleteHandler} />}
 			</header>
-			<Link to={`/post/${post._id}`} className='post__details'>
-				{post.caption && getParagraphs(post.caption)}
-				{post.image?.src && (
-					<img src={post.image?.src} alt='post_image' className='post__image' />
+			<div className='post__details'>
+				{singlepost ? (
+					postDetails()
+				) : (
+					<Link to={`/post/${post._id}`} className='post__details'>
+						{postDetails()}
+					</Link>
 				)}
-			</Link>
+			</div>
 			<div className='post__footer'>
 				<div className='post__reactions'>
 					<img src={isLiked ? likeIcon : likeOutlined} alt='like' onClick={likeHandler} />

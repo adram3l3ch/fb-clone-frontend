@@ -42,10 +42,21 @@ p {
 	display: flex;
 	flex-direction: column;
 	gap: 0.75rem;
+	height: 100%;
+}
+
+.single .post__details {
+	max-height: 700px;
+	overflow: auto;
+	scrollbar-width: 0;
+}
+
+.single .post__details::-webkit-scrollbar {
+	display: none;
 }
 
 .post__image {
-	max-height: 450px;
+	max-height: 700px;
 	width: 100%;
 	border-radius: 10px;
 	object-fit: contain;
@@ -95,5 +106,8 @@ p {
 	}
 	.post {
 		padding: 1rem;
+	}
+	.single .post__details {
+		max-height: initial;
 	}
 }
