@@ -4,7 +4,6 @@ import { dp } from '../../assets';
 import './comment.css';
 
 const Comment = ({ comment, user }) => {
-	console.log(user);
 	return (
 		<div className='comment'>
 			<Link to={`/user/${user?._id}`}>
