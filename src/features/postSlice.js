@@ -16,7 +16,7 @@ const slicePosts = (posts, data) => {
 	return slicedPosts;
 };
 
-export const setPosts = createAsyncThunk('/post/set', async (props, thunkAPI) => {
+export const setPosts = createAsyncThunk('post/set', async (props, thunkAPI) => {
 	const { customFetch } = props;
 	const { getState, rejectWithValue, dispatch } = thunkAPI;
 	const data = await customFetch(fetchPosts, getState().user.token);
@@ -25,7 +25,7 @@ export const setPosts = createAsyncThunk('/post/set', async (props, thunkAPI) =>
 	return;
 });
 
-export const addPost = createAsyncThunk('/post/add', async (props, thunkAPI) => {
+export const addPost = createAsyncThunk('post/add', async (props, thunkAPI) => {
 	const { customFetch, formData } = props;
 	const { fulfillWithValue, dispatch, getState, rejectWithValue } = thunkAPI;
 	dispatch(showModal({}));
@@ -48,7 +48,7 @@ export const _likePost = createAsyncThunk('post/like', async (props, thunkAPI) =
 		dispatch(postSlice.actions.setUserPosts(slicePosts(post.userPosts, data)));
 });
 
-export const _commentPost = createAsyncThunk('post/like', async (props, thunkAPI) => {
+export const _commentPost = createAsyncThunk('post/comment', async (props, thunkAPI) => {
 	const { customFetch, id, comment, singlepost } = props;
 	const { getState, dispatch, rejectWithValue } = thunkAPI;
 	const { user, post } = getState();

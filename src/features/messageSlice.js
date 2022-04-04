@@ -8,7 +8,7 @@ const initialState = {
 	chats: [],
 };
 
-export const _getChats = createAsyncThunk('/message/getChats', async (props, thunkAPI) => {
+export const _getChats = createAsyncThunk('message/getChats', async (props, thunkAPI) => {
 	const { customFetch } = props;
 	const { getState, rejectWithValue, fulfillWithValue } = thunkAPI;
 	const { user } = getState();
@@ -19,7 +19,7 @@ export const _getChats = createAsyncThunk('/message/getChats', async (props, thu
 	return fulfillWithValue({ users: users.user, chats: data.chat });
 });
 
-export const updateChats = createAsyncThunk('/message/updateChat', async (props, thunkAPI) => {
+export const updateChats = createAsyncThunk('message/updateChat', async (props, thunkAPI) => {
 	const { getState, dispatch, fulfillWithValue, rejectWithValue } = thunkAPI;
 	const { lastMessage, id, customFetch } = props;
 	const { message } = getState();

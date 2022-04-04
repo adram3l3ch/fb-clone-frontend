@@ -6,7 +6,7 @@ const initialState = {
 	usersOnline: [],
 };
 
-export const getUsers = createAsyncThunk('/users/getUsers', async (props, thunkAPI) => {
+export const getUsers = createAsyncThunk('users/getUsers', async (props, thunkAPI) => {
 	const { customFetch } = props;
 	const { getState, fulfillWithValue, rejectWithValue } = thunkAPI;
 	const { user } = getState();

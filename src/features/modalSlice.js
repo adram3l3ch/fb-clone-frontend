@@ -20,7 +20,7 @@ const hide = dispatch => {
 	);
 };
 
-export const showModal = createAsyncThunk('/modal/show', async (props, thunkAPI) => {
+export const showModal = createAsyncThunk('modal/show', async (props, thunkAPI) => {
 	let { msg } = props;
 	msg = msg || "Hold on I swear it won't take so long";
 	const { fulfillWithValue, dispatch } = thunkAPI;
