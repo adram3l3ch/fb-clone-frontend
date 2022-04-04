@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import useFetch from '../../hooks/useFetch';
-import { createMessage } from '../../API';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessages, updateChats } from '../../features/messageSlice';
 import SingleChat from '../SingleChat/SingleChat';
@@ -10,7 +9,7 @@ import './messenger.css';
 
 const Messenger = () => {
 	const {
-		user: { token },
+		user: { id },
 		message: { messages, conversationID, to, chats },
 		socket: { socket },
 		users: { usersOnline },
@@ -27,10 +26,9 @@ const Messenger = () => {
 	}, [messages]);
 
 	const submitHandler = async message => {
-		socket.emit('send message', message, to);
+		socket.emit('send message', message, to, conversationID, id);
 		dispatch(addMessages({ text: message, send: true }));
 		dispatch(updateChats({ id: to, lastMessage: message, customFetch }));
-		await customFetch(createMessage, conversationID, message, token);
 	};
 
 	return (
