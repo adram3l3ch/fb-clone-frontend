@@ -1,51 +1,67 @@
 .chat__sent,
 .chat__recieve {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    text-align: left;
-    margin-bottom: 0.2rem;
-    position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+	text-align: left;
+	margin-bottom: 0.2rem;
+	position: relative;
+	transform: translateY(50px);
+	opacity: 0;
+	animation: moveUp 0.2s ease-out forwards;
+}
+
+.messenger h4 {
+	transform: translateY(50px);
+	opacity: 0;
+	animation: moveUp 0.2s ease-out forwards;
+}
+
+@keyframes moveUp {
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }
 
 .chat__sent p,
 .chat__recieve p {
-    padding: 0.5rem 1rem;
-    background: var(--primary-400);
-    border-radius: 10px;
-    max-width: 70%;
-    font-weight: 400;
-    font-size: 0.8rem;
-    position: relative;
+	padding: 0.5rem 1rem;
+	background: var(--primary-400);
+	border-radius: 10px;
+	max-width: 70%;
+	font-weight: 400;
+	font-size: 0.8rem;
+	position: relative;
 }
 
 .chat__sent p {
-    margin-left: auto;
-    max-width: 70%;
+	margin-left: auto;
+	max-width: 70%;
 }
 
 .chat__sent::after,
 .chat__recieve::after {
-    content: "";
-    position: absolute;
-    border: 10px solid transparent;
-    border-top-color: var(--primary-400);
-    left: 0;
-    transform: translateX(-50%);
+	content: '';
+	position: absolute;
+	border: 10px solid transparent;
+	border-top-color: var(--primary-400);
+	left: 0;
+	transform: translateX(-50%);
 }
 .chat__sent::after {
-    left: inherit;
-    right: 0;
-    transform: translateX(50%);
+	left: inherit;
+	right: 0;
+	transform: translateX(50%);
 }
 
 .time {
-    position: absolute;
-    font-size: 0.6rem;
-    right: 0.5em;
-    bottom: -2em;
+	position: absolute;
+	font-size: 0.6rem;
+	right: 0.5em;
+	bottom: -2em;
 }
 
 .chat__recieve .time {
-    left: 0.5em;
+	left: 0.5em;
 }

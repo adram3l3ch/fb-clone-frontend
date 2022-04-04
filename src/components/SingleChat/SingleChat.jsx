@@ -22,10 +22,12 @@ const SingleChat = ({ message, index, messages }) => {
 		}`;
 	};
 
+	const style = { animationDelay: `${index * 0.1}s` };
+
 	return (
 		<>
-			{showDate && <h4>{date}</h4>}
-			<div className={message.send ? 'chat__sent' : 'chat__recieve'}>
+			{showDate && <h4 style={style}>{date}</h4>}
+			<div className={message.send ? 'chat__sent' : 'chat__recieve'} style={style}>
 				<p className='message'>
 					{message.text}
 					<span className='time'>{getTime()}</span>
