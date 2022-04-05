@@ -23,6 +23,7 @@ import Chat from './pages/Chat/Chat.jsx';
 import Messenger from './pages/Messenger/Messenger.jsx';
 import Online from './components/Online/Online.jsx';
 import { addOnline, getUsers } from './features/usersSlice.js';
+import { setPosts } from './features/postSlice.js';
 
 function App() {
 	const dispatch = useDispatch();
@@ -45,6 +46,7 @@ function App() {
 		if (token) {
 			dispatch(getUsers({ customFetch }));
 			dispatch(_getChats({ customFetch }));
+			dispatch(setPosts({ customFetch }));
 		}
 	}, [token, customFetch, dispatch]);
 
