@@ -113,3 +113,9 @@ input::placeholder {
 		box-shadow: 0 10px 100px rgb(0, 0, 0);
 	}
 }
+
+@media (max-width: 400px) {
+	:root {
+		font-size: calc(1rem - 2px);
+	}
+}

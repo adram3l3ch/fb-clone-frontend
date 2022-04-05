@@ -79,6 +79,9 @@
 }
 
 @media (max-width: 800px) {
+	.appbar {
+		gap: 0.5rem;
+	}
 	.appbar form {
 		padding: 0.75rem;
 		flex: 1;
