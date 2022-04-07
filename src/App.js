@@ -29,7 +29,7 @@ function App() {
 	const dispatch = useDispatch();
 	const customFetch = useFetch();
 	const {
-		user: { id, token },
+		user: { id },
 		modal: { isLoading, isSidebarVisible },
 		socket: { socket },
 		message: { to },
@@ -41,30 +41,24 @@ function App() {
 		user && dispatch(login(JSON.parse(user)));
 	}, [dispatch]);
 
-	//get users and chats
+	//get users and chats and init socket
 	useEffect(() => {
-		if (token) {
+		if (id) {
+			const query = `id=${id}`;
 			dispatch(getUsers({ customFetch }));
 			dispatch(_getChats({ customFetch }));
 			dispatch(setPosts({ customFetch }));
+			dispatch(setSocket(io('https://adramelech-fb-clone.herokuapp.com', { query })));
+			// dispatch(setSocket(io('http://localhost:5000', { query })));
 		}
-	}, [token, customFetch, dispatch]);
-
-	//init socket
-	useEffect(() => {
-		if (id) {
-			// dispatch(setSocket(io('http://localhost:5000')));
-			dispatch(setSocket(io('https://adramelech-fb-clone.herokuapp.com')));
-		}
-	}, [id, dispatch]);
+	}, [id, customFetch, dispatch]);
 
 	//socket events
 	useEffect(() => {
 		if (socket) {
-			socket.emit('add user', id);
 			socket.on('usersOnline', users => dispatch(addOnline(users)));
 		}
-	}, [socket, id, dispatch]);
+	}, [socket, dispatch]);
 
 	useEffect(() => {
 		if (socket) {
