@@ -4,12 +4,15 @@ import { Routes, Route } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import Cookies from 'js-cookie';
 import useFetch from './hooks/useFetch.js';
+import SERVER_URI from './serverUri';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from './features/userSlice.js';
 import { setSocket } from './features/socketSlice';
 import { showModal } from './features/modalSlice.js';
 import { addMessages, updateChats, _getChats } from './features/messageSlice.js';
+import { addOnline, getUsers } from './features/usersSlice.js';
+import { setPosts } from './features/postSlice.js';
 //components
 import SinglePost from './pages/Singlepost/SinglePost.jsx';
 import Profile from './pages/Profile/Profile.jsx';
@@ -22,8 +25,6 @@ import Loading from './components/Loading/Loading.jsx';
 import Chat from './pages/Chat/Chat.jsx';
 import Messenger from './pages/Messenger/Messenger.jsx';
 import Online from './components/Online/Online.jsx';
-import { addOnline, getUsers } from './features/usersSlice.js';
-import { setPosts } from './features/postSlice.js';
 
 function App() {
 	const dispatch = useDispatch();
@@ -48,8 +49,7 @@ function App() {
 			dispatch(getUsers({ customFetch }));
 			dispatch(_getChats({ customFetch }));
 			dispatch(setPosts({ customFetch }));
-			dispatch(setSocket(io('https://adramelech-fb-clone.herokuapp.com', { query })));
-			// dispatch(setSocket(io('http://localhost:5000', { query })));
+			dispatch(setSocket(io(SERVER_URI, { query })));
 		}
 	}, [id, customFetch, dispatch]);
 
