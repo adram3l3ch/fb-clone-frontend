@@ -29,9 +29,11 @@ const Appbar = () => {
 
 	const searchHandler = async e => {
 		e.preventDefault();
-		const { posts } = await customFetch(fetchPosts, token, null, query);
-		const { user } = await customFetch(fetchUsers, token, query);
-		setSearchResult({ posts, user });
+		if (query.length > 0) {
+			const { posts } = await customFetch(fetchPosts, token, null, query);
+			const { user } = await customFetch(fetchUsers, token, query);
+			setSearchResult({ posts, user });
+		}
 	};
 
 	const reset = () => {
