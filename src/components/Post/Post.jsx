@@ -16,9 +16,13 @@ const Post = ({ singlepost, post }) => {
 	const customFetch = useFetch();
 
 	//global states
-	const { id } = useSelector(state => state.user);
+	const {
+		user: { id },
+		users: { usersOnline },
+	} = useSelector(state => state);
 	const isOwnPost = id === post.createdBy;
 	const isLiked = post?.likes?.includes(id);
+	const isOnline = usersOnline.some(user => user.id === post.createdBy);
 
 	const likeHandler = async () => {
 		dispatch(_likePost({ customFetch, id: post._id, isLiked, singlepost }));
@@ -71,7 +75,7 @@ const Post = ({ singlepost, post }) => {
 	return (
 		<article className={singlepost ? 'post halfborder single' : 'post'}>
 			<header>
-				<Link to={`/user/${post.createdBy}`}>
+				<Link to={`/user/${post.createdBy}`} className={isOnline ? 'green' : ''}>
 					<img
 						src={post.userDetails.image || dp}
 						alt='profileImage'
