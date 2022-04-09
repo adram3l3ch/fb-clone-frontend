@@ -1,21 +1,26 @@
 .modal {
-   padding: 0.5rem 1rem;
-   background-color: white;
-   color: var(--primary-400);
-   left: 50%;
-   transform: translate(-50%, -120%);
-   position: absolute;
-   top: 0;
-   transition: transform 0.1s linear;
-   border-radius: 10px;
-   text-align: center;
-   z-index: 99;
+	padding: 1rem;
+	background-color: var(--primary-600);
+	color: white;
+	min-width: 20rem;
+	max-width: 30rem;
+	transform: translateY(50%);
+	opacity: 0;
+	position: fixed;
+	bottom: 2rem;
+	right: 2rem;
+	transition: all 0.2s ease-out;
+	border-radius: 5px;
+	text-align: center;
+	z-index: 99;
+	border-left: 3px solid white;
 }
 
 .modal p {
-   font-size: 0.9rem;
+	font-size: 0.9rem;
 }
 
 .modal.visible {
-   transform: translate(-50%, 50px);
+	transform: translateY(0);
+	opacity: 1;
 }
