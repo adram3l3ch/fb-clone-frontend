@@ -87,24 +87,8 @@ const updateDP = async (formData, token) => {
 	return data;
 };
 
-const fetchPosts = async (token, id, query) => {
-	if (id) {
-		const { data } = await axios.get(`${API_ENDPOINT}/post?by=${id}`, {
-			headers: {
-				authorization: `Bearer ${token}`,
-			},
-		});
-		return data;
-	}
-	if (query) {
-		const { data } = await axios.get(`${API_ENDPOINT}/post?search=${query}`, {
-			headers: {
-				authorization: `Bearer ${token}`,
-			},
-		});
-		return data;
-	}
-	const { data } = await axios.get(`${API_ENDPOINT}/post`, {
+const fetchPosts = async (token, id = '', query = '', page = '1') => {
+	const { data } = await axios.get(`${API_ENDPOINT}/post?by=${id}&search=${query}&page=${page}`, {
 		headers: {
 			authorization: `Bearer ${token}`,
 		},
