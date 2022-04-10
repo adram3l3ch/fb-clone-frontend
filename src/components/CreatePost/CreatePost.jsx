@@ -45,7 +45,7 @@ const CreatePost = () => {
 		e.preventDefault();
 		const formData = new FormData();
 		formData.append('image', form.image);
-		formData.append('caption', form.caption);
+		formData.append('caption', form.caption.trim());
 		dispatch(addPost({ customFetch, formData }));
 		setForm(initialForm);
 	};
