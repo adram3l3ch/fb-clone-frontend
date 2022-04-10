@@ -9,22 +9,14 @@ const initialState = {
 
 let timeout;
 
-const hide = dispatch => {
-	clearTimeout(timeout);
-	return new Promise(
-		resolve =>
-			(timeout = setTimeout(() => {
-				dispatch(modalSlice.actions.hideModal());
-				resolve();
-			}, 4000))
-	);
-};
-
 export const showModal = createAsyncThunk('modal/show', async (props, thunkAPI) => {
 	let { msg } = props;
 	msg = msg || "Hold on I swear it won't take so long";
 	const { fulfillWithValue, dispatch } = thunkAPI;
-	hide(dispatch);
+	clearTimeout(timeout);
+	timeout = setTimeout(() => {
+		dispatch(modalSlice.actions.hideModal());
+	}, 4000);
 	return fulfillWithValue({ msg, visible: true });
 });
 
