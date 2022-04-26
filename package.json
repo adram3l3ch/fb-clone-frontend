@@ -26,6 +26,7 @@
    "eslintConfig": {
       "extends": "react-app"
    },
+   "licence":"BSD-3-Clause",
    "browserslist": {
       "production": [
          ">0.2%",
