@@ -8,6 +8,12 @@ p {
 	font-size: 0.9rem;
 }
 
+.posts {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
 .post header p {
 	font-size: 0.7rem;
 	margin-top: -3px;

@@ -24,7 +24,7 @@ const SetupProfile = ({ setIsEditing, user, setUser }) => {
 			setUser(data.user);
 			setIsEditing(false);
 			dispatch(update({ name: data.user.name }));
-			dispatch(setPosts(data.posts));
+			dispatch(setPosts({ customFetch }));
 			dispatch(showModal({ msg: 'Success' }));
 		}
 	};

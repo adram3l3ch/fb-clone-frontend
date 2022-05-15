@@ -22,12 +22,6 @@
 	scrollbar-width: none; /*to work in moz*/
 }
 
-.home__left .posts {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
-
 .home__right {
 	flex: 1;
 }
