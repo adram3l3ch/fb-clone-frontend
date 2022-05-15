@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import Gallery from '../../components/Gallery/Gallery';
 import Online from '../../components/Online/Online';
-import Post from '../../components/Post/Post';
 import ProfileCard from '../../components/ProfileCard/ProfileCard';
 import { useParams } from 'react-router';
 import CreatePost from '../../components/CreatePost/CreatePost';

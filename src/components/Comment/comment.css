@@ -6,13 +6,16 @@
 	margin-bottom: 2rem;
 }
 
+.comment a {
+	flex-shrink: 0;
+}
+
 .comment__dp {
 	width: 2.5rem;
 	aspect-ratio: 1;
 	object-fit: cover;
 	border-radius: 50%;
 	position: relative;
-	flex-shrink: 0;
 }
 
 .comment h3 {
