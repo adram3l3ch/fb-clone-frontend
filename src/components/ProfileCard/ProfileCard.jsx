@@ -1,14 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import './profilecard.css';
-import { dp, clockIcon, cakeIcon, locationIcon, mailIcon, cameraIcon } from '../../assets';
-import SetupProfile from '../SetupProfile/SetupProfile';
-import { createChat, fetchMessage, fetchUser } from '../../API';
-import ImageUpload from '../ImageUpload/ImageUpload';
-import useFetch from '../../hooks/useFetch';
-import useDate from '../../hooks/useDate';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { clearMessage, setChatID, setMessages, setReceiverID } from '../../features/messageSlice';
+import React, { useEffect, useState } from "react";
+import "./profilecard.css";
+import {
+	dp,
+	clockIcon,
+	cakeIcon,
+	locationIcon,
+	mailIcon,
+	cameraIcon,
+} from "../../assets";
+import SetupProfile from "../SetupProfile/SetupProfile";
+import { createChat, fetchMessage, fetchUser } from "../../API";
+import ImageUpload from "../ImageUpload/ImageUpload";
+import useFetch from "../../hooks/useFetch";
+import useDate from "../../hooks/useDate";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+	clearMessage,
+	setChatID,
+	setMessages,
+	setReceiverID,
+	_getChats,
+} from "../../features/messageSlice";
 
 const ProfileCard = ({ id, isOwnProfile }) => {
 	const [user, setUser] = useState({});
@@ -36,56 +49,63 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 		if (data) {
 			dispatch(setChatID(data.cid));
 			dispatch(setReceiverID(id));
+			dispatch(_getChats({ customFetch }));
 			customFetch(fetchMessage, data.cid, token).then(data => {
 				dispatch(clearMessage());
 				dispatch(setMessages({ messages: data.message, id }));
-				if (window.innerWidth < 801) navigate('/chat/messenger');
-				else navigate('/chat');
+				if (window.innerWidth < 801) navigate("/chat/messenger");
+				else navigate("/chat");
 			});
 		}
 	};
 
 	return (
-		<section className='profilecard'>
+		<section className="profilecard">
 			{isEditing && (
-				<SetupProfile setIsEditing={setIsEditing} user={user} setUser={setUser} />
+				<SetupProfile
+					setIsEditing={setIsEditing}
+					user={user}
+					setUser={setUser}
+				/>
 			)}
-			{isUploading && <ImageUpload setIsUploading={setIsUploading} setUser={setUser} />}
+			{isUploading && (
+				<ImageUpload setIsUploading={setIsUploading} setUser={setUser} />
+			)}
 			<header>
 				<div>
 					<img
 						src={profileImage || dp}
-						alt='profile_image'
-						className='profilecard__dp roundimage'
+						alt="profile_image"
+						className="profilecard__dp roundimage"
 					/>
 					{isOwnProfile && (
-						<div className='dp-upload'>
+						<div className="dp-upload">
 							<img
 								src={cameraIcon}
-								alt='change_profile_image'
+								alt="change_profile_image"
 								onClick={() => setIsUploading(true)}
 							/>
 						</div>
 					)}
 				</div>
-				<h1>{name || 'User'}</h1>
-				<h2>{about || 'About'}</h2>
+				<h1>{name || "User"}</h1>
+				<h2>{about || "About"}</h2>
 			</header>
 			<article>
-				<div className='profilecard__info'>
-					<img src={clockIcon} alt='join date' />
+				<div className="profilecard__info">
+					<img src={clockIcon} alt="join date" />
 					<h3>{createdAt}</h3>
 				</div>
-				<div className='profilecard__info'>
-					<img src={locationIcon} alt='location' />
+				<div className="profilecard__info">
+					<img src={locationIcon} alt="location" />
 					<h3>{location}</h3>
 				</div>
-				<div className='profilecard__info'>
-					<img src={mailIcon} alt='mail' />
+				<div className="profilecard__info">
+					<img src={mailIcon} alt="mail" />
 					<h3>{email}</h3>
 				</div>
-				<div className='profilecard__info'>
-					<img src={cakeIcon} alt='date of birth' />
+				<div className="profilecard__info">
+					<img src={cakeIcon} alt="date of birth" />
 					<h3>{dob}</h3>
 				</div>
 			</article>

@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react';
-import useFetch from '../../hooks/useFetch';
-import { useDispatch, useSelector } from 'react-redux';
-import { addMessages, updateChats } from '../../features/messageSlice';
-import SingleChat from '../SingleChat/SingleChat';
-import Input from '../Input/Input';
-import { dp } from '../../assets';
-import './messenger.css';
+import React, { useEffect, useRef } from "react";
+import useFetch from "../../hooks/useFetch";
+import { useDispatch, useSelector } from "react-redux";
+import { addMessages, updateChats } from "../../features/messageSlice";
+import SingleChat from "../SingleChat/SingleChat";
+import Input from "../Input/Input";
+import { dp } from "../../assets";
+import "./messenger.css";
 
 const Messenger = () => {
 	const {
@@ -15,7 +15,8 @@ const Messenger = () => {
 		users: { usersOnline },
 	} = useSelector(state => state);
 
-	const { userDetails } = chats?.find(chat => chat._id === conversationID) || {};
+	const userDetails =
+		chats?.find(chat => chat._id === conversationID)?.userDetails || {};
 
 	const customFetch = useFetch();
 	const dispatch = useDispatch();
@@ -26,24 +27,24 @@ const Messenger = () => {
 	}, [messages]);
 
 	const submitHandler = async message => {
-		socket.emit('send message', message, to, conversationID, id);
+		socket.emit("send message", message, to, conversationID, id);
 		dispatch(addMessages({ text: message, send: true }));
 		dispatch(updateChats({ id: to, lastMessage: message, customFetch }));
 	};
 
 	return (
-		<section className='chat__page__messenger'>
+		<section className="chat__page__messenger">
 			{conversationID ? (
 				<>
 					<header>
-						<img src={userDetails.profileImage || dp} alt='chatIcon' />
+						<img src={userDetails.profileImage || dp} alt="chatIcon" />
 						<div>
 							<h3>{userDetails.name}</h3>
 							{usersOnline.some(u => u.id === userDetails._id) && <p>Online</p>}
 						</div>
 					</header>
 					<main ref={scroll}>
-						<div className='messenger'>
+						<div className="messenger">
 							{messages.map((message, i, messages) => {
 								return (
 									<SingleChat
@@ -57,7 +58,7 @@ const Messenger = () => {
 						</div>
 					</main>
 					<footer>
-						<Input placeholder='Type a message...' handler={submitHandler} />
+						<Input placeholder="Type a message..." handler={submitHandler} />
 					</footer>
 				</>
 			) : (
