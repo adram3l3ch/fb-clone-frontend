@@ -28,7 +28,7 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [isUploading, setIsUploading] = useState(false);
 
-	const { token } = useSelector(state => state.user);
+	const { token, id: userID } = useSelector(state => state.user);
 	const customFetch = useFetch();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -52,7 +52,7 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 			dispatch(_getChats({ customFetch }));
 			customFetch(fetchMessage, data.cid, token).then(data => {
 				dispatch(clearMessage());
-				dispatch(setMessages({ messages: data.message, id }));
+				dispatch(setMessages({ messages: data.message, id: userID }));
 				if (window.innerWidth < 801) navigate("/chat/messenger");
 				else navigate("/chat");
 			});
