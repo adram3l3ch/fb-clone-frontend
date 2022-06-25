@@ -20,6 +20,7 @@
 	flex: 2;
 	overflow: auto;
 	scrollbar-width: none; /*to work in moz*/
+	padding: 2px;
 }
 
 .home__right {
