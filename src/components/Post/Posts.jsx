@@ -5,7 +5,7 @@ import { setUserPosts, updatePost } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
 import Post from "./Post";
 
-const Posts = ({ containerRef, user, nextPageLoaderRef }) => {
+const Posts = ({ posts, containerRef, user, nextPageLoaderRef }) => {
 	const postsRef = useRef(null);
 	const [isFinished, setIsFinished] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -20,7 +20,6 @@ const Posts = ({ containerRef, user, nextPageLoaderRef }) => {
 
 	const {
 		user: { token },
-		post: { posts },
 	} = useSelector(state => state);
 
 	const getNextAllPosts = async () => {

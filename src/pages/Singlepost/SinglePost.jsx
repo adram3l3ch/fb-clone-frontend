@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../components/Input/Input";
 import Comments from "../../components/Comments/Comments";
 import Post from "../../components/Post/Post";
@@ -6,15 +6,15 @@ import Online from "../../components/Online/Online";
 import { fetchPost } from "../../API";
 import { useParams } from "react-router";
 import Cookies from "js-cookie";
-import { useDispatch, useSelector } from "react-redux";
-import { setSinglePost, _commentPost } from "../../features/postSlice";
+import { useDispatch } from "react-redux";
+import { _commentPost } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
 import "./singlepost.css";
 
 const SinglePost = () => {
 	const { id } = useParams();
 	const { token } = JSON.parse(Cookies.get("user"));
-	const { singlePost: post } = useSelector(state => state.post);
+	const [post, setPost] = useState({});
 
 	const dispatch = useDispatch();
 	const customFetch = useFetch();
@@ -22,7 +22,7 @@ const SinglePost = () => {
 	useEffect(() => {
 		(async () => {
 			const data = await customFetch(fetchPost, id, token);
-			if (data) dispatch(setSinglePost(data.posts));
+			setPost(data.posts);
 		})();
 	}, [id, token, dispatch, customFetch]);
 

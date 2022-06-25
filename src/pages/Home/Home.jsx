@@ -6,6 +6,10 @@ import Posts from "../../components/Post/Posts";
 import "./home.css";
 
 const Home = () => {
+	const {
+		post: { posts },
+	} = useSelector(state => state);
+
 	const mainRef = React.useRef(null);
 	const nextPageLoaderRef = React.useRef(null);
 
@@ -17,7 +21,11 @@ const Home = () => {
 		<section className="home">
 			<main className="home__left" onScroll={getNextPage} ref={mainRef}>
 				<CreatePost />
-				<Posts containerRef={mainRef} nextPageLoaderRef={nextPageLoaderRef} />
+				<Posts
+					posts={posts}
+					containerRef={mainRef}
+					nextPageLoaderRef={nextPageLoaderRef}
+				/>
 			</main>
 			<aside className="home__right">
 				<Online />
