@@ -42,6 +42,7 @@
 .theme-switch.open .themes {
 	max-width: 300px;
 	pointer-events: all;
+	overflow: visible;
 }
 
 .theme-switch.open .switch {
@@ -55,10 +56,39 @@
 	background-color: white;
 	border: 1px solid rgba(255, 255, 255, 0.473);
 	cursor: pointer;
+	position: relative;
+	isolation: isolate;
 }
 
 .themes > div:last-of-type {
 	margin-right: 2rem;
+}
+
+.themes .tooltip {
+	position: absolute;
+	background-color: white;
+	width: max-content;
+	padding: 0.2rem 1rem;
+	border-radius: 0.2rem;
+	pointer-events: none;
+	opacity: 0;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -170%);
+	transition: opacity 0.2s ease-in;
+}
+.themes .tooltip::before {
+	position: absolute;
+	content: "";
+	bottom: 0;
+	left: 50%;
+	border: 10px solid transparent;
+	border-top-color: white;
+	transform: translate(-50%, 90%);
+}
+
+.themes > div:hover .tooltip {
+	opacity: 1;
 }
 
 .themes .dark {

@@ -15,9 +15,15 @@ const ThemeSwitch = ({ setTheme }) => {
 				<AiFillFormatPainter />
 			</div>
 			<div className="themes">
-				<div className="dark" onClick={changeTheme}></div>
-				<div className="dark-contrast" onClick={changeTheme}></div>
-				<div className="dark-blue-tint" onClick={changeTheme}></div>
+				<div className="dark" onClick={changeTheme}>
+					<p className="tooltip">Dark</p>
+				</div>
+				<div className="dark-contrast" onClick={changeTheme}>
+					<p className="tooltip">Dark Contrast</p>
+				</div>
+				<div className="dark-blue-tint" onClick={changeTheme}>
+					<p className="tooltip">Dark Blue Tint</p>
+				</div>
 			</div>
 		</div>
 	);
