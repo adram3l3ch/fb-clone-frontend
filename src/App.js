@@ -16,7 +16,7 @@ import {
 	_getChats,
 } from "./features/messageSlice.js";
 import { addOnline, getUsers } from "./features/usersSlice.js";
-import { setPosts } from "./features/postSlice.js";
+import { setEditingPost, setPosts } from "./features/postSlice.js";
 //components
 import SinglePost from "./pages/Singlepost/SinglePost.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
@@ -31,6 +31,7 @@ import Messenger from "./pages/Messenger/Messenger.jsx";
 import Online from "./components/Online/Online.jsx";
 import Backdrop from "./components/Backdrop/Backdrop.jsx";
 import ThemeSwitch from "./components/ThemeSwitch/ThemeSwitch.jsx";
+import EditPost from "./components/EditPost/EditPost.jsx";
 
 function App() {
 	const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
 		modal: { isLoading, isSidebarVisible },
 		socket: { socket },
 		message: { to },
+		post: { editingPost },
 	} = useSelector(state => state);
 
 	//login
@@ -81,9 +83,16 @@ function App() {
 		}
 	}, [customFetch, dispatch, socket, to]);
 
+	const closeEditing = () => {
+		dispatch(setEditingPost({}));
+	};
+
 	return (
 		<div className={"app " + theme}>
 			<div className="container">
+				<Backdrop show={editingPost._id} onClose={closeEditing}>
+					<EditPost />
+				</Backdrop>
 				<Backdrop show={isLoading}>
 					<Loading />
 				</Backdrop>

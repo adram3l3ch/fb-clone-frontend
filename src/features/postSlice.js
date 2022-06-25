@@ -12,6 +12,7 @@ const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 const initialState = {
 	posts: [],
 	userPosts: [],
+	editingPost: {},
 };
 
 const slicePosts = (posts, data) => {
@@ -97,6 +98,9 @@ const postSlice = createSlice({
 		setUserPosts: (state, action) => {
 			state.userPosts = action.payload;
 		},
+		setEditingPost: (state, action) => {
+			state.editingPost = action.payload;
+		},
 	},
 	extraReducers: {
 		[setPosts.rejected]: (state, action) => {
@@ -123,6 +127,6 @@ const postSlice = createSlice({
 	},
 });
 
-export const { setUserPosts, updatePost } = postSlice.actions;
+export const { setUserPosts, updatePost, setEditingPost } = postSlice.actions;
 
 export default postSlice.reducer;

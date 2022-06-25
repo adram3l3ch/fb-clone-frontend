@@ -1,8 +1,8 @@
 .backdrop {
 	position: fixed;
 	inset: 0;
-	background-color: rgba(0, 0, 0, 0.544);
 	display: grid;
+	background-color: rgba(0, 0, 0, 0.544);
 	place-content: center;
 	z-index: 10;
 	opacity: 0;

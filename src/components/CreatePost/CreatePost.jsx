@@ -1,22 +1,33 @@
-import React, { useState } from 'react';
-import { sendIcon, fileIcon } from '../../assets';
-import { useDispatch } from 'react-redux';
-import { addPost } from '../../features/postSlice';
-import useFetch from '../../hooks/useFetch';
-import Compress from 'compress.js';
-import './createpost.css';
+import React, { useEffect, useState } from "react";
+import { sendIcon, fileIcon } from "../../assets";
+import { useDispatch } from "react-redux";
+import { addPost } from "../../features/postSlice";
+import useFetch from "../../hooks/useFetch";
+import Compress from "compress.js";
+import "./createpost.css";
 
-const initialForm = { image: null, preview: null, caption: '' };
+const initialForm = { image: null, preview: null, caption: "" };
 
-const CreatePost = () => {
+const CreatePost = ({ post }) => {
 	// local states
 	const [form, setForm] = useState(initialForm);
+
+	// useEffect(() => {
+	// 	if (post && post._id) {
+	// 		setForm({
+	// 			image: null,
+	// 			preview: post.image?.src,
+	// 			caption: post.caption,
+	// 		});
+	// 	}
+	// }, [post]);
 
 	const dispatch = useDispatch();
 	const customFetch = useFetch();
 	const compress = new Compress();
 
 	const loadImage = e => {
+		console.log("first");
 		const input = e.target;
 		var reader = new FileReader();
 		reader.onload = function (e) {
@@ -44,14 +55,14 @@ const CreatePost = () => {
 	const submitHandler = async e => {
 		e.preventDefault();
 		const formData = new FormData();
-		formData.append('image', form.image);
-		formData.append('caption', form.caption.trim());
+		formData.append("image", form.image);
+		formData.append("caption", form.caption.trim());
 		dispatch(addPost({ customFetch, formData }));
 		setForm(initialForm);
 	};
 
 	return (
-		<article className='createpost'>
+		<article className="createpost">
 			<form onSubmit={submitHandler}>
 				<textarea
 					placeholder="What's on your mind?"
@@ -59,22 +70,26 @@ const CreatePost = () => {
 					onChange={e => setForm({ ...form, caption: e.target.value })}
 				/>
 				{form.preview && (
-					<img src={form.preview} alt='uploaded file' className='uploaded-image' />
+					<img
+						src={form.preview}
+						alt="uploaded file"
+						className="uploaded-image"
+					/>
 				)}
-				<div className='btns'>
-					<label htmlFor='image' aria-label='select file'>
+				<div className="btns">
+					<label htmlFor="image" aria-label="select file">
 						<div>
-							<img src={fileIcon} alt='select file' />
+							<img src={fileIcon} alt="select file" />
 						</div>
 					</label>
 					<input
-						type='file'
-						id='image'
-						accept='image/png, image/jpeg'
+						type="file"
+						id="image"
+						accept="image/png, image/jpeg"
 						onChange={loadImage}
 					/>
-					<button type='submit' aria-label='submit'>
-						<img src={sendIcon} alt='send' />
+					<button type="submit" aria-label="submit">
+						<img src={sendIcon} alt="send" />
 					</button>
 				</div>
 			</form>

@@ -1,13 +1,20 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { removePost, _commentPost, _likePost } from '../../features/postSlice';
-import { dp, likeIcon, likeOutlined } from '../../assets';
-import Input from '../Input/Input';
-import { Link } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
-import useDate from '../../hooks/useDate';
-import './post.css';
-import Options from '../Options/Options';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	removePost,
+	setEditingPost,
+	_commentPost,
+	_likePost,
+} from "../../features/postSlice";
+import { dp, likeIcon, likeOutlined } from "../../assets";
+import Input from "../Input/Input";
+import { Link } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+import useDate from "../../hooks/useDate";
+import "./post.css";
+import Options from "../Options/Options";
+import Backdrop from "../Backdrop/Backdrop";
+import EditPost from "../EditPost/EditPost";
 
 const Post = ({ singlepost, post }) => {
 	const createdAt = useDate(post.createdAt);
@@ -41,7 +48,7 @@ const Post = ({ singlepost, post }) => {
 		return paragraphArray.map(
 			(para, i) =>
 				para && (
-					<p className='post__caption' key={i}>
+					<p className="post__caption" key={i}>
 						{para}
 					</p>
 				)
@@ -52,9 +59,9 @@ const Post = ({ singlepost, post }) => {
 		if (post.likes.length) {
 			return post.likes.includes(id)
 				? post.likes.length - 1 === 0
-					? 'You'
+					? "You"
 					: post.likes.length - 1 === 1
-					? 'You and 1 more'
+					? "You and 1 more"
 					: `You and ${post.likes.length - 1} others`
 				: post.likes.length;
 		}
@@ -66,44 +73,57 @@ const Post = ({ singlepost, post }) => {
 			<>
 				{post.caption && getParagraphs(post.caption)}
 				{post.image?.src && (
-					<img src={post.image?.src} alt='post_image' className='post__image' />
+					<img src={post.image?.src} alt="post_image" className="post__image" />
 				)}
 			</>
 		);
 	};
 
 	return (
-		<article className={singlepost ? 'post halfborder single' : 'post'}>
+		<article className={singlepost ? "post halfborder single" : "post"}>
 			<header>
-				<Link to={`/user/${post.createdBy}`} className={isOnline ? 'green' : ''}>
+				<Link
+					to={`/user/${post.createdBy}`}
+					className={isOnline ? "green" : ""}
+				>
 					<img
 						src={post.userDetails.image || dp}
-						alt='profileImage'
-						className='post__dp roundimage'
+						alt="profileImage"
+						className="post__dp roundimage"
 					/>
 				</Link>
 				<div>
 					<h3>{post.userDetails.name}</h3>
 					<p>{createdAt}</p>
 				</div>
-				{isOwnPost && <Options deleteHandler={deleteHandler} />}
+				{isOwnPost && (
+					<Options
+						deleteHandler={deleteHandler}
+						editHandler={() => {}}
+						post={post}
+					/>
+				)}
 			</header>
-			<div className='post__details'>
+			<div className="post__details">
 				{singlepost ? (
 					postDetails()
 				) : (
-					<Link to={`/post/${post._id}`} className='post__details'>
+					<Link to={`/post/${post._id}`} className="post__details">
 						{postDetails()}
 					</Link>
 				)}
 			</div>
-			<div className='post__footer'>
-				<div className='post__reactions'>
-					<img src={isLiked ? likeIcon : likeOutlined} alt='like' onClick={likeHandler} />
-					<p>{likes() || ''}</p>
+			<div className="post__footer">
+				<div className="post__reactions">
+					<img
+						src={isLiked ? likeIcon : likeOutlined}
+						alt="like"
+						onClick={likeHandler}
+					/>
+					<p>{likes() || ""}</p>
 				</div>
 				{singlepost || (
-					<Input placeholder={'Write a comment...'} handler={commentHandler} />
+					<Input placeholder={"Write a comment..."} handler={commentHandler} />
 				)}
 			</div>
 		</article>

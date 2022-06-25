@@ -1,0 +1,4 @@
+.editPost {
+	width: min(90vw, 700px);
+	max-height: 70vh;
+}

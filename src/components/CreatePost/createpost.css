@@ -49,7 +49,8 @@ label div {
 	margin-top: 1rem;
 	display: flex;
 	gap: 1rem;
-	float: right;
+	width: max-content;
+	margin-left: auto;
 }
 
 .uploaded-image {
