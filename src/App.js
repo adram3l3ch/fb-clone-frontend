@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 //utilities
 import { io } from "socket.io-client";
@@ -30,10 +30,12 @@ import Chat from "./pages/Chat/Chat.jsx";
 import Messenger from "./pages/Messenger/Messenger.jsx";
 import Online from "./components/Online/Online.jsx";
 import Backdrop from "./components/Backdrop/Backdrop.jsx";
+import ThemeSwitch from "./components/ThemeSwitch/ThemeSwitch.jsx";
 
 function App() {
 	const dispatch = useDispatch();
 	const customFetch = useFetch();
+	const [theme, setTheme] = useState("dark");
 	const {
 		user: { id },
 		modal: { isLoading, isSidebarVisible },
@@ -80,29 +82,32 @@ function App() {
 	}, [customFetch, dispatch, socket, to]);
 
 	return (
-		<div className="container">
-			<Backdrop show={isLoading}>
-				<Loading />
-			</Backdrop>
-			<Modal />
-			{!id ? (
-				<Auth />
-			) : (
-				<>
-					<Appbar />
-					<div className={isSidebarVisible ? "sidebar visible" : "sidebar"}>
-						<Online />
-					</div>
-					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/post/:id" element={<SinglePost />} />
-						<Route path="/user/:id" element={<Profile />} />
-						<Route path="/chat" element={<Chat />} />
-						<Route path="/chat/messenger" element={<Messenger />} />
-						<Route path="*" element={<NotFound />} />
-					</Routes>
-				</>
-			)}
+		<div className={"app " + theme}>
+			<div className="container">
+				<Backdrop show={isLoading}>
+					<Loading />
+				</Backdrop>
+				<ThemeSwitch setTheme={setTheme} />
+				<Modal />
+				{!id ? (
+					<Auth />
+				) : (
+					<>
+						<Appbar />
+						<div className={isSidebarVisible ? "sidebar visible" : "sidebar"}>
+							<Online />
+						</div>
+						<Routes>
+							<Route path="/" element={<Home />} />
+							<Route path="/post/:id" element={<SinglePost />} />
+							<Route path="/user/:id" element={<Profile />} />
+							<Route path="/chat" element={<Chat />} />
+							<Route path="/chat/messenger" element={<Messenger />} />
+							<Route path="*" element={<NotFound />} />
+						</Routes>
+					</>
+				)}
+			</div>
 		</div>
 	);
 }
