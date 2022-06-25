@@ -8,20 +8,11 @@
 	position: relative;
 	transform: translateY(50px);
 	opacity: 0;
-	animation: moveUp 0.2s ease-out forwards;
 }
 
 .messenger h4 {
 	transform: translateY(50px);
 	opacity: 0;
-	animation: moveUp 0.2s ease-out forwards;
-}
-
-@keyframes moveUp {
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-	}
 }
 
 .chat__sent p,
@@ -42,7 +33,7 @@
 
 .chat__sent::after,
 .chat__recieve::after {
-	content: '';
+	content: "";
 	position: absolute;
 	border: 10px solid transparent;
 	border-top-color: var(--primary-400);
