@@ -10,11 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "./features/userSlice.js";
 import { setSocket } from "./features/socketSlice";
 import { showModal } from "./features/modalSlice.js";
-import {
-	addMessages,
-	updateChats,
-	_getChats,
-} from "./features/messageSlice.js";
+import { addMessages, updateChats } from "./features/messageSlice.js";
 import { addOnline, getUsers } from "./features/usersSlice.js";
 import { setEditingPost, setPosts } from "./features/postSlice.js";
 //components

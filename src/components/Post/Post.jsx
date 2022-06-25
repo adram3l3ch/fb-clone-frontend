@@ -1,11 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	removePost,
-	setEditingPost,
-	_commentPost,
-	_likePost,
-} from "../../features/postSlice";
+import { removePost, _commentPost, _likePost } from "../../features/postSlice";
 import { dp, likeIcon, likeOutlined } from "../../assets";
 import Input from "../Input/Input";
 import { Link } from "react-router-dom";
@@ -13,8 +8,6 @@ import useFetch from "../../hooks/useFetch";
 import useDate from "../../hooks/useDate";
 import "./post.css";
 import Options from "../Options/Options";
-import Backdrop from "../Backdrop/Backdrop";
-import EditPost from "../EditPost/EditPost";
 
 const Post = ({ singlepost, post }) => {
 	const createdAt = useDate(post.createdAt);
