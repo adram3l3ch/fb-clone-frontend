@@ -6,13 +6,6 @@
 	text-align: left;
 	margin-bottom: 0.2rem;
 	position: relative;
-	transform: translateY(50px);
-	opacity: 0;
-}
-
-.messenger h4 {
-	transform: translateY(50px);
-	opacity: 0;
 }
 
 .chat__sent p,
