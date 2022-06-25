@@ -1,24 +1,12 @@
 .setup {
-	position: fixed;
-	inset: 0;
-	background-color: rgba(0, 0, 0, 0.781);
-	z-index: 10;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	animation: fadeIn 0.2s ease-in-out;
-}
-
-.setup form {
 	background-color: var(--primary-500);
 	color: white;
 	width: 400px;
 	padding: 3rem 1.5rem 1.5rem 1.5rem;
 	border-radius: 10px;
-	animation: slideDown 0.3s ease-in-out, fadeIn 0.2s ease-in;
 }
 
-.setup form > * {
+.setup > * {
 	display: block;
 	margin-bottom: 0.5rem;
 }
@@ -52,7 +40,7 @@
 }
 
 @media (max-width: 420px) {
-	.setup form {
+	.setup {
 		width: 350px;
 	}
 }

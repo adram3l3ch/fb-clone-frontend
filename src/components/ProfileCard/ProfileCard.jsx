@@ -22,6 +22,7 @@ import {
 	setReceiverID,
 	_getChats,
 } from "../../features/messageSlice";
+import Backdrop from "../Backdrop/Backdrop";
 
 const ProfileCard = ({ id, isOwnProfile }) => {
 	const [user, setUser] = useState({});
@@ -59,18 +60,21 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 		}
 	};
 
+	const hideUploading = () => {
+		setIsUploading(false);
+	};
+	const hideEditing = () => {
+		setIsEditing(false);
+	};
+
 	return (
 		<section className="profilecard">
-			{isEditing && (
-				<SetupProfile
-					setIsEditing={setIsEditing}
-					user={user}
-					setUser={setUser}
-				/>
-			)}
-			{isUploading && (
-				<ImageUpload setIsUploading={setIsUploading} setUser={setUser} />
-			)}
+			<Backdrop show={isEditing} onClose={hideEditing}>
+				<SetupProfile close={hideEditing} user={user} setUser={setUser} />
+			</Backdrop>
+			<Backdrop show={isUploading} onClose={hideUploading}>
+				<ImageUpload setUser={setUser} close={hideUploading} />
+			</Backdrop>
 			<header>
 				<div>
 					<img

@@ -1,0 +1,20 @@
+.backdrop {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.744);
+	display: grid;
+	place-content: center;
+	z-index: 10;
+	opacity: 0;
+	transition: opacity 0.2s linear;
+	pointer-events: none;
+}
+
+.backdrop.show {
+	opacity: 1;
+	pointer-events: all;
+}
+
+.backdrop.show .backdrop__content {
+	animation: slideDown 0.3s ease-in-out, fadeIn 0.2s ease-in;
+}

@@ -1,15 +1,4 @@
 .imageupload {
-	position: absolute;
-	inset: 0;
-	background-color: rgba(0, 0, 0, 0.644);
-	z-index: 10;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	animation: fadeIn 0.2s ease-in;
-}
-
-.imageupload form {
 	width: 400px;
 	min-height: 100px;
 	background-color: var(--primary-500);
@@ -19,15 +8,14 @@
 	align-items: center;
 	padding: 2rem 1.5rem;
 	justify-content: center;
-	animation: slideDown 0.3s ease-in-out, fadeIn 0.2s ease-in;
 }
 
-.imageupload form img {
+.imageupload img {
 	margin-bottom: 1rem;
 	border-radius: 10px;
 }
 
-input[type='file'] {
+input[type="file"] {
 	display: none;
 }
 
