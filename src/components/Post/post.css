@@ -22,6 +22,7 @@ p {
 
 .post {
 	background-color: var(--primary-500);
+	/* background: linear-gradient(70deg, rgb(105, 105, 252), pink); */
 	padding: 2rem 1.5rem;
 	color: white;
 	border-radius: 10px;

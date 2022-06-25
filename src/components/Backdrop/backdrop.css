@@ -1,20 +1,22 @@
 .backdrop {
 	position: fixed;
 	inset: 0;
-	background-color: rgba(0, 0, 0, 0.744);
+	background-color: rgba(0, 0, 0, 0.544);
 	display: grid;
 	place-content: center;
 	z-index: 10;
 	opacity: 0;
-	transition: opacity 0.2s linear;
+	backdrop-filter: blur(0);
 	pointer-events: none;
+	transition: opacity 0.2s linear, backdrop-filter 0.2s linear;
 }
 
 .backdrop.show {
 	opacity: 1;
 	pointer-events: all;
+	backdrop-filter: blur(0.3rem);
 }
 
 .backdrop.show .backdrop__content {
-	animation: slideDown 0.3s ease-in-out, fadeIn 0.2s ease-in;
+	animation: slideDown 0.3s ease-out, fadeIn 0.2s ease-in;
 }

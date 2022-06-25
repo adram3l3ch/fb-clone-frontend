@@ -1,9 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&family=Roboto:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&family=Roboto:wght@300;400&display=swap");
 
 :root {
 	--primary-400: #0b0c27;
 	--primary-500: #191a35;
 	--primary-600: #2b2c44;
+}
+
+:root {
+	--primary-400: #1f1f25;
+	--primary-500: #313239;
+	--primary-600: #474951;
+}
+:root {
+	--primary-400: #010001;
+	--primary-500: #191a1d;
+	--primary-600: #2b2d31;
 }
 
 *,
@@ -12,6 +23,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	/* color: black !important; */
 	-webkit-tap-highlight-color: transparent;
 }
 
@@ -20,6 +32,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: var(--primary-400);
+	/* background: rgb(255, 213, 220); */
 }
 
 img {
@@ -88,7 +101,7 @@ input::placeholder {
 }
 
 .green::after {
-	content: '';
+	content: "";
 	position: absolute;
 	width: 30%;
 	aspect-ratio: 1;
