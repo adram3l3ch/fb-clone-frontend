@@ -1,0 +1,74 @@
+.theme-switch {
+	position: fixed;
+	right: 3rem;
+	bottom: 3rem;
+	height: 4rem;
+	aspect-ratio: 1;
+	z-index: 5;
+}
+
+.switch {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	place-content: center;
+	font-size: 2rem;
+	color: white;
+	cursor: pointer;
+	position: relative;
+	z-index: 2;
+	background-color: var(--primary-600);
+	border-radius: 50%;
+	transition: transform 0.3s ease-out;
+}
+
+.themes {
+	height: 100%;
+	background-color: var(--primary-600);
+	position: absolute;
+	top: 0;
+	right: 50%;
+	border-radius: 100vmax 0 0 100vmax;
+	z-index: 1;
+	padding: 0.75rem;
+	gap: 0.5rem;
+	display: flex;
+	overflow: hidden;
+	pointer-events: none;
+	max-width: 0;
+	transition: max-width 0.3s ease-out;
+}
+
+.theme-switch.open .themes {
+	max-width: 300px;
+	pointer-events: all;
+}
+
+.theme-switch.open .switch {
+	transform: rotate(-90deg);
+}
+
+.themes > div {
+	height: 100%;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	background-color: white;
+	border: 1px solid rgba(255, 255, 255, 0.473);
+	cursor: pointer;
+}
+
+.themes > div:last-of-type {
+	margin-right: 2rem;
+}
+
+.themes .dark {
+	background: linear-gradient(-45deg, #1f1f25 50%, #474951 50%);
+}
+
+.themes .dark-contrast {
+	background: linear-gradient(-45deg, #010001 50%, #242529 50%);
+}
+
+.themes .dark-blue-tint {
+	background: linear-gradient(-45deg, #0b0c27 50%, #2b2c44 50%);
+}

@@ -1,48 +1,48 @@
 .online {
-    height: 100%;
-    overflow: scroll;
-    background-color: var(--primary-500);
-    border-radius: 10px;
-    color: white;
-    position: relative;
-    scrollbar-width: none; /*to work in moz*/
+	height: 100%;
+	overflow: scroll;
+	background-color: var(--primary-500);
+	border-radius: 10px;
+	color: white;
+	position: relative;
+	scrollbar-width: none; /*to work in moz*/
 }
 
 .online::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 
 .online h2 {
-    font-size: 1.1rem;
-    font-weight: 500;
+	font-size: 1.1rem;
+	font-weight: 500;
 }
 
 .online > div {
-    position: absolute;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+	position: absolute;
+	padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
 }
 
 .online .user {
-    position: relative;
-    display: flex;
-    color: white;
-    align-items: center;
-    gap: 1rem;
-    transition: transform 0.2s linear;
+	position: relative;
+	display: flex;
+	color: white;
+	align-items: center;
+	gap: 1rem;
+	transition: transform 0.2s linear;
 }
 
 .user:hover {
-    transform: translateX(10px);
+	transform: translateX(10px);
 }
 
 .online img {
-    width: 2rem;
+	width: 2rem;
 }
 
 .online h3 {
-    font-weight: 500;
-    font-size: 0.8rem;
+	font-weight: 500;
+	font-size: 0.8rem;
 }

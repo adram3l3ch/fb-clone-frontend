@@ -40,6 +40,8 @@
 
 .profile__right {
 	flex: 1;
+	position: relative;
+	border-radius: 10px;
 }
 
 @media (max-width: 1200px) {

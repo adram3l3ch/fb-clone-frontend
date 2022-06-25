@@ -1,11 +1,11 @@
-import React, { useImperativeHandle, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts } from '../../API';
-import { setUserPosts, updatePost } from '../../features/postSlice';
-import useFetch from '../../hooks/useFetch';
-import Post from './Post';
+import React, { useImperativeHandle, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPosts } from "../../API";
+import { setUserPosts, updatePost } from "../../features/postSlice";
+import useFetch from "../../hooks/useFetch";
+import Post from "./Post";
 
-const Posts = ({ posts, containerRef, user, nextPageLoaderRef }) => {
+const Posts = ({ containerRef, user, nextPageLoaderRef }) => {
 	const postsRef = useRef(null);
 	const [isFinished, setIsFinished] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -20,14 +20,27 @@ const Posts = ({ posts, containerRef, user, nextPageLoaderRef }) => {
 
 	const {
 		user: { token },
+		post: { posts },
 	} = useSelector(state => state);
 
 	const getNextAllPosts = async () => {
-		const { posts: newPosts } = await customFetch(fetchPosts, token, '', '', pageNumber + 1);
+		const { posts: newPosts } = await customFetch(
+			fetchPosts,
+			token,
+			"",
+			"",
+			pageNumber + 1
+		);
 		return newPosts;
 	};
 	const getNextUserPosts = async id => {
-		const { posts: newPosts } = await customFetch(fetchPosts, token, id, '', pageNumber + 1);
+		const { posts: newPosts } = await customFetch(
+			fetchPosts,
+			token,
+			id,
+			"",
+			pageNumber + 1
+		);
 		return newPosts;
 	};
 
@@ -51,11 +64,11 @@ const Posts = ({ posts, containerRef, user, nextPageLoaderRef }) => {
 	};
 
 	return (
-		<div className='posts' ref={postsRef}>
+		<div className="posts" ref={postsRef}>
 			{posts.map(post => (
 				<Post post={post} key={post._id} />
 			))}
-			{loading && <div className='spinner'></div>}
+			{loading && <div className="spinner"></div>}
 		</div>
 	);
 };

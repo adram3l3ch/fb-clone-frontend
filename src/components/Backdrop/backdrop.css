@@ -20,3 +20,8 @@
 .backdrop.show .backdrop__content {
 	animation: slideDown 0.3s ease-out, fadeIn 0.2s ease-in;
 }
+
+.backdrop__content {
+	position: relative;
+	border-radius: 10px;
+}

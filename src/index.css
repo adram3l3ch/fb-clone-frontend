@@ -1,20 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&family=Roboto:wght@300;400&display=swap");
 
-:root {
+.dark-blue-tint {
 	--primary-400: #0b0c27;
 	--primary-500: #191a35;
 	--primary-600: #2b2c44;
 }
 
-:root {
+.dark {
 	--primary-400: #1f1f25;
-	--primary-500: #313239;
-	--primary-600: #474951;
+	--primary-500: #292a31;
+	--primary-600: #3c3e44;
 }
-:root {
+
+.dark-contrast {
 	--primary-400: #010001;
 	--primary-500: #141518;
 	--primary-600: #242529;
+}
+
+.app {
+	background-color: var(--primary-400);
+	isolation: isolate;
 }
 
 *,
@@ -23,6 +29,8 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	transition: color 0.5s ease-in, background 0.5s ease-in,
+		background-color 0.5s ease-in;
 	/* color: black !important; */
 	-webkit-tap-highlight-color: transparent;
 }
@@ -31,8 +39,6 @@ body {
 	font-family: poppins, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: var(--primary-400);
-	/* background: rgb(255, 213, 220); */
 }
 
 img {
@@ -112,8 +118,11 @@ input::placeholder {
 }
 
 .profilecard::before,
-.post::before,
-.createpost::before {
+.post:not(.single)::before,
+.createpost::before,
+.profile__right::before,
+.singlepost__left::before,
+.backdrop__content::before {
 	content: "";
 	position: absolute;
 	inset: -2px;
