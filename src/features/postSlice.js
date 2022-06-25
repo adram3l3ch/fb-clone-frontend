@@ -156,6 +156,7 @@ const postSlice = createSlice({
 				if (post._id === action.payload._id) return action.payload;
 				return post;
 			});
+			state.singlePost = action.payload;
 		},
 		[_updatePost.rejected]: (state, action) => {
 			return state;
