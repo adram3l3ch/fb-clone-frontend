@@ -14,6 +14,7 @@ const initialState = {
 	posts: [],
 	userPosts: [],
 	editingPost: {},
+	singlePost: {},
 };
 
 const slicePosts = (posts, data) => {
@@ -117,6 +118,9 @@ const postSlice = createSlice({
 		setUserPosts: (state, action) => {
 			state.userPosts = action.payload;
 		},
+		setSinglePost: (state, action) => {
+			state.singlePost = action.payload;
+		},
 		setEditingPost: (state, action) => {
 			state.editingPost = action.payload;
 		},
@@ -159,6 +163,7 @@ const postSlice = createSlice({
 	},
 });
 
-export const { setUserPosts, updatePost, setEditingPost } = postSlice.actions;
+export const { setUserPosts, updatePost, setEditingPost, setSinglePost } =
+	postSlice.actions;
 
 export default postSlice.reducer;

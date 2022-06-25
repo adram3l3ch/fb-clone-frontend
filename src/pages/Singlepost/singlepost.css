@@ -42,14 +42,10 @@
 }
 
 @media (max-width: 800px) {
-	.singlepost {
-		min-height: auto;
-		gap: 1rem;
-		flex-direction: column;
-		height: auto;
-	}
 	.singlepost__left {
-		border-radius: 10px;
+		min-height: auto;
+		height: auto;
+		grid-template-columns: 1fr;
 	}
 	.singlepost__comments {
 		flex: initial;

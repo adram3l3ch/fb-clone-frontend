@@ -71,7 +71,6 @@ const messageSlice = createSlice({
 	},
 	extraReducers: {
 		[_getChats.fulfilled]: (state, action) => {
-			console.log(action.payload.chats[0], action.payload.users[0]);
 			state.chats = action.payload.chats.map(chat => {
 				return {
 					...chat,
