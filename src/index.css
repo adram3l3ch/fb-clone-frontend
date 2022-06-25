@@ -135,6 +135,7 @@ input::placeholder {
 	.container {
 		padding: 1rem 0.75rem;
 		max-width: 500px;
+		height: 100%;
 	}
 	.sidebar {
 		display: block;
