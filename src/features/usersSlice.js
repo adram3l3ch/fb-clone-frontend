@@ -1,22 +1,27 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchUsers } from '../API';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { fetchUsers } from "../API";
+import { _getChats } from "./messageSlice";
 
 const initialState = {
 	users: [],
 	usersOnline: [],
 };
 
-export const getUsers = createAsyncThunk('users/getUsers', async (props, thunkAPI) => {
-	const { customFetch } = props;
-	const { getState, fulfillWithValue, rejectWithValue } = thunkAPI;
-	const { user } = getState();
-	const data = await customFetch(fetchUsers, user.token);
-	if (!data) return rejectWithValue();
-	return fulfillWithValue(data.user);
-});
+export const getUsers = createAsyncThunk(
+	"users/getUsers",
+	async (props, thunkAPI) => {
+		const { customFetch } = props;
+		const { getState, fulfillWithValue, rejectWithValue, dispatch } = thunkAPI;
+		const { user } = getState();
+		const data = await customFetch(fetchUsers, user.token);
+		dispatch(_getChats({ customFetch, users: data.user }));
+		if (!data) return rejectWithValue();
+		return fulfillWithValue(data.user);
+	}
+);
 
 const usersSlice = createSlice({
-	name: 'users',
+	name: "users",
 	initialState,
 	reducers: {
 		addOnline: (state, action) => {

@@ -11,12 +11,15 @@ const initialState = {
 export const _getChats = createAsyncThunk(
 	"message/getChats",
 	async (props, thunkAPI) => {
-		const { customFetch } = props;
+		const { customFetch, users } = props;
 		const { getState, rejectWithValue, fulfillWithValue } = thunkAPI;
-		const { user, users } = getState();
+		const { user } = getState();
 		const data = await customFetch(getChats, user.token);
 		if (!data) return rejectWithValue();
-		return fulfillWithValue({ users: users.users, chats: data.chat });
+		return fulfillWithValue({
+			users: users.filter(u => u._id !== user.id),
+			chats: data.chat,
+		});
 	}
 );
 
@@ -68,6 +71,7 @@ const messageSlice = createSlice({
 	},
 	extraReducers: {
 		[_getChats.fulfilled]: (state, action) => {
+			console.log(action.payload.chats[0], action.payload.users[0]);
 			state.chats = action.payload.chats.map(chat => {
 				return {
 					...chat,

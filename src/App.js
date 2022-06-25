@@ -56,7 +56,6 @@ function App() {
 		if (id) {
 			const query = `id=${id}`;
 			dispatch(getUsers({ customFetch }));
-			dispatch(_getChats({ customFetch }));
 			dispatch(setPosts({ customFetch }));
 			dispatch(setSocket(io(SERVER_URI, { query })));
 		}

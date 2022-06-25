@@ -24,6 +24,7 @@
 }
 
 .comment p {
-	font-size: 0.75rem;
-	color: #9f9f9f;
+	font-size: 0.8rem;
+	line-height: 1.7em;
+	color: #bbbbbb;
 }
