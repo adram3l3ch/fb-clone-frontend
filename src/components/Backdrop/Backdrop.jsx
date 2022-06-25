@@ -1,7 +1,7 @@
 import React from "react";
 import "./backdrop.css";
 
-const Backdrop = ({ children, show, onClose }) => {
+const Backdrop = ({ children, show, onClose = () => {} }) => {
 	const closeModal = e => {
 		const isBackdrop =
 			e.target.firstChild?.classList?.contains("backdrop__content");

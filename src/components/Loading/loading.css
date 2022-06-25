@@ -6,6 +6,9 @@
 	color: white;
 	gap: 1em;
 	text-align: center;
+	padding: 2rem;
+	background-color: var(--primary-400);
+	border-radius: 10px;
 }
 
 .loading__circle {
