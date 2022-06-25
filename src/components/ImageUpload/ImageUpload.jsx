@@ -60,10 +60,10 @@ const ImageUpload = ({ close, setUser }) => {
 		<form onSubmit={submitHandler} className="imageupload">
 			{preview && <img src={preview} alt="upload-preview" />}
 			<div className="btns">
-				<label htmlFor="image">Upload</label>
+				<label htmlFor="dp-image">Upload</label>
 				<input
 					type="file"
-					id="image"
+					id="dp-image"
 					accept="image/png, image/jpeg"
 					onChange={loadImage}
 				/>

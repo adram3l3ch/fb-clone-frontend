@@ -3,13 +3,13 @@ import { useSelector } from "react-redux";
 import CreatePost from "../CreatePost/CreatePost";
 import "./editpost.css";
 
-const EditPost = () => {
+const EditPost = ({ close }) => {
 	const {
 		post: { editingPost },
 	} = useSelector(state => state);
 	return (
 		<div className="editPost">
-			<CreatePost post={editingPost} />
+			<CreatePost post={editingPost} id="editpost-image" close={close} />
 		</div>
 	);
 };

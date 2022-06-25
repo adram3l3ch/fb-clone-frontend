@@ -1,34 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { sendIcon, fileIcon } from "../../assets";
 import { useDispatch } from "react-redux";
-import { addPost } from "../../features/postSlice";
+import { addPost, _updatePost } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
 import Compress from "compress.js";
 import "./createpost.css";
 
 const initialForm = { image: null, preview: null, caption: "" };
 
-const CreatePost = ({ post }) => {
+const CreatePost = ({ post, id, close }) => {
 	// local states
 	const [form, setForm] = useState(initialForm);
 
-	// useEffect(() => {
-	// 	if (post && post._id) {
-	// 		setForm({
-	// 			image: null,
-	// 			preview: post.image?.src,
-	// 			caption: post.caption,
-	// 		});
-	// 	}
-	// }, [post]);
+	useEffect(() => {
+		if (post && post._id) {
+			setForm({
+				image: null,
+				preview: post.image?.src,
+				caption: post.caption,
+			});
+		}
+	}, [post]);
 
 	const dispatch = useDispatch();
 	const customFetch = useFetch();
 	const compress = new Compress();
 
 	const loadImage = e => {
-		console.log("first");
 		const input = e.target;
+		if (!input) return;
 		var reader = new FileReader();
 		reader.onload = function (e) {
 			setForm(form => ({ ...form, preview: e.target.result }));
@@ -57,7 +57,12 @@ const CreatePost = ({ post }) => {
 		const formData = new FormData();
 		formData.append("image", form.image);
 		formData.append("caption", form.caption.trim());
-		dispatch(addPost({ customFetch, formData }));
+		if (post?._id) {
+			dispatch(_updatePost({ customFetch, id: post._id, formData }));
+			close();
+		} else {
+			dispatch(addPost({ customFetch, formData }));
+		}
 		setForm(initialForm);
 	};
 
@@ -77,14 +82,14 @@ const CreatePost = ({ post }) => {
 					/>
 				)}
 				<div className="btns">
-					<label htmlFor="image" aria-label="select file">
+					<label htmlFor={id || "image"} aria-label="select file">
 						<div>
 							<img src={fileIcon} alt="select file" />
 						</div>
 					</label>
 					<input
 						type="file"
-						id="image"
+						id={id || "image"}
 						accept="image/png, image/jpeg"
 						onChange={loadImage}
 					/>

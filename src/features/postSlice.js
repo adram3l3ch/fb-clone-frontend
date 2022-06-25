@@ -4,6 +4,7 @@ import {
 	deletePost,
 	likePost,
 	commentPost,
+	updatePostService,
 } from "../API";
 import { showModal } from "./modalSlice";
 
@@ -43,6 +44,24 @@ export const addPost = createAsyncThunk("post/add", async (props, thunkAPI) => {
 	dispatch(showModal({ msg: "Post created" }));
 	return fulfillWithValue(data.post);
 });
+
+export const _updatePost = createAsyncThunk(
+	"post/update",
+	async (props, thunkAPI) => {
+		const { customFetch, formData, id } = props;
+		const { fulfillWithValue, dispatch, getState, rejectWithValue } = thunkAPI;
+		dispatch(showModal({}));
+		const data = await customFetch(
+			updatePostService,
+			id,
+			formData,
+			getState().user.token
+		);
+		if (!data) return rejectWithValue();
+		dispatch(showModal({ msg: "Post updated" }));
+		return fulfillWithValue(data);
+	}
+);
 
 export const _likePost = createAsyncThunk(
 	"post/like",
@@ -122,6 +141,19 @@ const postSlice = createSlice({
 			];
 		},
 		[removePost.rejected]: (state, action) => {
+			return state;
+		},
+		[_updatePost.fulfilled]: (state, action) => {
+			state.posts = state.posts.map(post => {
+				if (post._id === action.payload._id) return action.payload;
+				return post;
+			});
+			state.userPosts = state.userPosts.map(post => {
+				if (post._id === action.payload._id) return action.payload;
+				return post;
+			});
+		},
+		[_updatePost.rejected]: (state, action) => {
 			return state;
 		},
 	},

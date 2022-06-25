@@ -1,5 +1,5 @@
-import axios from 'axios';
-import SERVER_URI from './serverUri';
+import axios from "axios";
+import SERVER_URI from "./serverUri";
 const API_ENDPOINT = `${SERVER_URI}/api/v1`;
 
 const loginUser = async (email, password) => {
@@ -33,12 +33,15 @@ const fetchUsersByIDs = async (ids, token) => {
 	if (ids) {
 		let queryString = ids.reduce((str, id, i) => {
 			return (str += `user${i}=${id}&`);
-		}, '');
-		const { data } = await axios.get(`${API_ENDPOINT}/user/multiple?${queryString}`, {
-			headers: {
-				authorization: `Bearer ${token}`,
-			},
-		});
+		}, "");
+		const { data } = await axios.get(
+			`${API_ENDPOINT}/user/multiple?${queryString}`,
+			{
+				headers: {
+					authorization: `Bearer ${token}`,
+				},
+			}
+		);
 		return data;
 	}
 };
@@ -78,21 +81,28 @@ const updateUser = async (name, about, location, token) => {
 };
 
 const updateDP = async (formData, token) => {
-	const { data } = await axios.patch(`${API_ENDPOINT}/user/update/dp`, formData, {
-		headers: {
-			'Content-Type': 'multipart/form-data',
-			authorization: `Bearer ${token}`,
-		},
-	});
+	const { data } = await axios.patch(
+		`${API_ENDPOINT}/user/update/dp`,
+		formData,
+		{
+			headers: {
+				"Content-Type": "multipart/form-data",
+				authorization: `Bearer ${token}`,
+			},
+		}
+	);
 	return data;
 };
 
-const fetchPosts = async (token, id = '', query = '', page = '1') => {
-	const { data } = await axios.get(`${API_ENDPOINT}/post?by=${id}&search=${query}&page=${page}`, {
-		headers: {
-			authorization: `Bearer ${token}`,
-		},
-	});
+const fetchPosts = async (token, id = "", query = "", page = "1") => {
+	const { data } = await axios.get(
+		`${API_ENDPOINT}/post?by=${id}&search=${query}&page=${page}`,
+		{
+			headers: {
+				authorization: `Bearer ${token}`,
+			},
+		}
+	);
 	return data;
 };
 
@@ -108,7 +118,7 @@ const fetchPost = async (id, token) => {
 const createPost = async (formData, token) => {
 	const { data } = await axios.post(`${API_ENDPOINT}/post`, formData, {
 		headers: {
-			'Content-Type': 'multipart/form-data',
+			"Content-Type": "multipart/form-data",
 			authorization: `Bearer ${token}`,
 		},
 	});
@@ -143,6 +153,15 @@ const commentPost = async (id, comment, token) => {
 
 const deletePost = async (id, token) => {
 	const { data } = await axios.delete(`${API_ENDPOINT}/post/${id}`, {
+		headers: {
+			authorization: `Bearer ${token}`,
+		},
+	});
+	return data;
+};
+
+const updatePostService = async (id, formData, token) => {
+	const { data } = await axios.patch(`${API_ENDPOINT}/post/${id}`, formData, {
 		headers: {
 			authorization: `Bearer ${token}`,
 		},
@@ -205,6 +224,7 @@ export {
 	updateDP,
 	likePost,
 	deletePost,
+	updatePostService,
 	loginUser,
 	registerUser,
 	commentPost,

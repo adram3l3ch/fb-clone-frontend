@@ -91,7 +91,7 @@ function App() {
 		<div className={"app " + theme}>
 			<div className="container">
 				<Backdrop show={editingPost._id} onClose={closeEditing}>
-					<EditPost />
+					<EditPost close={closeEditing} />
 				</Backdrop>
 				<Backdrop show={isLoading}>
 					<Loading />
