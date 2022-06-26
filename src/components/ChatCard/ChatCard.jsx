@@ -1,16 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { dp } from "../../assets";
-import {
-	clearMessage,
-	setChatID,
-	setMessages,
-	setReceiverID,
-} from "../../features/messageSlice";
+import { clearMessage, setChatID, setMessages, setReceiverID } from "../../features/messageSlice";
 import { useNavigate } from "react-router-dom";
 import "./chatcard.css";
 import useFetch from "../../hooks/useFetch";
 import { fetchMessage } from "../../API";
+import { fetchMessagesService } from "../../services/messageServices";
 
 const ChatCard = ({ chat }) => {
 	const { userDetails } = chat;
@@ -31,26 +27,15 @@ const ChatCard = ({ chat }) => {
 		dispatch(clearMessage());
 		dispatch(setChatID(chat._id));
 		if (window.innerWidth < 801) navigate("/chat/messenger");
-		customFetch(fetchMessage, chat._id, token).then(data => {
-			dispatch(setMessages({ messages: data.message, id }));
+		customFetch(fetchMessagesService, { chatId: chat._id }).then(data => {
+			dispatch(setMessages({ messages: data.messages, id }));
 		});
 	};
 
 	return (
-		<article
-			className={active ? "active chatcard" : "chatcard"}
-			onClick={setChat}
-		>
-			<div
-				className={
-					usersOnline.some(u => u.id === userDetails._id) ? "green" : ""
-				}
-			>
-				<img
-					src={userDetails.profileImage || dp}
-					alt=""
-					className="roundimage"
-				/>
+		<article className={active ? "active chatcard" : "chatcard"} onClick={setChat}>
+			<div className={usersOnline.some(u => u.id === userDetails._id) ? "green" : ""}>
+				<img src={userDetails.profileImage || dp} alt="" className="roundimage" />
 			</div>
 			<div>
 				<h2>{userDetails.name || "User"}</h2>

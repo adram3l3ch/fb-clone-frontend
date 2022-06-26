@@ -8,8 +8,8 @@ import { toggleSidebar } from "../../features/modalSlice";
 import useFetch from "../../hooks/useFetch";
 import SearchResults from "../SearchResults/SearchResults";
 import "./appbar.css";
-import { fetchUsersServices } from "../../services/userServices";
-import { fetchPostsServices } from "../../services/postServices";
+import { fetchUsersService } from "../../services/userServices";
+import { fetchPostsService } from "../../services/postServices";
 
 const Appbar = () => {
 	//global states
@@ -32,8 +32,8 @@ const Appbar = () => {
 	const searchHandler = async e => {
 		e.preventDefault();
 		if (query.length > 0) {
-			const { posts } = await customFetch(fetchPostsServices, { query });
-			const { users } = await customFetch(fetchUsersServices, { query });
+			const { posts } = await customFetch(fetchPostsService, { query });
+			const { users } = await customFetch(fetchUsersService, { query });
 			setSearchResult({ posts, users });
 		}
 	};

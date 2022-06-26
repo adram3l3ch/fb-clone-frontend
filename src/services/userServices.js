@@ -1,7 +1,7 @@
 import extractParams from "../utils/extractParams";
 import axiosConfig from "./axiosConfig";
 
-const fetchUsersServices = async (formData = {}) => {
+const fetchUsersService = async (formData = {}) => {
 	const params = extractParams(formData, "id", "query");
 	const { data } = await axiosConfig.get("/users", { params });
 	return data;
@@ -19,4 +19,4 @@ const updateDPService = async (formData = {}) => {
 	return data;
 };
 
-export { fetchUsersServices, updateUserService, updateDPService };
+export { fetchUsersService, updateUserService, updateDPService };

@@ -1,9 +1,8 @@
 import React, { useImperativeHandle, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "../../API";
 import { setUserPosts, updatePost } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
-import { fetchPostsServices } from "../../services/postServices";
+import { fetchPostsService } from "../../services/postServices";
 import Post from "./Post";
 
 const Posts = ({ posts, containerRef, user, nextPageLoaderRef }) => {
@@ -24,11 +23,11 @@ const Posts = ({ posts, containerRef, user, nextPageLoaderRef }) => {
 	} = useSelector(state => state);
 
 	const getNextAllPosts = async () => {
-		const { posts: newPosts } = await customFetch(fetchPostsServices, { page: pageNumber + 1 });
+		const { posts: newPosts } = await customFetch(fetchPostsService, { page: pageNumber + 1 });
 		return newPosts;
 	};
 	const getNextUserPosts = async id => {
-		const { posts: newPosts } = await customFetch(fetchPostsServices, { userId: id, page: pageNumber + 1 });
+		const { posts: newPosts } = await customFetch(fetchPostsService, { userId: id, page: pageNumber + 1 });
 		return newPosts;
 	};
 

@@ -1,9 +1,9 @@
 import {
-	commentPostServices,
-	createPostServices,
-	deletePostServices,
-	fetchPostsServices,
-	likePostServices,
+	commentPostService,
+	createPostService,
+	deletePostService,
+	fetchPostsService,
+	likePostService,
 	updatePostService,
 } from "../services/postServices";
 import { showModal } from "./modalSlice";
@@ -28,7 +28,7 @@ const slicePosts = (posts, post) => {
 export const setPosts = createAsyncThunk("post/set", async (props, thunkAPI) => {
 	const { customFetch } = props;
 	const { rejectWithValue, dispatch } = thunkAPI;
-	const data = await customFetch(fetchPostsServices);
+	const data = await customFetch(fetchPostsService);
 	if (!data) return rejectWithValue();
 	dispatch(postSlice.actions.updatePost(data.posts));
 	return;
@@ -38,7 +38,7 @@ export const addPost = createAsyncThunk("post/add", async (props, thunkAPI) => {
 	const { customFetch, formData } = props;
 	const { fulfillWithValue, dispatch, rejectWithValue } = thunkAPI;
 	dispatch(showModal({}));
-	const data = await customFetch(createPostServices, formData);
+	const data = await customFetch(createPostService, formData);
 	if (!data) return rejectWithValue();
 	dispatch(showModal({ msg: "Post created" }));
 	return fulfillWithValue(data.post);
@@ -58,7 +58,7 @@ export const _likePost = createAsyncThunk("post/like", async (props, thunkAPI) =
 	const { customFetch, id, isLiked, singlepost } = props;
 	const { getState, dispatch, rejectWithValue } = thunkAPI;
 	const { post } = getState();
-	const data = await customFetch(likePostServices, { id, add: !isLiked });
+	const data = await customFetch(likePostService, { id, add: !isLiked });
 	if (!data) return rejectWithValue();
 	if (singlepost) dispatch(postSlice.actions.setSinglePost(data.post));
 	let slicedPosts = slicePosts(post.posts, data.post);
@@ -74,7 +74,7 @@ export const _commentPost = createAsyncThunk("post/comment", async (props, thunk
 	const { customFetch, id, comment, singlepost } = props;
 	const { getState, dispatch, rejectWithValue } = thunkAPI;
 	const { post } = getState();
-	const data = await customFetch(commentPostServices, { id, comment });
+	const data = await customFetch(commentPostService, { id, comment });
 	if (!data) return rejectWithValue();
 	if (singlepost) dispatch(postSlice.actions.setSinglePost(data.post));
 	let slicedPosts = slicePosts(post.posts, data.post);
@@ -85,7 +85,7 @@ export const removePost = createAsyncThunk("post/delete", async (props, thunkAPI
 	const { customFetch, id } = props;
 	const { dispatch, fulfillWithValue } = thunkAPI;
 	dispatch(showModal({}));
-	await customFetch(deletePostServices, { id });
+	await customFetch(deletePostService, { id });
 	dispatch(showModal({ msg: "Post Deleted" }));
 	return fulfillWithValue(id);
 });

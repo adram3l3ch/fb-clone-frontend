@@ -130,64 +130,55 @@ const API_ENDPOINT = `${SERVER_URI}/api/v1`;
 // 	return data;
 // };
 
-const updatePostService = async (id, formData, token) => {
-	const { data } = await axios.patch(`${API_ENDPOINT}/posts/${id}`, formData, {});
-	return data;
-};
+// const updatePostService = async (id, formData, token) => {
+// 	const { data } = await axios.patch(`${API_ENDPOINT}/posts/${id}`, formData, {});
+// 	return data;
+// };
 
-const getChats = async token => {
-	const { data } = await axios.get(`${API_ENDPOINT}/chat`, {});
-	return data;
-};
+// const getChats = async token => {
+// 	const { data } = await axios.get(`${API_ENDPOINT}/chats`, {});
+// 	return data;
+// };
 
-const createChat = async (id, token) => {
-	const { data } = await axios.post(
-		`${API_ENDPOINT}/chat/${id}`,
-		{},
-		{
-			headers: {
-				authorization: `Bearer ${token}`,
-			},
-		}
-	);
-	return data;
-};
+// const createChat = async (id, token) => {
+// 	const { data } = await axios.post(`${API_ENDPOINT}/chats/${id}`);
+// 	return data;
+// };
 
-const createMessage = async (id, text, token) => {
-	const { data } = await axios.post(
-		`${API_ENDPOINT}/message/${id}`,
-		{ text },
-		{
-			headers: {
-				authorization: `Bearer ${token}`,
-			},
-		}
-	);
-	return data;
-};
+// const createMessage = async (id, text, token) => {
+// 	const { data } = await axios.post(
+// 		`${API_ENDPOINT}/message/${id}`,
+// 		{ text },
+// 		{
+// 			headers: {
+// 				authorization: `Bearer ${token}`,
+// 			},
+// 		}
+// 	);
+// 	return data;
+// };
 
-const fetchMessage = async (id, token) => {
-	const { data } = await axios.get(`${API_ENDPOINT}/message/${id}`, {});
-	return data;
-};
+// const fetchMessage = async (id, token) => {
+// 	const { data } = await axios.get(`${API_ENDPOINT}/message/${id}`, {});
+// 	return data;
+// };
 
-export {
-	// fetchUser,
-	// fetchUsers,
-	// fetchUsersByIDs,
-	// updateUser,
-	// fetchPosts,
-	// fetchPost,
-	// createPost,
-	// updateDP,
-	// likePost,
-	// deletePost,
-	// updatePostService,
-	// loginUser,
-	// registerUser,
-	// commentPost,
-	getChats,
-	createChat,
-	createMessage,
-	fetchMessage,
-};
+export // fetchUser,
+// fetchUsers,
+// fetchUsersByIDs,
+// updateUser,
+// fetchPosts,
+// fetchPost,
+// createPost,
+// updateDP,
+// likePost,
+// deletePost,
+// updatePostService,
+// loginUser,
+// registerUser,
+// commentPost,
+// getChats,
+// createChat,
+// createMessage,
+// fetchMessage,
+ {};

@@ -11,7 +11,7 @@ import { setUserPosts } from "../../features/postSlice";
 import "./profile.css";
 import useFetch from "../../hooks/useFetch";
 import Posts from "../../components/Post/Posts";
-import { fetchPostsServices } from "../../services/postServices";
+import { fetchPostsService } from "../../services/postServices";
 
 const Profile = () => {
 	const { id } = useParams();
@@ -26,7 +26,7 @@ const Profile = () => {
 
 	useEffect(() => {
 		(async () => {
-			const data = await customFetch(fetchPostsServices, { userId: id });
+			const data = await customFetch(fetchPostsService, { userId: id });
 			if (data) dispatch(setUserPosts(data.posts));
 		})();
 	}, [token, dispatch, id, customFetch]);

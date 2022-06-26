@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./profilecard.css";
 import { dp, clockIcon, cakeIcon, locationIcon, mailIcon, cameraIcon } from "../../assets";
 import SetupProfile from "../SetupProfile/SetupProfile";
-import { createChat, fetchMessage, fetchUser } from "../../API";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import useFetch from "../../hooks/useFetch";
 import useDate from "../../hooks/useDate";
@@ -10,7 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { clearMessage, setChatID, setMessages, setReceiverID, _getChats } from "../../features/messageSlice";
 import Backdrop from "../Backdrop/Backdrop";
-import { fetchUsersServices } from "../../services/userServices";
+import { fetchUsersService } from "../../services/userServices";
+import { createChatService, fetchMessagesService } from "../../services/messageServices";
 
 const ProfileCard = ({ id, isOwnProfile }) => {
 	const [user, setUser] = useState({});
@@ -24,7 +24,7 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 
 	useEffect(() => {
 		(async () => {
-			const data = await customFetch(fetchUsersServices, { id });
+			const data = await customFetch(fetchUsersService, { id });
 			if (data) setUser(data.user);
 		})();
 	}, [id, token, customFetch]);
@@ -34,14 +34,14 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 	dob = useDate(dob);
 
 	const message = async () => {
-		const data = await customFetch(createChat, id, token);
+		const data = await customFetch(createChatService, { partnerId: id });
 		if (data) {
 			dispatch(setChatID(data.cid));
 			dispatch(setReceiverID(id));
 			dispatch(_getChats({ customFetch }));
-			customFetch(fetchMessage, data.cid, token).then(data => {
+			customFetch(fetchMessagesService, { chatId: data.cid }).then(data => {
 				dispatch(clearMessage());
-				dispatch(setMessages({ messages: data.message, id: userID }));
+				dispatch(setMessages({ messages: data.messages, id: userID }));
 				if (window.innerWidth < 801) navigate("/chat/messenger");
 				else navigate("/chat");
 			});
