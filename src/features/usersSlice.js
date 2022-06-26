@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchUsers } from "../API";
+import { fetchUsersServices } from "../services/userServices";
 import { _getChats } from "./messageSlice";
 
 const initialState = {
@@ -7,18 +7,15 @@ const initialState = {
 	usersOnline: [],
 };
 
-export const getUsers = createAsyncThunk(
-	"users/getUsers",
-	async (props, thunkAPI) => {
-		const { customFetch } = props;
-		const { getState, fulfillWithValue, rejectWithValue, dispatch } = thunkAPI;
-		const { user } = getState();
-		const data = await customFetch(fetchUsers, user.token);
-		dispatch(_getChats({ customFetch, users: data.user }));
-		if (!data) return rejectWithValue();
-		return fulfillWithValue(data.user);
-	}
-);
+export const getUsers = createAsyncThunk("users/getUsers", async (props, thunkAPI) => {
+	const { customFetch } = props;
+	const { fulfillWithValue, rejectWithValue, dispatch } = thunkAPI;
+	const data = await customFetch(fetchUsersServices);
+	if (!data) return rejectWithValue();
+	const { users } = data;
+	dispatch(_getChats({ customFetch, users }));
+	return fulfillWithValue(users);
+});
 
 const usersSlice = createSlice({
 	name: "users",

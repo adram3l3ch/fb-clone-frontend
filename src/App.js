@@ -66,15 +66,11 @@ function App() {
 
 	useEffect(() => {
 		if (socket) {
-			socket
-				.off("receive message")
-				.on("receive message", (message, senderID) => {
-					dispatch(showModal({ msg: "1 new message" }));
-					dispatch(
-						updateChats({ lastMessage: message, id: senderID, customFetch })
-					);
-					senderID === to && dispatch(addMessages({ text: message }));
-				});
+			socket.off("receive message").on("receive message", (message, senderID) => {
+				dispatch(showModal({ msg: "1 new message" }));
+				dispatch(updateChats({ lastMessage: message, id: senderID, customFetch }));
+				senderID === to && dispatch(addMessages({ text: message }));
+			});
 		}
 	}, [customFetch, dispatch, socket, to]);
 

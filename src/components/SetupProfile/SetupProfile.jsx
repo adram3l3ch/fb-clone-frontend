@@ -3,11 +3,11 @@ import { useDispatch } from "react-redux";
 import { update } from "../../features/userSlice";
 import { setPosts } from "../../features/postSlice";
 import { showModal } from "../../features/modalSlice";
-import { updateUser } from "../../API";
 import useFetch from "../../hooks/useFetch";
 import Cookies from "js-cookie";
 import "./setupprofile.css";
 import { useEffect } from "react";
+import { updateUserService } from "../../services/userServices";
 
 const SetupProfile = ({ close, user, setUser }) => {
 	const [userDetails, setUserDetails] = useState({
@@ -38,13 +38,7 @@ const SetupProfile = ({ close, user, setUser }) => {
 
 	const clickHandler = async e => {
 		e.preventDefault();
-		const data = await customFetch(
-			updateUser,
-			userDetails.name,
-			userDetails.about,
-			userDetails.location,
-			token
-		);
+		const data = await customFetch(updateUserService, userDetails);
 		if (data) {
 			setUser(data.user);
 			close();
@@ -57,24 +51,11 @@ const SetupProfile = ({ close, user, setUser }) => {
 	return (
 		<form onSubmit={clickHandler} className="setup">
 			<label htmlFor="">Username</label>
-			<input
-				type="text"
-				value={userDetails.name}
-				required
-				onChange={e => _updateUser("name", e)}
-			/>
+			<input type="text" value={userDetails.name} required onChange={e => _updateUser("name", e)} />
 			<label htmlFor="">About</label>
-			<input
-				type="text"
-				value={userDetails.about}
-				onChange={e => _updateUser("about", e)}
-			/>
+			<input type="text" value={userDetails.about} onChange={e => _updateUser("about", e)} />
 			<label htmlFor="">Location</label>
-			<input
-				type="text"
-				value={userDetails.location}
-				onChange={e => _updateUser("location", e)}
-			/>
+			<input type="text" value={userDetails.location} onChange={e => _updateUser("location", e)} />
 			<button type="submit">Continue</button>
 			<button onClick={close} type="reset">
 				Cancel

@@ -1,19 +1,15 @@
-import axios from "axios";
 import extractParams from "../utils/extractParams";
-import SERVER_URI from "../serverUri";
-const API_ENDPOINT = `${SERVER_URI}/api/v1`;
+import axiosConfig from "./axiosConfig";
 
-const loginService = async formData => {
-	const end_point = `${API_ENDPOINT}/auth/login`;
+const loginService = async (formData = {}) => {
 	const params = extractParams(formData, "email", "password");
-	const { data } = await axios.post(end_point, params);
+	const { data } = await axiosConfig.post("/auth/login", params);
 	return data;
 };
 
-const registerService = async formData => {
-	const end_point = `${API_ENDPOINT}/auth/register`;
+const registerService = async (formData = {}) => {
 	const params = extractParams(formData, "name", "email", "password", "dob");
-	const { data } = await axios.post(end_point, params);
+	const { data } = await axiosConfig.post("/auth/register", params);
 	return data;
 };
 

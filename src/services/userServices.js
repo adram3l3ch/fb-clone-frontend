@@ -1,4 +1,22 @@
-import axios from "axios";
 import extractParams from "../utils/extractParams";
-import SERVER_URI from "../serverUri";
-const API_ENDPOINT = `${SERVER_URI}/api/v1`;
+import axiosConfig from "./axiosConfig";
+
+const fetchUsersServices = async (formData = {}) => {
+	const params = extractParams(formData, "id", "query");
+	const { data } = await axiosConfig.get("/users", { params });
+	return data;
+};
+
+const updateUserService = async (formData = {}) => {
+	const params = extractParams(formData, "name", "about", "location");
+	const { data } = await axiosConfig.patch("/users", params);
+	return data;
+};
+
+const updateDPService = async (formData = {}) => {
+	const headers = { "Content-Type": "multipart/form-data" };
+	const { data } = await axiosConfig.patch("/users/dp", formData, { headers });
+	return data;
+};
+
+export { fetchUsersServices, updateUserService, updateDPService };

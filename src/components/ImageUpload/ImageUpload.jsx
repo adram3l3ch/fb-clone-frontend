@@ -7,6 +7,7 @@ import { showModal } from "../../features/modalSlice";
 import useFetch from "../../hooks/useFetch";
 import Compress from "compress.js";
 import "./imageupload.css";
+import { updateDPService } from "../../services/userServices";
 
 const ImageUpload = ({ close, setUser }) => {
 	const [image, setImage] = useState(null);
@@ -45,7 +46,7 @@ const ImageUpload = ({ close, setUser }) => {
 		const formData = new FormData();
 		formData.append("image", image);
 		dispatch(showModal({}));
-		const data = await customFetch(updateDP, formData, token);
+		const data = await customFetch(updateDPService, formData);
 		if (data) {
 			setUser(data.user);
 			dispatch(update({ profileImage: data.user.profileImage }));
@@ -61,12 +62,7 @@ const ImageUpload = ({ close, setUser }) => {
 			{preview && <img src={preview} alt="upload-preview" />}
 			<div className="btns">
 				<label htmlFor="dp-image">Upload</label>
-				<input
-					type="file"
-					id="dp-image"
-					accept="image/png, image/jpeg"
-					onChange={loadImage}
-				/>
+				<input type="file" id="dp-image" accept="image/png, image/jpeg" onChange={loadImage} />
 				{image && <button type="submit">Submit</button>}
 				<button onClick={close} type="reset">
 					Cancel

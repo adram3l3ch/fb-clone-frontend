@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./profilecard.css";
-import {
-	dp,
-	clockIcon,
-	cakeIcon,
-	locationIcon,
-	mailIcon,
-	cameraIcon,
-} from "../../assets";
+import { dp, clockIcon, cakeIcon, locationIcon, mailIcon, cameraIcon } from "../../assets";
 import SetupProfile from "../SetupProfile/SetupProfile";
 import { createChat, fetchMessage, fetchUser } from "../../API";
 import ImageUpload from "../ImageUpload/ImageUpload";
@@ -15,14 +8,9 @@ import useFetch from "../../hooks/useFetch";
 import useDate from "../../hooks/useDate";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-	clearMessage,
-	setChatID,
-	setMessages,
-	setReceiverID,
-	_getChats,
-} from "../../features/messageSlice";
+import { clearMessage, setChatID, setMessages, setReceiverID, _getChats } from "../../features/messageSlice";
 import Backdrop from "../Backdrop/Backdrop";
+import { fetchUsersServices } from "../../services/userServices";
 
 const ProfileCard = ({ id, isOwnProfile }) => {
 	const [user, setUser] = useState({});
@@ -36,7 +24,7 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 
 	useEffect(() => {
 		(async () => {
-			const data = await customFetch(fetchUser, id, token);
+			const data = await customFetch(fetchUsersServices, { id });
 			if (data) setUser(data.user);
 		})();
 	}, [id, token, customFetch]);
@@ -77,18 +65,10 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 			</Backdrop>
 			<header>
 				<div>
-					<img
-						src={profileImage || dp}
-						alt="profile_image"
-						className="profilecard__dp roundimage"
-					/>
+					<img src={profileImage || dp} alt="profile_image" className="profilecard__dp roundimage" />
 					{isOwnProfile && (
 						<div className="dp-upload">
-							<img
-								src={cameraIcon}
-								alt="change_profile_image"
-								onClick={() => setIsUploading(true)}
-							/>
+							<img src={cameraIcon} alt="change_profile_image" onClick={() => setIsUploading(true)} />
 						</div>
 					)}
 				</div>
