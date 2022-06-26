@@ -6,8 +6,8 @@ import Input from "../Input/Input";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import useDate from "../../hooks/useDate";
-import "./post.css";
 import Options from "../Options/Options";
+import "./post.css";
 
 const Post = ({ singlepost, post }) => {
 	const createdAt = useDate(post.createdAt);
@@ -65,9 +65,7 @@ const Post = ({ singlepost, post }) => {
 		return (
 			<>
 				{post.caption && getParagraphs(post.caption)}
-				{post.image?.src && (
-					<img src={post.image?.src} alt="post_image" className="post__image" />
-				)}
+				{post.image?.src && <img src={post.image?.src} alt="post_image" className="post__image" />}
 			</>
 		);
 	};
@@ -75,27 +73,14 @@ const Post = ({ singlepost, post }) => {
 	return (
 		<article className={singlepost ? "post halfborder single" : "post"}>
 			<header>
-				<Link
-					to={`/user/${post.createdBy}`}
-					className={isOnline ? "green" : ""}
-				>
-					<img
-						src={post.userDetails.image || dp}
-						alt="profileImage"
-						className="post__dp roundimage"
-					/>
+				<Link to={`/user/${post.createdBy}`} className={isOnline ? "green" : ""}>
+					<img src={post.userDetails.image || dp} alt="profileImage" className="post__dp roundimage" />
 				</Link>
 				<div>
 					<h3>{post.userDetails.name}</h3>
 					<p>{createdAt}</p>
 				</div>
-				{isOwnPost && (
-					<Options
-						deleteHandler={deleteHandler}
-						editHandler={() => {}}
-						post={post}
-					/>
-				)}
+				{isOwnPost && <Options deleteHandler={deleteHandler} editHandler={() => {}} post={post} />}
 			</header>
 			<div className="post__details">
 				{singlepost ? (
@@ -108,16 +93,10 @@ const Post = ({ singlepost, post }) => {
 			</div>
 			<div className="post__footer">
 				<div className="post__reactions">
-					<img
-						src={isLiked ? likeIcon : likeOutlined}
-						alt="like"
-						onClick={likeHandler}
-					/>
+					<img src={isLiked ? likeIcon : likeOutlined} alt="like" onClick={likeHandler} />
 					<p>{likes() || ""}</p>
 				</div>
-				{singlepost || (
-					<Input placeholder={"Write a comment..."} handler={commentHandler} />
-				)}
+				{singlepost || <Input placeholder={"Write a comment..."} handler={commentHandler} />}
 			</div>
 		</article>
 	);

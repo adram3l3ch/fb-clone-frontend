@@ -1,18 +1,15 @@
-import Cookies from "js-cookie";
 import React, { useState } from "react";
-import { updateDP } from "../../API";
 import { useDispatch } from "react-redux";
 import { update } from "../../features/userSlice";
 import { showModal } from "../../features/modalSlice";
 import useFetch from "../../hooks/useFetch";
 import Compress from "compress.js";
-import "./imageupload.css";
 import { updateDPService } from "../../services/userServices";
+import "./imageupload.css";
 
 const ImageUpload = ({ close, setUser }) => {
 	const [image, setImage] = useState(null);
 	const [preview, setPreview] = useState(null);
-	const { token } = JSON.parse(Cookies.get("user"));
 
 	const dispatch = useDispatch();
 	const customFetch = useFetch();

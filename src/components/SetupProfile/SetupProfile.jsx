@@ -4,18 +4,12 @@ import { update } from "../../features/userSlice";
 import { setPosts } from "../../features/postSlice";
 import { showModal } from "../../features/modalSlice";
 import useFetch from "../../hooks/useFetch";
-import Cookies from "js-cookie";
 import "./setupprofile.css";
 import { useEffect } from "react";
 import { updateUserService } from "../../services/userServices";
 
 const SetupProfile = ({ close, user, setUser }) => {
-	const [userDetails, setUserDetails] = useState({
-		name: "",
-		about: "",
-		location: "",
-	});
-	const { token } = JSON.parse(Cookies.get("user"));
+	const [userDetails, setUserDetails] = useState({ name: "", about: "", location: "" });
 
 	useEffect(() => {
 		user._id &&

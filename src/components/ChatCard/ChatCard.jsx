@@ -3,17 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { dp } from "../../assets";
 import { clearMessage, setChatID, setMessages, setReceiverID } from "../../features/messageSlice";
 import { useNavigate } from "react-router-dom";
-import "./chatcard.css";
 import useFetch from "../../hooks/useFetch";
-import { fetchMessage } from "../../API";
 import { fetchMessagesService } from "../../services/messageServices";
+import "./chatcard.css";
 
 const ChatCard = ({ chat }) => {
 	const { userDetails } = chat;
 	const {
 		message: { conversationID },
 		users: { usersOnline },
-		user: { id, token },
+		user: { id },
 	} = useSelector(state => state);
 
 	const active = conversationID === chat._id;

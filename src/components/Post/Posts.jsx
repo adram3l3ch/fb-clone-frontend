@@ -1,5 +1,5 @@
 import React, { useImperativeHandle, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUserPosts, updatePost } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
 import { fetchPostsService } from "../../services/postServices";
@@ -17,10 +17,6 @@ const Posts = ({ posts, containerRef, user, nextPageLoaderRef }) => {
 	useImperativeHandle(nextPageLoaderRef, () => ({
 		getNextPage: () => getNextPage(),
 	}));
-
-	const {
-		user: { token },
-	} = useSelector(state => state);
 
 	const getNextAllPosts = async () => {
 		const { posts: newPosts } = await customFetch(fetchPostsService, { page: pageNumber + 1 });

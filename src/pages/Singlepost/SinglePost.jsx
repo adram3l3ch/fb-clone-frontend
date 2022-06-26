@@ -3,15 +3,14 @@ import Input from "../../components/Input/Input";
 import Comments from "../../components/Comments/Comments";
 import Post from "../../components/Post/Post";
 import Online from "../../components/Online/Online";
-import { fetchPost } from "../../API";
 import { useParams } from "react-router";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { setSinglePost, _commentPost } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
-import "./singlepost.css";
 import { useSelector } from "react-redux";
 import { fetchPostsService } from "../../services/postServices";
+import "./singlepost.css";
 
 const SinglePost = () => {
 	const { id } = useParams();

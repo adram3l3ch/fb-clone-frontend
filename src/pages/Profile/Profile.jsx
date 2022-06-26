@@ -5,17 +5,14 @@ import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import { useParams } from "react-router";
 import CreatePost from "../../components/CreatePost/CreatePost";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "../../API";
-import Cookies from "js-cookie";
 import { setUserPosts } from "../../features/postSlice";
-import "./profile.css";
 import useFetch from "../../hooks/useFetch";
 import Posts from "../../components/Post/Posts";
 import { fetchPostsService } from "../../services/postServices";
+import "./profile.css";
 
 const Profile = () => {
 	const { id } = useParams();
-	const { token } = JSON.parse(Cookies.get("user"));
 	const { userPosts } = useSelector(state => state.post);
 	const isOwnProfile = id === useSelector(state => state.user.id);
 	const mainRef = React.useRef(null);
@@ -29,7 +26,7 @@ const Profile = () => {
 			const data = await customFetch(fetchPostsService, { userId: id });
 			if (data) dispatch(setUserPosts(data.posts));
 		})();
-	}, [token, dispatch, id, customFetch]);
+	}, [dispatch, id, customFetch]);
 
 	const getNextPage = () => {
 		nextPageLoaderRef.current?.getNextPage?.();

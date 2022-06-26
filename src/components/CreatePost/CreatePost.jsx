@@ -69,7 +69,7 @@ const CreatePost = ({ post, id, close }) => {
 					<div className="uploaded-image">
 						<img src={form.preview} alt="uploaded file" />
 						<div className="close-icon" onClick={() => setForm({ ...form, image: null, preview: null })}>
-							<img src={closeIcon} alt="remove-image" />
+							<img src={closeIcon} alt="remove" />
 						</div>
 					</div>
 				)}

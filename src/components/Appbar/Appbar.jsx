@@ -3,13 +3,12 @@ import { dp, logoutIcon, closeIcon, searchIcon, hamburger, chatIcon, homeIcon } 
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/userSlice";
-import { fetchPosts, fetchUsers } from "../../API";
 import { toggleSidebar } from "../../features/modalSlice";
 import useFetch from "../../hooks/useFetch";
 import SearchResults from "../SearchResults/SearchResults";
-import "./appbar.css";
 import { fetchUsersService } from "../../services/userServices";
 import { fetchPostsService } from "../../services/postServices";
+import "./appbar.css";
 
 const Appbar = () => {
 	//global states
