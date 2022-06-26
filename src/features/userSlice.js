@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import Cookies from "js-cookie";
 import axiosConfig from "../services/axiosConfig";
 
@@ -18,13 +17,6 @@ const userSlice = createSlice({
 			const { id, name, profileImage, token } = action.payload;
 			Cookies.set("user", JSON.stringify(action.payload), { expires: 30 });
 			axiosConfig.interceptors.request.use(
-				config => {
-					config.headers["Authorization"] = `Bearer ${token}`;
-					return config;
-				},
-				error => Promise.reject(error)
-			);
-			axios.interceptors.request.use(
 				config => {
 					config.headers["Authorization"] = `Bearer ${token}`;
 					return config;

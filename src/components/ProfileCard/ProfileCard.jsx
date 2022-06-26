@@ -11,6 +11,7 @@ import { clearMessage, setChatID, setMessages, setReceiverID, _getChats } from "
 import Backdrop from "../Backdrop/Backdrop";
 import { fetchUsersService } from "../../services/userServices";
 import { createChatService, fetchMessagesService } from "../../services/messageServices";
+import { setIsLoading } from "../../features/modalSlice";
 
 const ProfileCard = ({ id, isOwnProfile }) => {
 	const [user, setUser] = useState({});
@@ -34,6 +35,7 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 	dob = useDate(dob);
 
 	const message = async () => {
+		dispatch(setIsLoading(true));
 		const data = await customFetch(createChatService, { partnerId: id });
 		if (data) {
 			dispatch(setChatID(data.cid));
@@ -46,6 +48,7 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 				else navigate("/chat");
 			});
 		}
+		dispatch(setIsLoading(false));
 	};
 
 	const hideUploading = () => {
