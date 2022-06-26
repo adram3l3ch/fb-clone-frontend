@@ -14,7 +14,7 @@ import { fetchPostsService } from "../../services/postServices";
 const Appbar = () => {
 	//global states
 	const {
-		users: { id, token, profileImage },
+		user: { id, profileImage },
 		modal: { isSidebarVisible },
 	} = useSelector(state => state);
 
