@@ -56,6 +56,25 @@ label div {
 .uploaded-image {
 	width: 100%;
 	border-radius: 10px;
+	overflow: hidden;
+	position: relative;
+}
+
+.uploaded-image img {
+	width: 100%;
+}
+
+.uploaded-image .close-icon {
+	position: absolute;
+	right: 1rem;
+	top: 1rem;
+	background-color: var(--primary-500);
+	height: 30px;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	display: grid;
+	place-content: center;
+	cursor: pointer;
 }
 
 @media (max-width: 800px) {

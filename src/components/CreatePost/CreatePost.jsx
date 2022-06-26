@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addPost, _updatePost } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
 import Compress from "compress.js";
+import { closeIcon } from "../../assets/index";
 import "./createpost.css";
 
 const initialForm = { image: null, preview: null, caption: "" };
@@ -14,11 +15,7 @@ const CreatePost = ({ post, id, close }) => {
 
 	useEffect(() => {
 		if (post && post._id) {
-			setForm({
-				image: null,
-				preview: post.image?.src,
-				caption: post.caption,
-			});
+			setForm({ image: null, preview: post.image?.src, caption: post.caption });
 		}
 	}, [post]);
 
@@ -26,7 +23,13 @@ const CreatePost = ({ post, id, close }) => {
 	const customFetch = useFetch();
 	const compress = new Compress();
 
-	const loadImage = e => {
+	const compressImage = async files => {
+		const options = { size: 1, quality: 0.75, maxWidth: 1920, maxHeight: 1920, resize: true, rotate: false };
+		const data = await compress.compress(files, options);
+		return data;
+	};
+
+	const loadImage = async e => {
 		const input = e.target;
 		if (!input) return;
 		var reader = new FileReader();
@@ -35,21 +38,9 @@ const CreatePost = ({ post, id, close }) => {
 		};
 		input.files[0] && reader.readAsDataURL(input.files[0]);
 		const files = [...input.files];
-		compress
-			.compress(files, {
-				size: 1,
-				quality: 0.75,
-				maxWidth: 1920,
-				maxHeight: 1920,
-				resize: true,
-				rotate: false,
-			})
-			.then(data => {
-				setForm(form => ({
-					...form,
-					image: Compress.convertBase64ToFile(data[0]?.data, data[0]?.ext),
-				}));
-			});
+		const data = await compressImage(files);
+		const image = Compress.convertBase64ToFile(data[0]?.data, data[0]?.ext);
+		setForm(form => ({ ...form, image }));
 	};
 
 	const submitHandler = async e => {
@@ -75,11 +66,12 @@ const CreatePost = ({ post, id, close }) => {
 					onChange={e => setForm({ ...form, caption: e.target.value })}
 				/>
 				{form.preview && (
-					<img
-						src={form.preview}
-						alt="uploaded file"
-						className="uploaded-image"
-					/>
+					<div className="uploaded-image">
+						<img src={form.preview} alt="uploaded file" />
+						<div className="close-icon" onClick={() => setForm({ ...form, image: null, preview: null })}>
+							<img src={closeIcon} alt="remove-image" />
+						</div>
+					</div>
 				)}
 				<div className="btns">
 					<label htmlFor={id || "image"} aria-label="select file">
@@ -87,12 +79,7 @@ const CreatePost = ({ post, id, close }) => {
 							<img src={fileIcon} alt="select file" />
 						</div>
 					</label>
-					<input
-						type="file"
-						id={id || "image"}
-						accept="image/png, image/jpeg"
-						onChange={loadImage}
-					/>
+					<input type="file" id={id || "image"} accept="image/png, image/jpeg" onChange={loadImage} />
 					<button type="submit" aria-label="submit">
 						<img src={sendIcon} alt="send" />
 					</button>
