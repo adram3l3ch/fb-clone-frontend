@@ -9,6 +9,7 @@ import useFetch from "../../hooks/useFetch";
 import SearchResults from "../SearchResults/SearchResults";
 import "./appbar.css";
 import { fetchUsersServices } from "../../services/userServices";
+import { fetchPostsServices } from "../../services/postServices";
 
 const Appbar = () => {
 	//global states
@@ -31,7 +32,7 @@ const Appbar = () => {
 	const searchHandler = async e => {
 		e.preventDefault();
 		if (query.length > 0) {
-			const { posts } = await customFetch(fetchPosts, token, "", query);
+			const { posts } = await customFetch(fetchPostsServices, { query });
 			const { users } = await customFetch(fetchUsersServices, { query });
 			setSearchResult({ posts, users });
 		}

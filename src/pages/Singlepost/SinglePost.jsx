@@ -11,6 +11,7 @@ import { setSinglePost, _commentPost } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
 import "./singlepost.css";
 import { useSelector } from "react-redux";
+import { fetchPostsServices } from "../../services/postServices";
 
 const SinglePost = () => {
 	const { id } = useParams();
@@ -22,8 +23,8 @@ const SinglePost = () => {
 
 	useEffect(() => {
 		(async () => {
-			const data = await customFetch(fetchPost, id, token);
-			if (data) dispatch(setSinglePost(data.posts));
+			const data = await customFetch(fetchPostsServices, { id });
+			if (data) dispatch(setSinglePost(data.post));
 		})();
 	}, [id, token, dispatch, customFetch]);
 
@@ -41,9 +42,7 @@ const SinglePost = () => {
 	return (
 		<section className="singlepost">
 			<div className="singlepost__left">
-				<article>
-					{singlePost._id && <Post singlepost={true} post={singlePost} />}
-				</article>
+				<article>{singlePost._id && <Post singlepost={true} post={singlePost} />}</article>
 				<article className="singlepost__comments">
 					<div>
 						<Comments post={singlePost} />

@@ -79,59 +79,59 @@ const API_ENDPOINT = `${SERVER_URI}/api/v1`;
 // 	return data;
 // };
 
-const fetchPosts = async (token, id = "", query = "", page = "1") => {
-	const { data } = await axios.get(`${API_ENDPOINT}/post?by=${id}&search=${query}&page=${page}`, {});
-	return data;
-};
+// const fetchPosts = async (token, id = "", query = "", page = "1") => {
+// 	const { data } = await axios.get(`${API_ENDPOINT}/posts?by=${id}&search=${query}&page=${page}`, {});
+// 	return data;
+// };
 
-const fetchPost = async (id, token) => {
-	const { data } = await axios.get(`${API_ENDPOINT}/post/${id}`, {});
-	return data;
-};
+// const fetchPost = async (id, token) => {
+// 	const { data } = await axios.get(`${API_ENDPOINT}/posts/${id}`, {});
+// 	return data;
+// };
 
-const createPost = async (formData, token) => {
-	const { data } = await axios.post(`${API_ENDPOINT}/post`, formData, {
-		headers: {
-			"Content-Type": "multipart/form-data",
-			authorization: `Bearer ${token}`,
-		},
-	});
-	return data;
-};
+// const createPost = async (formData, token) => {
+// 	const { data } = await axios.post(`${API_ENDPOINT}/posts`, formData, {
+// 		headers: {
+// 			"Content-Type": "multipart/form-data",
+// 			authorization: `Bearer ${token}`,
+// 		},
+// 	});
+// 	return data;
+// };
 
-const likePost = async (id, token, add) => {
-	const { data } = await axios.patch(
-		`${API_ENDPOINT}/post/like?add=${add}`,
-		{ id },
-		{
-			headers: {
-				authorization: `Bearer ${token}`,
-			},
-		}
-	);
-	return data;
-};
+// const likePost = async (id, token, add) => {
+// 	const { data } = await axios.patch(
+// 		`${API_ENDPOINT}/posts/like?add=${add}`,
+// 		{ id },
+// 		{
+// 			headers: {
+// 				authorization: `Bearer ${token}`,
+// 			},
+// 		}
+// 	);
+// 	return data;
+// };
 
-const commentPost = async (id, comment, token) => {
-	const { data } = await axios.patch(
-		`${API_ENDPOINT}/post/comment`,
-		{ id, comment },
-		{
-			headers: {
-				authorization: `Bearer ${token}`,
-			},
-		}
-	);
-	return data;
-};
+// const commentPost = async (id, comment, token) => {
+// 	const { data } = await axios.patch(
+// 		`${API_ENDPOINT}/posts/comment`,
+// 		{ id, comment },
+// 		{
+// 			headers: {
+// 				authorization: `Bearer ${token}`,
+// 			},
+// 		}
+// 	);
+// 	return data;
+// };
 
-const deletePost = async (id, token) => {
-	const { data } = await axios.delete(`${API_ENDPOINT}/post/${id}`, {});
-	return data;
-};
+// const deletePost = async (id, token) => {
+// 	const { data } = await axios.delete(`${API_ENDPOINT}/posts/${id}`, {});
+// 	return data;
+// };
 
 const updatePostService = async (id, formData, token) => {
-	const { data } = await axios.patch(`${API_ENDPOINT}/post/${id}`, formData, {});
+	const { data } = await axios.patch(`${API_ENDPOINT}/posts/${id}`, formData, {});
 	return data;
 };
 
@@ -176,16 +176,16 @@ export {
 	// fetchUsers,
 	// fetchUsersByIDs,
 	// updateUser,
-	fetchPosts,
-	fetchPost,
-	createPost,
+	// fetchPosts,
+	// fetchPost,
+	// createPost,
 	// updateDP,
-	likePost,
-	deletePost,
-	updatePostService,
+	// likePost,
+	// deletePost,
+	// updatePostService,
 	// loginUser,
 	// registerUser,
-	commentPost,
+	// commentPost,
 	getChats,
 	createChat,
 	createMessage,
