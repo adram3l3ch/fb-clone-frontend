@@ -1,7 +1,7 @@
-import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { showModal } from '../features/modalSlice';
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { showModal } from "../features/modalSlice";
 
 const useFetch = () => {
 	const dispatch = useDispatch();
@@ -11,8 +11,8 @@ const useFetch = () => {
 			try {
 				return await callback(...props);
 			} catch (error) {
-				if (error.response?.status === 404) navigate('/not-found');
-				const { msg } = error.response?.data || 'Something went wrong';
+				if (error.response?.status === 404) navigate("/not-found");
+				const { msg } = error.response?.data || "Something went wrong";
 				dispatch(showModal({ msg }));
 			}
 		},

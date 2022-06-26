@@ -2,23 +2,23 @@ import axios from "axios";
 import SERVER_URI from "./serverUri";
 const API_ENDPOINT = `${SERVER_URI}/api/v1`;
 
-const loginUser = async (email, password) => {
-	const { data } = await axios.post(`${API_ENDPOINT}/auth/login`, {
-		email,
-		password,
-	});
-	return data;
-};
+// const loginUser = async (email, password) => {
+// 	const { data } = await axios.post(`${API_ENDPOINT}/auth/login`, {
+// 		email,
+// 		password,
+// 	});
+// 	return data;
+// };
 
-const registerUser = async (name, email, password, dob) => {
-	const { data } = await axios.post(`${API_ENDPOINT}/auth/register`, {
-		name,
-		password,
-		email,
-		dob,
-	});
-	return data;
-};
+// const registerUser = async (name, email, password, dob) => {
+// 	const { data } = await axios.post(`${API_ENDPOINT}/auth/register`, {
+// 		name,
+// 		password,
+// 		email,
+// 		dob,
+// 	});
+// 	return data;
+// };
 
 const fetchUser = async (id, token) => {
 	const { data } = await axios.get(`${API_ENDPOINT}/user/${id}`, {
@@ -225,8 +225,8 @@ export {
 	likePost,
 	deletePost,
 	updatePostService,
-	loginUser,
-	registerUser,
+	// loginUser,
+	// registerUser,
 	commentPost,
 	getChats,
 	createChat,
