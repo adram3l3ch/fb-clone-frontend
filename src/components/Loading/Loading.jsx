@@ -9,23 +9,27 @@ const Loading = ({ show }) => {
 		setQuote(data.text);
 	};
 	useEffect(() => {
-		if (show) {
-			fetchQuote();
-			setTimeout(() => {
-				setQuote(q => {
-					if (q) return q;
-					return "Your internet is slower than my crushs reply :(";
-				});
-			}, 3000);
-		} else {
-			setQuote("");
-		}
+		fetchQuote();
+		setTimeout(() => {
+			setQuote(q => {
+				if (q) return q;
+				return "Your internet is slower than my crushs reply :(";
+			});
+		}, 3000);
+	}, []);
+
+	useEffect(() => {
+		show || setQuote("");
 	}, [show]);
 	return (
 		<section className="loading">
 			<div className="loading__circle"></div>
-			<h2>Do you know?</h2>
-			<p>{quote}</p>
+			{quote && (
+				<>
+					<h2>Do you know?</h2>
+					<p>{quote}</p>
+				</>
+			)}
 		</section>
 	);
 };

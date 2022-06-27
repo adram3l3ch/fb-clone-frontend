@@ -19,6 +19,9 @@
 	border-bottom-color: transparent;
 	transform-origin: center;
 	animation: rotate 1s linear infinite;
+}
+
+.loading h2 {
 	margin-bottom: 2rem;
 }
 
