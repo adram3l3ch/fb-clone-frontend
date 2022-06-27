@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./profilecard.css";
 import { dp, clockIcon, cakeIcon, locationIcon, mailIcon, cameraIcon } from "../../assets";
 import SetupProfile from "../SetupProfile/SetupProfile";
 import ImageUpload from "../ImageUpload/ImageUpload";
@@ -11,6 +10,8 @@ import { createChat } from "../../features/messageSlice";
 import Backdrop from "../Backdrop/Backdrop";
 import { fetchUsersService } from "../../services/userServices";
 import { setIsLoading } from "../../features/modalSlice";
+import "./profilecard.css";
+import { logout } from "../../features/userSlice";
 
 const ProfileCard = ({ id, isOwnProfile }) => {
 	const [user, setUser] = useState({});
@@ -91,7 +92,10 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 				</div>
 			</article>
 			{isOwnProfile ? (
-				<button onClick={() => setIsEditing(true)}>Edit Profile</button>
+				<div className="btn-group">
+					<button onClick={() => dispatch(logout())}>Logout</button>
+					<button onClick={() => setIsEditing(true)}>Edit Profile</button>
+				</div>
 			) : (
 				<button onClick={sendMessage}>Message</button>
 			)}

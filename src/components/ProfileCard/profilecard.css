@@ -86,3 +86,8 @@
 	border-radius: 10px;
 	font-size: 0.8rem;
 }
+
+.btn-group {
+	display: flex;
+	gap: 0.5rem;
+}

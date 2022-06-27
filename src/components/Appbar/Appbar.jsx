@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { dp, logoutIcon, closeIcon, searchIcon, hamburger, chatIcon, homeIcon } from "../../assets";
+import { dp, closeIcon, searchIcon, hamburger, chatIcon, homeIcon } from "../../assets";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../features/userSlice";
 import { toggleSidebar } from "../../features/modalSlice";
 import useFetch from "../../hooks/useFetch";
 import SearchResults from "../SearchResults/SearchResults";
@@ -23,10 +22,6 @@ const Appbar = () => {
 
 	const dispatch = useDispatch();
 	const customFetch = useFetch();
-
-	const logoutHandler = () => {
-		dispatch(logout());
-	};
 
 	const searchHandler = async e => {
 		e.preventDefault();
@@ -74,9 +69,6 @@ const Appbar = () => {
 				<Link to="/chat">
 					<img src={chatIcon} alt="chat" className="chat" />
 				</Link>
-				<button onClick={logoutHandler} aria-label="logout">
-					<img src={logoutIcon} alt="logoutIcon" className="appbar__profile__logout" title="logout" />
-				</button>
 			</nav>
 		</header>
 	);
