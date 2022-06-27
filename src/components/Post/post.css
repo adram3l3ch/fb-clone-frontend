@@ -119,7 +119,7 @@ p {
 		border-radius: 10px;
 	}
 	.post {
-		padding: 0.5rem;
+		padding: 1.5rem 0.5rem;
 	}
 	.single .post__details {
 		max-height: initial;

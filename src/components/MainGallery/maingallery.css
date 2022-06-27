@@ -35,7 +35,7 @@
 
 .maingallery > button {
 	position: absolute;
-	width: 30px !important;
+	width: 2rem !important;
 	aspect-ratio: 1;
 	background-color: red !important;
 	border-radius: 50% !important;
@@ -46,7 +46,7 @@
 
 @media (max-width: 800px) {
 	.maingallery {
-		width: 90%;
+		width: 90vw;
 		gap: 0.95rem;
 	}
 }

@@ -1,10 +1,14 @@
 .theme-switch {
 	position: fixed;
-	right: 3rem;
-	bottom: 3rem;
-	height: 4rem;
+	left: 1rem;
+	bottom: 2rem;
+	height: 3rem;
 	aspect-ratio: 1;
 	z-index: 5;
+}
+
+.theme-switch:not(.open) {
+	animation: beat 2s ease-out infinite;
 }
 
 .switch {
@@ -12,7 +16,7 @@
 	height: 100%;
 	display: grid;
 	place-content: center;
-	font-size: 2rem;
+	font-size: 1.5rem;
 	color: white;
 	cursor: pointer;
 	position: relative;
@@ -27,10 +31,10 @@
 	background-color: var(--primary-600);
 	position: absolute;
 	top: 0;
-	right: 50%;
-	border-radius: 100vmax 0 0 100vmax;
+	left: 50%;
+	border-radius: 0vmax 100vmax 100vmax 0;
 	z-index: 1;
-	padding: 0.75rem;
+	padding: 0.6rem;
 	gap: 0.5rem;
 	display: flex;
 	overflow: hidden;
@@ -46,7 +50,7 @@
 }
 
 .theme-switch.open .switch {
-	transform: rotate(-90deg);
+	transform: rotate(90deg);
 }
 
 .themes > div {
@@ -60,8 +64,8 @@
 	isolation: isolate;
 }
 
-.themes > div:last-of-type {
-	margin-right: 2rem;
+.themes > div:first-of-type {
+	margin-left: 1rem;
 }
 
 .themes .tooltip {
@@ -101,4 +105,10 @@
 
 .themes .dark-blue-tint {
 	background: linear-gradient(-45deg, #0b0c27 50%, #2b2c44 50%);
+}
+
+@keyframes beat {
+	50% {
+		transform: scale(1.1);
+	}
 }

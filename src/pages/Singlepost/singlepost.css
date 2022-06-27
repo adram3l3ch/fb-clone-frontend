@@ -1,7 +1,7 @@
 .singlepost {
 	display: flex;
 	gap: 2rem;
-	padding-block: 2px;
+	padding: 2px;
 	height: calc(100vh - 9rem);
 }
 
@@ -40,15 +40,14 @@
 }
 
 @media (max-width: 800px) {
+	.singlepost {
+		height: auto;
+	}
 	.singlepost__left {
 		grid-template-columns: 1fr;
 	}
 	.singlepost__comments {
-		flex: initial;
 		border-radius: 10px;
-	}
-	.singlepost__comments > div {
-		padding: 2rem 1rem;
-		position: relative;
+		padding: 1.5rem 0.75rem;
 	}
 }

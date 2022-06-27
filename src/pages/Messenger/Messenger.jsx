@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
-import Messenger from '../../components/Messenger/Messenger';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import Messenger from "../../components/Messenger/Messenger";
+import { useNavigate } from "react-router-dom";
 
 const MessengerPage = () => {
 	const style = {
-		height: '100%',
-		borderRadius: '10px',
-		overflow: 'hidden',
+		height: "calc(100vh - 9rem)",
+		borderRadius: "10px",
+		overflow: "hidden",
 	};
 
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (window.innerWidth > 800) navigate('/chat');
+		if (window.innerWidth > 800) navigate("/chat");
 	});
 
 	return (

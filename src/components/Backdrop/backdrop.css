@@ -18,10 +18,14 @@
 }
 
 .backdrop.show .backdrop__content {
-	animation: slideDown 0.3s ease-out, fadeIn 0.2s ease-in;
+	transform: translateY(0);
+	opacity: 1;
 }
 
 .backdrop__content {
 	position: relative;
 	border-radius: 10px;
+	transform: translateY(-30px);
+	opacity: 0;
+	transition: transform 0.3s ease-out, opacity 0.2s ease-out;
 }

@@ -151,21 +151,3 @@ input::placeholder {
 		font-size: calc(1rem - 2px);
 	}
 }
-
-@keyframes slideDown {
-	from {
-		transform: translateY(-30px);
-	}
-	to {
-		transform: translateY(0);
-	}
-}
-
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}

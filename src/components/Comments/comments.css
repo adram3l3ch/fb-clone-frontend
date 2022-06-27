@@ -1,6 +1,5 @@
 .comments {
 	overflow: auto;
-	margin-bottom: 1.5rem;
 	color: white;
 	height: 100%;
 	scrollbar-width: none; /*to work in moz*/

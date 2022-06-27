@@ -2,7 +2,7 @@
 	position: absolute;
 	width: 100%;
 	left: 0;
-	max-height: 80vh;
+	height: 85vh;
 	overflow: auto;
 	top: calc(100% + 1rem);
 	background-color: var(--primary-500);
@@ -45,7 +45,8 @@
 @media (max-width: 800px) {
 	.search-results {
 		position: fixed;
-		inset: 5rem 1rem;
+		height: auto;
+		inset: 7rem 1rem 1rem;
 		width: initial;
 	}
 }
