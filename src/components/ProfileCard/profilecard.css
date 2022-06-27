@@ -23,7 +23,7 @@
 
 .profilecard__dp {
 	height: 100%;
-	border: 0.5rem solid var(--primary-400);
+	border: 0.3rem solid var(--primary-400);
 }
 
 .dp-upload {

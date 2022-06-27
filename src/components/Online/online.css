@@ -4,8 +4,11 @@
 	background-color: var(--primary-500);
 	border-radius: 10px;
 	color: white;
-	position: relative;
 	scrollbar-width: none; /*to work in moz*/
+	padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
 }
 
 .online::-webkit-scrollbar {
@@ -15,14 +18,6 @@
 .online h2 {
 	font-size: 1.1rem;
 	font-weight: 500;
-}
-
-.online > div {
-	position: absolute;
-	padding: 2rem;
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
 }
 
 .online .user {

@@ -1,27 +1,27 @@
 .chat__page {
-    height: 100%;
-    display: flex;
-    gap: 0.2rem;
-    border-radius: 10px;
-    overflow: hidden;
+	height: calc(100vh - 9rem);
+	display: flex;
+	gap: 0.2rem;
+	border-radius: 10px;
+	overflow: hidden;
 }
 
 .chat__page__cards {
-    background-color: var(--primary-500);
-    overflow: auto;
-    flex: 1;
-    min-width: 300px;
+	background-color: var(--primary-500);
+	overflow: auto;
+	flex: 1;
+	min-width: 300px;
 }
 
 .chat__page__cards::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 
 @media (max-width: 800px) {
-    .chat__page .chat__page__messenger {
-        display: none;
-    }
-    .messenger {
-        padding: 2rem 1rem;
-    }
+	.chat__page .chat__page__messenger {
+		display: none;
+	}
+	.messenger {
+		padding: 2rem 1rem;
+	}
 }
