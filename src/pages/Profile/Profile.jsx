@@ -38,17 +38,10 @@ const Profile = () => {
 				<ProfileCard id={id} isOwnProfile={isOwnProfile} />
 				<Gallery />
 			</article>
-			<article className="profile__center">
-				<div ref={mainRef} onScroll={getNextPage}>
-					{isOwnProfile && <CreatePost />}
-					{userPosts.length < 1 && <h2>No Posts</h2>}
-					<Posts
-						posts={userPosts}
-						containerRef={mainRef}
-						user={{ id }}
-						nextPageLoaderRef={nextPageLoaderRef}
-					/>
-				</div>
+			<article className="profile__center" ref={mainRef} onScroll={getNextPage}>
+				{isOwnProfile && <CreatePost />}
+				{userPosts.length < 1 && <h2>No Posts</h2>}
+				<Posts posts={userPosts} containerRef={mainRef} user={{ id }} nextPageLoaderRef={nextPageLoaderRef} />
 			</article>
 			<article className="profile__right">
 				<Online />

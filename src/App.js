@@ -81,22 +81,16 @@ function App() {
 	return (
 		<div className={"app " + theme}>
 			<div className="container">
-				<Backdrop show={editingPost._id} onClose={closeEditing}>
-					<EditPost close={closeEditing} />
-				</Backdrop>
-				<Backdrop show={isLoading}>
-					<Loading />
-				</Backdrop>
 				<ThemeSwitch setTheme={setTheme} />
 				<Modal />
 				{!id ? (
 					<Auth />
 				) : (
 					<>
-						<Appbar />
 						<div className={isSidebarVisible ? "sidebar visible" : "sidebar"}>
 							<Online />
 						</div>
+						<Appbar />
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/post/:id" element={<SinglePost />} />
@@ -107,6 +101,12 @@ function App() {
 						</Routes>
 					</>
 				)}
+				<Backdrop show={editingPost._id} onClose={closeEditing}>
+					<EditPost close={closeEditing} />
+				</Backdrop>
+				<Backdrop show={isLoading}>
+					<Loading />
+				</Backdrop>
 			</div>
 		</div>
 	);

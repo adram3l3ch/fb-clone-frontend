@@ -8,14 +8,16 @@ const Comments = ({ post }) => {
 
 	return (
 		<div className="comments">
-			<h3>{post?.comments?.length} Comments</h3>
-			{post?.comments?.map((comment, i) => (
-				<Comment
-					key={comment._id}
-					comment={comment}
-					user={users.find(user => user._id === comment.commentedBy)}
-				/>
-			))}
+			<div>
+				<h3>{post?.comments?.length} Comments</h3>
+				{post?.comments?.map((comment, i) => (
+					<Comment
+						key={comment._id}
+						comment={comment}
+						user={users.find(user => user._id === comment.commentedBy)}
+					/>
+				))}
+			</div>
 		</div>
 	);
 };

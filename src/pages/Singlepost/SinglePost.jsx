@@ -41,12 +41,10 @@ const SinglePost = () => {
 	return (
 		<section className="singlepost">
 			<div className="singlepost__left">
-				<article>{singlePost._id && <Post singlepost={true} post={singlePost} />}</article>
+				{singlePost._id && <Post singlepost={true} post={singlePost} />}
 				<article className="singlepost__comments">
-					<div>
-						<Comments post={singlePost} />
-						<Input placeholder="Write a comment..." handler={commentHandler} />
-					</div>
+					<Comments post={singlePost} />
+					<Input placeholder="Write a comment..." handler={commentHandler} />
 				</article>
 			</div>
 			<article className="singlepost__right">

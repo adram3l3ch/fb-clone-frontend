@@ -69,13 +69,12 @@ a {
 
 .container {
 	max-width: 1700px;
-	height: 100vh;
-	min-height: 750px;
-	padding: 2rem;
+	min-height: 100vh;
+	padding-inline: 2rem;
 	margin-inline: auto;
 	display: flex;
 	flex-direction: column;
-	gap: 2rem;
+	padding-bottom: 2rem;
 }
 
 button:disabled {
@@ -121,7 +120,8 @@ input::placeholder {
 .createpost::before,
 .profile__right::before,
 .singlepost__left::before,
-.backdrop__content::before {
+.backdrop__content::before,
+.home__right::before {
 	content: "";
 	position: absolute;
 	inset: -2px;
@@ -132,7 +132,7 @@ input::placeholder {
 
 @media (max-width: 800px) {
 	.container {
-		padding: 1rem 0.75rem;
+		padding-inline: 0.75rem;
 		max-width: 500px;
 	}
 	.sidebar {
