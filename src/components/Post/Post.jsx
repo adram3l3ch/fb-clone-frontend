@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removePost, _commentPost, _likePost } from "../../features/postSlice";
+import { removePost, setEditingPost, _commentPost, _likePost } from "../../features/postSlice";
 import { dp, likeIcon, likeOutlined } from "../../assets";
 import Input from "../Input/Input";
 import { Link } from "react-router-dom";
@@ -24,16 +24,25 @@ const Post = ({ singlepost, post }) => {
 	const isLiked = post?.likes?.includes(id);
 	const isOnline = usersOnline.some(user => user.id === post.createdBy);
 
-	const likeHandler = async () => {
+	const likeHandler = () => {
 		dispatch(_likePost({ customFetch, id: post._id, isLiked, singlepost }));
 	};
 
-	const commentHandler = async comment => {
+	const commentHandler = comment => {
 		dispatch(_commentPost({ customFetch, id: post._id, comment }));
 	};
 
-	const deleteHandler = async () => {
+	const deleteHandler = () => {
 		dispatch(removePost({ customFetch, id: post._id }));
+	};
+
+	const editHandler = () => {
+		dispatch(setEditingPost(post));
+	};
+
+	const options = {
+		Delete: deleteHandler,
+		Edit: editHandler,
 	};
 
 	const getParagraphs = text => {
@@ -48,7 +57,7 @@ const Post = ({ singlepost, post }) => {
 		);
 	};
 
-	const likes = () => {
+	const getNumberOfLikes = () => {
 		if (post.likes.length) {
 			return post.likes.includes(id)
 				? post.likes.length - 1 === 0
@@ -80,7 +89,7 @@ const Post = ({ singlepost, post }) => {
 					<h3>{post.userDetails.name}</h3>
 					<p>{createdAt}</p>
 				</div>
-				{isOwnPost && <Options deleteHandler={deleteHandler} editHandler={() => {}} post={post} />}
+				{isOwnPost && <Options options={options} />}
 			</header>
 			<div className="post__details">
 				{singlepost ? (
@@ -94,7 +103,7 @@ const Post = ({ singlepost, post }) => {
 			<div className="post__footer">
 				<div className="post__reactions">
 					<img src={isLiked ? likeIcon : likeOutlined} alt="like" onClick={likeHandler} />
-					<p>{likes() || ""}</p>
+					<p>{getNumberOfLikes() || ""}</p>
 				</div>
 				{singlepost || <Input placeholder={"Write a comment..."} handler={commentHandler} />}
 			</div>

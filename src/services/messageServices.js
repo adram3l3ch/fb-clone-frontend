@@ -24,4 +24,10 @@ const fetchMessagesService = async (formData = {}) => {
 	return data;
 };
 
-export { fetchChatsService, createChatService, fetchMessagesService };
+const deleteChatService = async (formData = {}) => {
+	const params = extractParams(formData, "chatId");
+	const { data } = await axiosConfig.delete("/chats", { data: params });
+	return data;
+};
+
+export { fetchChatsService, createChatService, fetchMessagesService, deleteChatService };

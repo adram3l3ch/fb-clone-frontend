@@ -14,9 +14,9 @@ const SetupProfile = ({ close, user, setUser }) => {
 	useEffect(() => {
 		user._id &&
 			setUserDetails({
-				name: user.name,
-				about: user.about,
-				location: user.location,
+				name: user.name || "",
+				about: user.about || "",
+				location: user.location || "",
 			});
 	}, [user]);
 

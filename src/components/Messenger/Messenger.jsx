@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
-import { addMessages, updateChats } from "../../features/messageSlice";
+import { addMessages, deleteChat, updateChats } from "../../features/messageSlice";
 import SingleChat from "../SingleChat/SingleChat";
 import Input from "../Input/Input";
 import { dp } from "../../assets";
 import "./messenger.css";
+import Options from "../Options/Options";
 
 const Messenger = () => {
 	const {
@@ -15,8 +16,7 @@ const Messenger = () => {
 		users: { usersOnline },
 	} = useSelector(state => state);
 
-	const userDetails =
-		chats?.find(chat => chat._id === conversationID)?.userDetails || {};
+	const userDetails = chats?.find(chat => chat._id === conversationID)?.userDetails || {};
 
 	const customFetch = useFetch();
 	const dispatch = useDispatch();
@@ -32,28 +32,31 @@ const Messenger = () => {
 		dispatch(updateChats({ id: to, lastMessage: message, customFetch }));
 	};
 
+	const deleteHandler = () => {
+		dispatch(deleteChat({ customFetch }));
+	};
+
+	const options = {
+		"Delete Chat": deleteHandler,
+		"Clear Chat": "",
+	};
+
 	return (
 		<section className="chat__page__messenger">
 			{conversationID ? (
 				<>
 					<header>
-						<img src={userDetails.profileImage || dp} alt="chatIcon" />
+						<img src={userDetails.profileImage || dp} alt="chatIcon" className="chat__page__dp" />
 						<div>
 							<h3>{userDetails.name}</h3>
 							{usersOnline.some(u => u.id === userDetails._id) && <p>Online</p>}
 						</div>
+						<Options options={options} />
 					</header>
 					<main ref={scroll}>
 						<div className="messenger">
 							{messages.map((message, i, messages) => {
-								return (
-									<SingleChat
-										key={i}
-										message={message}
-										index={i}
-										messages={messages}
-									/>
-								);
+								return <SingleChat key={i} message={message} index={i} messages={messages} />;
 							})}
 						</div>
 					</main>

@@ -5,12 +5,11 @@ import SetupProfile from "../SetupProfile/SetupProfile";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import useFetch from "../../hooks/useFetch";
 import useDate from "../../hooks/useDate";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { clearMessage, setChatID, setMessages, setReceiverID, _getChats } from "../../features/messageSlice";
+import { createChat } from "../../features/messageSlice";
 import Backdrop from "../Backdrop/Backdrop";
 import { fetchUsersService } from "../../services/userServices";
-import { createChatService, fetchMessagesService } from "../../services/messageServices";
 import { setIsLoading } from "../../features/modalSlice";
 
 const ProfileCard = ({ id, isOwnProfile }) => {
@@ -18,7 +17,6 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [isUploading, setIsUploading] = useState(false);
 
-	const { token, id: userID } = useSelector(state => state.user);
 	const customFetch = useFetch();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -28,27 +26,19 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 			const data = await customFetch(fetchUsersService, { id });
 			if (data) setUser(data.user);
 		})();
-	}, [id, token, customFetch]);
+	}, [id, customFetch]);
 
 	let { name, email, about, dob, location, createdAt, profileImage } = user;
 	createdAt = `Joined on ${useDate(createdAt)}`;
 	dob = useDate(dob);
 
-	const message = async () => {
+	const sendMessage = async () => {
 		dispatch(setIsLoading(true));
-		const data = await customFetch(createChatService, { partnerId: id });
-		if (data) {
-			dispatch(setChatID(data.cid));
-			dispatch(setReceiverID(id));
-			dispatch(_getChats({ customFetch }));
-			customFetch(fetchMessagesService, { chatId: data.cid }).then(data => {
-				dispatch(clearMessage());
-				dispatch(setMessages({ messages: data.messages, id: userID }));
-				if (window.innerWidth < 801) navigate("/chat/messenger");
-				else navigate("/chat");
-			});
-		}
-		dispatch(setIsLoading(false));
+		dispatch(createChat({ customFetch, id })).then(() => {
+			if (window.innerWidth < 801) navigate("/chat/messenger");
+			else navigate("/chat");
+			dispatch(setIsLoading(false));
+		});
 	};
 
 	const hideUploading = () => {
@@ -60,12 +50,16 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 
 	return (
 		<section className="profilecard">
-			<Backdrop show={isEditing} onClose={hideEditing}>
-				<SetupProfile close={hideEditing} user={user} setUser={setUser} />
-			</Backdrop>
-			<Backdrop show={isUploading} onClose={hideUploading}>
-				<ImageUpload setUser={setUser} close={hideUploading} />
-			</Backdrop>
+			{isOwnProfile && (
+				<>
+					<Backdrop show={isEditing} onClose={hideEditing}>
+						<SetupProfile close={hideEditing} user={user} setUser={setUser} />
+					</Backdrop>
+					<Backdrop show={isUploading} onClose={hideUploading}>
+						<ImageUpload setUser={setUser} close={hideUploading} />
+					</Backdrop>
+				</>
+			)}
 			<header>
 				<div>
 					<img src={profileImage || dp} alt="profile_image" className="profilecard__dp roundimage" />
@@ -99,7 +93,7 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 			{isOwnProfile ? (
 				<button onClick={() => setIsEditing(true)}>Edit Profile</button>
 			) : (
-				<button onClick={message}>Message</button>
+				<button onClick={sendMessage}>Message</button>
 			)}
 		</section>
 	);

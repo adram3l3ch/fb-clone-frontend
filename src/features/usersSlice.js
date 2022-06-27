@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchUsersService } from "../services/userServices";
-import { _getChats } from "./messageSlice";
+import { getAllChats } from "./messageSlice";
 
 const initialState = {
 	users: [],
@@ -13,7 +13,7 @@ export const getUsers = createAsyncThunk("users/getUsers", async (props, thunkAP
 	const data = await customFetch(fetchUsersService);
 	if (!data) return rejectWithValue();
 	const { users } = data;
-	dispatch(_getChats({ customFetch, users }));
+	dispatch(getAllChats({ customFetch, users }));
 	return fulfillWithValue(users);
 });
 
