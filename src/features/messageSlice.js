@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+	clearChatService,
 	createChatService,
 	deleteChatService,
 	fetchChatsService,
@@ -26,11 +27,29 @@ export const getAllChats = createAsyncThunk("message/getAllChats", async (props,
 	});
 });
 
+export const createChat = createAsyncThunk("message/createChat", async (props, thunkAPI) => {
+	const { getState, dispatch, rejectWithValue } = thunkAPI;
+	const { customFetch, id } = props;
+	const { user, users, message } = getState();
+	const data = await customFetch(createChatService, { partnerId: id });
+	if (!data) rejectWithValue();
+	if (message.chats.every(chat => chat._id !== data.cid)) {
+		dispatch(getAllChats({ customFetch, users: users.users }));
+	}
+	dispatch(messageSlice.actions.setChatID(data.cid));
+	dispatch(messageSlice.actions.setReceiverID(id));
+	const _data = await customFetch(fetchMessagesService, { chatId: data.cid });
+	dispatch(clearMessage());
+	dispatch(setMessages({ messages: _data.messages, id: user.id }));
+});
+
 export const updateChats = createAsyncThunk("message/updateChat", async (props, thunkAPI) => {
 	const { getState, dispatch, fulfillWithValue, rejectWithValue } = thunkAPI;
-	const { lastMessage, id, customFetch } = props;
+	const { lastMessage, id, chatId, customFetch } = props;
 	const { message } = getState();
-	const index = message.chats.findIndex(chat => chat.members.includes(id));
+	let index;
+	if (chatId) index = message.chats.findIndex(chat => chat._id === chatId);
+	else index = message.chats.findIndex(chat => chat.members.includes(id));
 	if (index >= 0) return fulfillWithValue({ index, lastMessage });
 	dispatch(getAllChats({ customFetch }));
 	return rejectWithValue();
@@ -48,20 +67,17 @@ export const deleteChat = createAsyncThunk("message/deleteChat", async (props, t
 	fulfillWithValue([]);
 });
 
-export const createChat = createAsyncThunk("message/createChat", async (props, thunkAPI) => {
+export const clearChat = createAsyncThunk("message/clearChat", async (props, thunkAPI) => {
 	const { getState, dispatch, rejectWithValue } = thunkAPI;
-	const { customFetch, id } = props;
-	const { user, users, message } = getState();
-	const data = await customFetch(createChatService, { partnerId: id });
-	if (!data) rejectWithValue();
-	if (message.chats.every(chat => chat._id !== data.cid)) {
-		dispatch(getAllChats({ customFetch, users: users.users }));
-	}
-	dispatch(messageSlice.actions.setChatID(data.cid));
-	dispatch(messageSlice.actions.setReceiverID(id));
-	const _data = await customFetch(fetchMessagesService, { chatId: data.cid });
-	dispatch(clearMessage());
-	dispatch(setMessages({ messages: _data.messages, id: user.id }));
+	const { customFetch } = props;
+	const {
+		message: { conversationID },
+	} = getState();
+	const data = await customFetch(clearChatService, { chatId: conversationID });
+	if (!data) return rejectWithValue();
+	dispatch(showModal({ msg: "Chat cleared" }));
+	dispatch(messageSlice.actions.clearMessage());
+	dispatch(updateChats({ lastMessage: "", chatId: conversationID, customFetch }));
 });
 
 const messageSlice = createSlice({
@@ -94,9 +110,6 @@ const messageSlice = createSlice({
 			const getUserDetails = members => users.find(user => members.includes(user._id));
 			state.chats = chats.map(chat => ({ ...chat, userDetails: getUserDetails(chat.members) }));
 		},
-		[getAllChats.rejected]: (state, action) => {
-			return state;
-		},
 		[updateChats.fulfilled]: (state, action) => {
 			const updatingChat = state.chats[action.payload.index];
 			state.chats = [
@@ -107,17 +120,11 @@ const messageSlice = createSlice({
 				...state.chats.filter(chat => chat._id !== updatingChat._id),
 			];
 		},
-		[updateChats.rejected]: (state, action) => {
-			return state;
-		},
 		[deleteChat.fulfilled]: (state, action) => {
 			state.chats = state.chats.filter(chat => chat._id !== state.conversationID);
 			state.conversationID = "";
 			state.to = "";
 			state.messages = [];
-		},
-		[deleteChat.rejected]: (state, action) => {
-			return state;
 		},
 	},
 });

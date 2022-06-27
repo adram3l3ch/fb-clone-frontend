@@ -20,7 +20,7 @@ const createChatService = async (formData = {}) => {
 
 const fetchMessagesService = async (formData = {}) => {
 	const params = extractParams(formData, "chatId");
-	const { data } = await axiosConfig.get("/message", { params });
+	const { data } = await axiosConfig.get("/messages", { params });
 	return data;
 };
 
@@ -30,4 +30,10 @@ const deleteChatService = async (formData = {}) => {
 	return data;
 };
 
-export { fetchChatsService, createChatService, fetchMessagesService, deleteChatService };
+const clearChatService = async (formData = {}) => {
+	const params = extractParams(formData, "chatId");
+	const { data } = await axiosConfig.delete("/messages", { data: params });
+	return data;
+};
+
+export { fetchChatsService, createChatService, fetchMessagesService, deleteChatService, clearChatService };
