@@ -97,7 +97,10 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 					<button onClick={() => setIsEditing(true)}>Edit Profile</button>
 				</div>
 			) : (
-				<button onClick={sendMessage}>Message</button>
+				<div className="btn-group">
+					<button onClick={sendMessage}>Message</button>
+					<button disabled>Add Friend</button>
+				</div>
 			)}
 		</section>
 	);
