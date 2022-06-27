@@ -14,7 +14,11 @@
 	cursor: pointer;
 }
 
-.chatcard img {
+.chatcard__dp {
+	flex-shrink: 0;
+}
+
+.chatcard__dp img {
 	height: 2.5rem;
 }
 

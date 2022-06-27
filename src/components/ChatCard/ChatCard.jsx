@@ -33,7 +33,9 @@ const ChatCard = ({ chat }) => {
 
 	return (
 		<article className={active ? "active chatcard" : "chatcard"} onClick={setChat}>
-			<div className={usersOnline.some(u => u.id === userDetails._id) ? "green" : ""}>
+			<div
+				className={usersOnline.some(u => u.id === userDetails._id) ? "green chatcard__dp" : "chatcard__dp"}
+			>
 				<img src={userDetails.profileImage || dp} alt="" className="roundimage" />
 			</div>
 			<div>
