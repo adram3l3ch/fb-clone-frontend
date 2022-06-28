@@ -128,13 +128,11 @@ input::placeholder {
 	bottom: 0;
 }
 
-.profilecard::before,
-.post:not(.single)::before,
-.createpost::before,
-.profile__right::before,
-.singlepost__left::before,
-.backdrop__content::before,
-.home__right::before {
+.gradient-border {
+	position: relative;
+}
+
+.gradient-border::before {
 	content: "";
 	position: absolute;
 	inset: -2px;

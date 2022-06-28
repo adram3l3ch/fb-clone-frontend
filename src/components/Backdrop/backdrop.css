@@ -23,7 +23,6 @@
 }
 
 .backdrop__content {
-	position: relative;
 	border-radius: 10px;
 	transform: translateY(-30px);
 	opacity: 0;

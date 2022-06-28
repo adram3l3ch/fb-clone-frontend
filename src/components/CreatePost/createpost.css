@@ -2,7 +2,6 @@
 	background-color: var(--primary-500);
 	padding: 2rem 1rem;
 	border-radius: 10px;
-	position: relative;
 }
 
 .createpost textarea {

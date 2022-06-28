@@ -46,7 +46,7 @@ const Profile = () => {
 					<Posts posts={userPosts} />
 				</article>
 			</InfinityScroll>
-			<article className="profile__right">
+			<article className="profile__right gradient-border">
 				<Online />
 			</article>
 		</section>

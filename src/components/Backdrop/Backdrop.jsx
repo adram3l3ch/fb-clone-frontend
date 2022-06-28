@@ -13,7 +13,7 @@ const Backdrop = ({ children, show, onClose = () => {} }) => {
 	};
 	return (
 		<div className={show ? "backdrop show" : "backdrop"} onClick={closeModal}>
-			<div className="backdrop__content">{newChildren}</div>
+			<div className="backdrop__content gradient-border">{newChildren}</div>
 		</div>
 	);
 };

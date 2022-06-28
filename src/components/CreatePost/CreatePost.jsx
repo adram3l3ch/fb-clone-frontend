@@ -58,7 +58,7 @@ const CreatePost = ({ post, id, close }) => {
 	};
 
 	return (
-		<article className="createpost">
+		<article className="createpost gradient-border">
 			<form onSubmit={submitHandler}>
 				<textarea
 					placeholder="What's on your mind?"

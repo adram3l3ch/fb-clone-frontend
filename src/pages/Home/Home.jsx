@@ -31,7 +31,7 @@ const Home = () => {
 					<Posts posts={posts} />
 				</main>
 			</InfinityScroll>
-			<aside className="home__right">
+			<aside className="home__right gradient-border">
 				<Online />
 			</aside>
 		</section>

@@ -50,7 +50,7 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 	};
 
 	return (
-		<section className="profilecard">
+		<section className="profilecard gradient-border">
 			{isOwnProfile && (
 				<>
 					<Backdrop show={isEditing} onClose={hideEditing}>

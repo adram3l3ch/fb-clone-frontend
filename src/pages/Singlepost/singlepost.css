@@ -9,7 +9,6 @@
 	flex: 3;
 	display: grid;
 	grid-template-columns: 2fr 1fr;
-	position: relative;
 	border-radius: 10px;
 	gap: 0.2rem;
 }
@@ -29,8 +28,9 @@
 
 .singlepost__right {
 	flex: 1;
-	position: relative;
 	overflow: auto;
+	padding: 2px;
+	border-radius: 10px;
 }
 
 @media (max-width: 1200px) {

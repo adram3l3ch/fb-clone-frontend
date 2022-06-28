@@ -40,14 +40,14 @@ const SinglePost = () => {
 
 	return (
 		<section className="singlepost">
-			<div className="singlepost__left">
+			<div className="singlepost__left gradient-border">
 				{singlePost._id && <Post singlepost={true} post={singlePost} />}
 				<article className="singlepost__comments">
 					<Comments post={singlePost} />
 					<Input placeholder="Write a comment..." handler={commentHandler} />
 				</article>
 			</div>
-			<article className="singlepost__right">
+			<article className="singlepost__right gradient-border">
 				<Online />
 			</article>
 		</section>
