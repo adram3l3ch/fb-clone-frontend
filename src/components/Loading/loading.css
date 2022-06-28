@@ -8,6 +8,7 @@
 	padding: 2rem;
 	background-color: var(--primary-400);
 	border-radius: 10px;
+	max-width: 90vw;
 }
 
 .loading__circle {
