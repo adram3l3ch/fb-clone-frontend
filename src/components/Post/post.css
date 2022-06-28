@@ -22,7 +22,7 @@ p {
 
 .post {
 	background-color: var(--primary-500);
-	padding: 2rem 1.5rem;
+	padding: 2rem 1rem;
 	color: white;
 	border-radius: 10px;
 	display: grid;

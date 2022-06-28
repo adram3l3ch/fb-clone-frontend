@@ -1,8 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CreatePost from "../../components/CreatePost/CreatePost";
+import InfinityScroll from "../../components/InfinityScroll/InfinityScroll";
 import Online from "../../components/Online/Online";
 import Posts from "../../components/Post/Posts";
+import { updatePost } from "../../features/postSlice";
+import useFetch from "../../hooks/useFetch";
+import { fetchPostsService } from "../../services/postServices";
 import "./home.css";
 
 const Home = () => {
@@ -10,23 +14,23 @@ const Home = () => {
 		post: { posts },
 	} = useSelector(state => state);
 
-	const mainRef = React.useRef(null);
-	const nextPageLoaderRef = React.useRef(null);
+	const customFetch = useFetch();
+	const dispatch = useDispatch();
 
-	const getNextPage = () => {
-		nextPageLoaderRef.current?.getNextPage?.();
+	const getNextPage = async page => {
+		const { posts: newPosts } = await customFetch(fetchPostsService, { page });
+		dispatch(updatePost([...posts, ...newPosts]));
+		return newPosts.length;
 	};
 
 	return (
 		<section className="home">
-			<main className="home__left" onScroll={getNextPage} ref={mainRef}>
-				<CreatePost />
-				<Posts
-					posts={posts}
-					containerRef={mainRef}
-					nextPageLoaderRef={nextPageLoaderRef}
-				/>
-			</main>
+			<InfinityScroll getNextPage={getNextPage} items={posts}>
+				<main className="home__left">
+					<CreatePost />
+					<Posts posts={posts} />
+				</main>
+			</InfinityScroll>
 			<aside className="home__right">
 				<Online />
 			</aside>
@@ -34,4 +38,4 @@ const Home = () => {
 	);
 };
 
-export default React.memo(Home);
+export default Home;

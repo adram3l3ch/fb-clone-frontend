@@ -1,6 +1,6 @@
 .createpost {
 	background-color: var(--primary-500);
-	padding: 2rem 1.5rem;
+	padding: 2rem 1rem;
 	border-radius: 10px;
 	position: relative;
 }
