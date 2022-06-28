@@ -21,7 +21,7 @@ const Post = ({ singlepost, post }) => {
 		users: { usersOnline },
 	} = useSelector(state => state);
 	const isOwnPost = id === post.createdBy;
-	const isLiked = post?.likes?.includes(id);
+	const isLiked = post.likes?.includes(id);
 	const isOnline = usersOnline.some(user => user.id === post.createdBy);
 
 	const likeHandler = () => {
@@ -58,14 +58,14 @@ const Post = ({ singlepost, post }) => {
 	};
 
 	const getNumberOfLikes = () => {
-		if (post.likes.length) {
-			return post.likes.includes(id)
-				? post.likes.length - 1 === 0
+		if (post.likes?.length) {
+			return post.likes?.includes(id)
+				? post.likes?.length - 1 === 0
 					? "You"
-					: post.likes.length - 1 === 1
+					: post.likes?.length - 1 === 1
 					? "You and 1 more"
 					: `You and ${post.likes.length - 1} others`
-				: post.likes.length;
+				: post.likes?.length;
 		}
 		return false;
 	};
@@ -83,10 +83,10 @@ const Post = ({ singlepost, post }) => {
 		<article className={singlepost ? "post halfborder single" : "post gradient-border"}>
 			<header>
 				<Link to={`/user/${post.createdBy}`} className={isOnline ? "green" : ""}>
-					<img src={post.userDetails.image || dp} alt="profileImage" className="post__dp roundimage" />
+					<img src={post.userDetails?.image || dp} alt="profileImage" className="post__dp roundimage" />
 				</Link>
 				<div>
-					<h3>{post.userDetails.name}</h3>
+					<h3>{post.userDetails?.name}</h3>
 					<p>{createdAt}</p>
 				</div>
 				{isOwnPost && <Options options={options} />}

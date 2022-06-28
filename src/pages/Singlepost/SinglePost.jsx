@@ -34,7 +34,7 @@ const SinglePost = () => {
 	return (
 		<section className="singlepost">
 			<div className="singlepost__left gradient-border">
-				{singlePost._id && <Post singlepost={true} post={singlePost} />}
+				<Post singlepost={true} post={singlePost} />
 				<article className="singlepost__comments">
 					<Comments post={singlePost} />
 					<Input placeholder="Write a comment..." handler={commentHandler} />
