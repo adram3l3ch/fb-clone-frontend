@@ -7,6 +7,7 @@ import {
 	fetchMessagesService,
 } from "../services/messageServices";
 import { showModal } from "./modalSlice";
+import { logout } from "./userSlice";
 
 const initialState = {
 	conversationID: "",
@@ -125,6 +126,9 @@ const messageSlice = createSlice({
 			state.conversationID = "";
 			state.to = "";
 			state.messages = [];
+		},
+		[logout.type]: (state, action) => {
+			return initialState;
 		},
 	},
 });

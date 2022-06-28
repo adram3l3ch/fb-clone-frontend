@@ -7,6 +7,7 @@ import {
 	updatePostService,
 } from "../services/postServices";
 import { showModal } from "./modalSlice";
+import { logout } from "./userSlice";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -109,6 +110,9 @@ const postSlice = createSlice({
 		[deletePost.fulfilled]: (state, action) => {
 			state.allPosts.posts = state.allPosts.posts.filter(post => post._id !== action.payload);
 			state.userPosts.posts = state.userPosts.posts.filter(post => post._id !== action.payload);
+		},
+		[logout.type]: (state, action) => {
+			return initialState;
 		},
 	},
 });

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchUsersService } from "../services/userServices";
 import { getAllChats } from "./messageSlice";
+import { logout } from "./userSlice";
 
 const initialState = {
 	users: [],
@@ -29,8 +30,8 @@ const usersSlice = createSlice({
 		[getUsers.fulfilled]: (state, action) => {
 			state.users = action.payload;
 		},
-		[getUsers.rejected]: (state, action) => {
-			return state;
+		[logout.type]: (state, action) => {
+			return initialState;
 		},
 	},
 });
