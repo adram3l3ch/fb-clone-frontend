@@ -25,7 +25,7 @@ const Home = () => {
 
 	return (
 		<section className="home">
-			<InfinityScroll getNextPage={getNextPage} items={posts}>
+			<InfinityScroll getNextPage={getNextPage}>
 				<main className="home__left">
 					<CreatePost />
 					<Posts posts={posts} />

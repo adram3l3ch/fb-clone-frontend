@@ -1,6 +1,6 @@
 .singlepost {
 	display: flex;
-	gap: 2rem;
+	gap: 1rem;
 	padding: 2px;
 	height: calc(100vh - 9rem);
 }

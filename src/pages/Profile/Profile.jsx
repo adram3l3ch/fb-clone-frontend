@@ -39,7 +39,7 @@ const Profile = () => {
 				<ProfileCard id={id} isOwnProfile={isOwnProfile} />
 				<Gallery />
 			</article>
-			<InfinityScroll getNextPage={getNextPage} items={userPosts}>
+			<InfinityScroll getNextPage={getNextPage}>
 				<article className="profile__center">
 					{isOwnProfile && <CreatePost />}
 					{userPosts.length < 1 && <h2>No Posts</h2>}
