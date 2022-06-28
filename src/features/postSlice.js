@@ -11,18 +11,10 @@ import { showModal } from "./modalSlice";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 const initialState = {
-	posts: [],
-	userPosts: [],
+	allPosts: { posts: [], page: 0 },
+	userPosts: { posts: [], page: 0 },
 	editingPost: {},
 	singlePost: {},
-};
-
-const slicePosts = (posts, post) => {
-	const slicedPosts = posts.map(_post => {
-		if (_post._id === post._id) return post;
-		return _post;
-	});
-	return slicedPosts;
 };
 
 export const setPosts = createAsyncThunk("post/set", async (props, thunkAPI) => {
@@ -30,7 +22,7 @@ export const setPosts = createAsyncThunk("post/set", async (props, thunkAPI) => 
 	const { rejectWithValue, dispatch } = thunkAPI;
 	const data = await customFetch(fetchPostsService);
 	if (!data) return rejectWithValue();
-	dispatch(postSlice.actions.updatePost(data.posts));
+	dispatch(postSlice.actions.setAllPosts(data));
 	return;
 });
 
@@ -44,44 +36,36 @@ export const addPost = createAsyncThunk("post/add", async (props, thunkAPI) => {
 	return fulfillWithValue(data.post);
 });
 
-export const _updatePost = createAsyncThunk("post/update", async (props, thunkAPI) => {
+export const updatePost = createAsyncThunk("post/update", async (props, thunkAPI) => {
 	const { customFetch, formData, id } = props;
-	const { fulfillWithValue, dispatch, rejectWithValue } = thunkAPI;
+	const { dispatch, rejectWithValue, getState } = thunkAPI;
 	dispatch(showModal({}));
 	const data = await customFetch(updatePostService, { id, form: formData });
 	if (!data) return rejectWithValue();
 	dispatch(showModal({ msg: "Post updated" }));
-	return fulfillWithValue(data.post);
+	if (getState().post.singlePost._id === id) dispatch(postSlice.actions.setSinglePost(data.post));
+	dispatch(postSlice.actions.updatePosts(data.post));
 });
 
-export const _likePost = createAsyncThunk("post/like", async (props, thunkAPI) => {
-	const { customFetch, id, isLiked, singlepost } = props;
-	const { getState, dispatch, rejectWithValue } = thunkAPI;
-	const { post } = getState();
+export const likePost = createAsyncThunk("post/like", async (props, thunkAPI) => {
+	const { customFetch, id, isLiked } = props;
+	const { dispatch, rejectWithValue, getState } = thunkAPI;
 	const data = await customFetch(likePostService, { id, add: !isLiked });
 	if (!data) return rejectWithValue();
-	if (singlepost) dispatch(postSlice.actions.setSinglePost(data.post));
-	let slicedPosts = slicePosts(post.posts, data.post);
-	dispatch(postSlice.actions.updatePost(slicedPosts));
-	const isInUserPosts = post.userPosts.some(_post => _post._id === id);
-	if (isInUserPosts) {
-		const slicedPosts = slicePosts(post.userPosts, data.post);
-		dispatch(postSlice.actions.setUserPosts(slicedPosts));
-	}
+	if (getState().post.singlePost._id === id) dispatch(postSlice.actions.setSinglePost(data.post));
+	dispatch(postSlice.actions.updatePosts(data.post));
 });
 
-export const _commentPost = createAsyncThunk("post/comment", async (props, thunkAPI) => {
-	const { customFetch, id, comment, singlepost } = props;
-	const { getState, dispatch, rejectWithValue } = thunkAPI;
-	const { post } = getState();
+export const commentPost = createAsyncThunk("post/comment", async (props, thunkAPI) => {
+	const { customFetch, id, comment } = props;
+	const { dispatch, rejectWithValue, getState } = thunkAPI;
 	const data = await customFetch(commentPostService, { id, comment });
 	if (!data) return rejectWithValue();
-	if (singlepost) dispatch(postSlice.actions.setSinglePost(data.post));
-	let slicedPosts = slicePosts(post.posts, data.post);
-	dispatch(postSlice.actions.updatePost(slicedPosts));
+	if (getState().post.singlePost._id === id) dispatch(postSlice.actions.setSinglePost(data.post));
+	dispatch(postSlice.actions.updatePosts(data.post));
 });
 
-export const removePost = createAsyncThunk("post/delete", async (props, thunkAPI) => {
+export const deletePost = createAsyncThunk("post/delete", async (props, thunkAPI) => {
 	const { customFetch, id } = props;
 	const { dispatch, fulfillWithValue } = thunkAPI;
 	dispatch(showModal({}));
@@ -94,11 +78,21 @@ const postSlice = createSlice({
 	name: "post",
 	initialState,
 	reducers: {
-		updatePost: (state, action) => {
-			state.posts = action.payload;
+		setAllPosts: (state, action) => {
+			state.allPosts = action.payload;
 		},
 		setUserPosts: (state, action) => {
 			state.userPosts = action.payload;
+		},
+		updatePosts: (state, action) => {
+			state.allPosts.posts = state.allPosts.posts.map(post => {
+				if (post._id === action.payload._id) return action.payload;
+				return post;
+			});
+			state.userPosts.posts = state.userPosts.posts.map(post => {
+				if (post._id === action.payload._id) return action.payload;
+				return post;
+			});
 		},
 		setSinglePost: (state, action) => {
 			state.singlePost = action.payload;
@@ -108,40 +102,17 @@ const postSlice = createSlice({
 		},
 	},
 	extraReducers: {
-		[setPosts.rejected]: (state, action) => {
-			return state;
-		},
 		[addPost.fulfilled]: (state, action) => {
-			state.posts = [action.payload, ...state.posts];
-			state.userPosts = [action.payload, ...state.userPosts];
+			state.allPosts.posts = [action.payload, ...state.allPosts.posts];
+			state.userPosts.posts = [action.payload, ...state.userPosts.posts];
 		},
-		[addPost.rejected]: (state, action) => {
-			return state;
-		},
-		[removePost.fulfilled]: (state, action) => {
-			state.posts = [...state.posts.filter(post => post._id !== action.payload)];
-			state.userPosts = [...state.userPosts.filter(post => post._id !== action.payload)];
-		},
-		[removePost.rejected]: (state, action) => {
-			return state;
-		},
-		[_updatePost.fulfilled]: (state, action) => {
-			state.posts = state.posts.map(post => {
-				if (post._id === action.payload._id) return action.payload;
-				return post;
-			});
-			state.userPosts = state.userPosts.map(post => {
-				if (post._id === action.payload._id) return action.payload;
-				return post;
-			});
-			state.singlePost = action.payload;
-		},
-		[_updatePost.rejected]: (state, action) => {
-			return state;
+		[deletePost.fulfilled]: (state, action) => {
+			state.allPosts.posts = state.allPosts.posts.filter(post => post._id !== action.payload);
+			state.userPosts.posts = state.userPosts.posts.filter(post => post._id !== action.payload);
 		},
 	},
 });
 
-export const { setUserPosts, updatePost, setEditingPost, setSinglePost } = postSlice.actions;
+export const { setUserPosts, setAllPosts, setEditingPost, setSinglePost } = postSlice.actions;
 
 export default postSlice.reducer;

@@ -4,7 +4,6 @@ import { useRef } from "react";
 
 const InfinityScroll = ({ getNextPage, children, offset = 30 }) => {
 	const contentRef = useRef();
-	const [page, setPage] = useState(2);
 	const [isFinished, setIsFinished] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -16,12 +15,11 @@ const InfinityScroll = ({ getNextPage, children, offset = 30 }) => {
 		const isReachedBottom = remainingSpaceAtBottom > offset;
 		if (isReachedBottom && !isFinished && !isLoading) {
 			setIsLoading(true);
-			const length = await getNextPage(page);
-			setPage(page => page + 1);
+			const length = await getNextPage();
 			if (!length) setIsFinished(true);
 			setIsLoading(false);
 		}
-	}, [isLoading, isFinished, offset, page, getNextPage]);
+	}, [isLoading, isFinished, offset, getNextPage]);
 
 	useEffect(() => {
 		document.addEventListener("scroll", handler);

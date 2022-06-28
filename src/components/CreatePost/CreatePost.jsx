@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { sendIcon, fileIcon } from "../../assets";
 import { useDispatch } from "react-redux";
-import { addPost, _updatePost } from "../../features/postSlice";
+import { addPost, updatePost } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
 import Compress from "compress.js";
 import { closeIcon } from "../../assets/index";
@@ -49,7 +49,7 @@ const CreatePost = ({ post, id, close }) => {
 		formData.append("image", form.image);
 		formData.append("caption", form.caption.trim());
 		if (post?._id) {
-			dispatch(_updatePost({ customFetch, id: post._id, formData }));
+			dispatch(updatePost({ customFetch, id: post._id, formData }));
 			close();
 		} else {
 			dispatch(addPost({ customFetch, formData }));

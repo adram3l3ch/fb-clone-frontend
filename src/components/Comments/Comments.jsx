@@ -9,7 +9,7 @@ const Comments = ({ post }) => {
 	return (
 		<div className="comments">
 			<div>
-				<h3>{post?.comments?.length + " comments"}</h3>
+				<h3>{(post?.comments?.length || "") + " comments"}</h3>
 				{post?.comments?.map((comment, i) => (
 					<Comment
 						key={comment._id}

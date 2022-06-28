@@ -6,8 +6,10 @@ import MainGallery from "../MainGallery/MainGallery";
 import "./gallery.css";
 
 const Gallery = () => {
-	const { userPosts } = useSelector(state => state.post);
-	const postsWithImages = userPosts.filter(post => !!post.image);
+	const {
+		userPosts: { posts },
+	} = useSelector(state => state.post);
+	const postsWithImages = posts.filter(post => !!post.image);
 	const [isMainGalleryOpen, setIsMainGalleryOpen] = useState(false);
 
 	const hideGallery = () => {
@@ -29,9 +31,7 @@ const Gallery = () => {
 						)
 				)}
 			</div>
-			{postsWithImages.length > 3 && (
-				<button onClick={() => setIsMainGalleryOpen(true)}>View All</button>
-			)}
+			{postsWithImages.length > 3 && <button onClick={() => setIsMainGalleryOpen(true)}>View All</button>}
 		</section>
 	);
 };

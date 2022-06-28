@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removePost, setEditingPost, _commentPost, _likePost } from "../../features/postSlice";
+import { deletePost, setEditingPost, commentPost, likePost } from "../../features/postSlice";
 import { dp, likeIcon, likeOutlined } from "../../assets";
 import Input from "../Input/Input";
 import { Link } from "react-router-dom";
@@ -25,15 +25,15 @@ const Post = ({ singlepost, post }) => {
 	const isOnline = usersOnline.some(user => user.id === post.createdBy);
 
 	const likeHandler = () => {
-		dispatch(_likePost({ customFetch, id: post._id, isLiked, singlepost }));
+		dispatch(likePost({ customFetch, id: post._id, isLiked }));
 	};
 
 	const commentHandler = comment => {
-		dispatch(_commentPost({ customFetch, id: post._id, comment }));
+		dispatch(commentPost({ customFetch, id: post._id, comment }));
 	};
 
 	const deleteHandler = () => {
-		dispatch(removePost({ customFetch, id: post._id }));
+		dispatch(deletePost({ customFetch, id: post._id }));
 	};
 
 	const editHandler = () => {

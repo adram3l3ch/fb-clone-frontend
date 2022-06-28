@@ -4,23 +4,23 @@ import CreatePost from "../../components/CreatePost/CreatePost";
 import InfinityScroll from "../../components/InfinityScroll/InfinityScroll";
 import Online from "../../components/Online/Online";
 import Posts from "../../components/Post/Posts";
-import { updatePost } from "../../features/postSlice";
+import { setAllPosts } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
 import { fetchPostsService } from "../../services/postServices";
 import "./home.css";
 
 const Home = () => {
 	const {
-		post: { posts },
-	} = useSelector(state => state);
+		allPosts: { posts, page },
+	} = useSelector(state => state.post);
 
 	const customFetch = useFetch();
 	const dispatch = useDispatch();
 
-	const getNextPage = async page => {
-		const { posts: newPosts } = await customFetch(fetchPostsService, { page });
-		dispatch(updatePost([...posts, ...newPosts]));
-		return newPosts.length;
+	const getNextPage = async () => {
+		const data = await customFetch(fetchPostsService, { page: page + 1 });
+		dispatch(setAllPosts({ posts: posts.concat(data.posts), page: data.page }));
+		return data.posts.length;
 	};
 
 	return (

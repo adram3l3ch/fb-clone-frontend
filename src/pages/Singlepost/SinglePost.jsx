@@ -6,7 +6,7 @@ import Online from "../../components/Online/Online";
 import { useParams } from "react-router";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
-import { setSinglePost, _commentPost } from "../../features/postSlice";
+import { setSinglePost, commentPost } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
 import { useSelector } from "react-redux";
 import { fetchPostsService } from "../../services/postServices";
@@ -28,14 +28,7 @@ const SinglePost = () => {
 	}, [id, token, dispatch, customFetch]);
 
 	const commentHandler = async comment => {
-		dispatch(
-			_commentPost({
-				customFetch,
-				id: singlePost._id,
-				comment,
-				singlepost: true,
-			})
-		);
+		dispatch(commentPost({ customFetch, id: singlePost._id, comment }));
 	};
 
 	return (
