@@ -12,28 +12,10 @@ const createChatService = async (formData = {}) => {
 	return data;
 };
 
-// const createMessageService = async (formData = {}) => {
-// 	const params = extractParams(formData, "chatId", "text");
-// 	const { data } = await axiosConfig.post("/message", params);
-// 	return data;
-// };
-
 const fetchMessagesService = async (formData = {}) => {
 	const params = extractParams(formData, "chatId");
 	const { data } = await axiosConfig.get("/messages", { params });
 	return data;
 };
 
-const deleteChatService = async (formData = {}) => {
-	const params = extractParams(formData, "chatId");
-	const { data } = await axiosConfig.delete("/chats", { data: params });
-	return data;
-};
-
-const clearChatService = async (formData = {}) => {
-	const params = extractParams(formData, "chatId");
-	const { data } = await axiosConfig.delete("/messages", { data: params });
-	return data;
-};
-
-export { fetchChatsService, createChatService, fetchMessagesService, deleteChatService, clearChatService };
+export { fetchChatsService, createChatService, fetchMessagesService };

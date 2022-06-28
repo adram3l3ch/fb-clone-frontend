@@ -1,12 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-	clearChatService,
-	createChatService,
-	deleteChatService,
-	fetchChatsService,
-	fetchMessagesService,
-} from "../services/messageServices";
-import { showModal } from "./modalSlice";
+import { createChatService, fetchChatsService, fetchMessagesService } from "../services/messageServices";
 import { logout } from "./userSlice";
 
 const initialState = {
@@ -55,37 +48,23 @@ export const updateChats = createAsyncThunk("message/updateChat", async (props, 
 	dispatch(getAllChats({ customFetch, users: users.users }));
 });
 
-export const deleteChat = createAsyncThunk("message/deleteChat", async (props, thunkAPI) => {
-	const { getState, fulfillWithValue, dispatch, rejectWithValue } = thunkAPI;
-	const { customFetch } = props;
-	const {
-		message: { conversationID },
-	} = getState();
-	const data = await customFetch(deleteChatService, { chatId: conversationID });
-	if (!data) return rejectWithValue();
-	dispatch(showModal({ msg: "Chat deleted" }));
-	fulfillWithValue([]);
-});
-
-export const clearChat = createAsyncThunk("message/clearChat", async (props, thunkAPI) => {
-	const { getState, dispatch, rejectWithValue } = thunkAPI;
-	const { customFetch } = props;
-	const {
-		message: { conversationID },
-	} = getState();
-	const data = await customFetch(clearChatService, { chatId: conversationID });
-	if (!data) return rejectWithValue();
-	dispatch(showModal({ msg: "Chat cleared" }));
-	dispatch(messageSlice.actions.clearMessage());
-	dispatch(updateChats({ lastMessage: "", chatId: conversationID, customFetch }));
-});
-
 const messageSlice = createSlice({
 	name: "message",
 	initialState,
 	reducers: {
 		clearMessage: (state, action) => {
-			state.messages = [];
+			const conversationID = action.payload?.conversationID;
+			if (conversationID) {
+				const index = state.chats.findIndex(chat => chat._id === conversationID);
+				const updatingChat = state.chats[index];
+				state.chats = [
+					{ ...updatingChat, lastMessage: "" },
+					...state.chats.filter(chat => chat._id !== conversationID),
+				];
+				if (conversationID === state.conversationID) state.messages = [];
+			} else {
+				state.messages = [];
+			}
 		},
 		setChatID: (state, action) => {
 			state.conversationID = action.payload;
@@ -103,15 +82,16 @@ const messageSlice = createSlice({
 			const { text, send = false } = action.payload;
 			state.messages = [...state.messages, { text, send, createdAt: String(new Date()) }];
 		},
+		deleteChat: (state, action) => {
+			state.chats = state.chats.filter(chat => chat._id !== action.payload);
+			if (action.payload === state.conversationID) state.conversationID = "";
+		},
 	},
 	extraReducers: {
 		[getAllChats.fulfilled]: (state, action) => {
 			const { users, chats } = action.payload;
 			const getUserDetails = members => users.find(user => members.includes(user._id));
 			state.chats = chats.map(chat => ({ ...chat, userDetails: getUserDetails(chat.members) }));
-		},
-		[getAllChats.rejected]: (state, action) => {
-			console.log(action);
 		},
 		[updateChats.fulfilled]: (state, action) => {
 			const updatingChat = state.chats[action.payload?.index];
@@ -125,18 +105,13 @@ const messageSlice = createSlice({
 				];
 			}
 		},
-		[deleteChat.fulfilled]: (state, action) => {
-			state.chats = state.chats.filter(chat => chat._id !== state.conversationID);
-			state.conversationID = "";
-			state.to = "";
-			state.messages = [];
-		},
 		[logout.type]: (state, action) => {
 			return initialState;
 		},
 	},
 });
 
-export const { addMessages, clearMessage, setChatID, setReceiverID, setMessages } = messageSlice.actions;
+export const { addMessages, clearMessage, setChatID, setReceiverID, setMessages, deleteChat } =
+	messageSlice.actions;
 
 export default messageSlice.reducer;

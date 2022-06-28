@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
-import { addMessages, clearChat, deleteChat, updateChats } from "../../features/messageSlice";
+import { addMessages, clearMessage, deleteChat, updateChats } from "../../features/messageSlice";
 import SingleChat from "../SingleChat/SingleChat";
 import Input from "../Input/Input";
 import { dp } from "../../assets";
@@ -33,10 +33,12 @@ const Messenger = () => {
 	};
 
 	const deleteHandler = () => {
-		dispatch(deleteChat({ customFetch }));
+		socket.emit("delete chat", conversationID, to);
+		dispatch(deleteChat(conversationID));
 	};
 	const clearHandler = () => {
-		dispatch(clearChat({ customFetch }));
+		socket.emit("clear chat", conversationID, to);
+		dispatch(clearMessage({ conversationID }));
 	};
 
 	const options = {

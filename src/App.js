@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "./features/userSlice.js";
 import { setSocket } from "./features/socketSlice";
 import { showModal } from "./features/modalSlice.js";
-import { addMessages, updateChats } from "./features/messageSlice.js";
+import { addMessages, clearMessage, deleteChat, updateChats } from "./features/messageSlice.js";
 import { addOnline, getUsers } from "./features/usersSlice.js";
 import { setEditingPost, setPosts } from "./features/postSlice.js";
 //components
@@ -37,7 +37,7 @@ function App() {
 		user: { id },
 		modal: { isLoading, isSidebarVisible },
 		socket: { socket },
-		message: { to },
+		message: { to, conversationID },
 		post: { editingPost },
 	} = useSelector(state => state);
 
@@ -61,6 +61,9 @@ function App() {
 	useEffect(() => {
 		if (socket) {
 			socket.on("usersOnline", users => dispatch(addOnline(users)));
+			socket.on("delete chat", id => {
+				dispatch(deleteChat(id));
+			});
 		}
 	}, [socket, dispatch]);
 
@@ -71,8 +74,11 @@ function App() {
 				dispatch(updateChats({ lastMessage: message, id: senderID, customFetch }));
 				senderID === to && dispatch(addMessages({ text: message }));
 			});
+			socket.off("clear chat").on("clear chat", id => {
+				dispatch(clearMessage({ conversationID: id }));
+			});
 		}
-	}, [customFetch, dispatch, socket, to]);
+	}, [customFetch, dispatch, socket, to, conversationID]);
 
 	const closeEditing = () => {
 		dispatch(setEditingPost({}));
