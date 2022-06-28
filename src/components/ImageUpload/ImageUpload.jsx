@@ -46,7 +46,7 @@ const ImageUpload = ({ close, setUser }) => {
 		const data = await customFetch(updateDPService, formData);
 		if (data) {
 			setUser(data.user);
-			dispatch(update({ profileImage: data.user.profileImage }));
+			dispatch(update({ profileImage: data.user.profileImage, id: data.user._id }));
 			close();
 			dispatch(showModal({ msg: "Success" }));
 			setImage(null);

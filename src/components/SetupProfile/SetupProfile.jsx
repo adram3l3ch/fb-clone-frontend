@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { update } from "../../features/userSlice";
-import { setPosts } from "../../features/postSlice";
 import { showModal } from "../../features/modalSlice";
 import useFetch from "../../hooks/useFetch";
 import "./setupprofile.css";
@@ -36,8 +35,7 @@ const SetupProfile = ({ close, user, setUser }) => {
 		if (data) {
 			setUser(data.user);
 			close();
-			dispatch(update({ name: data.user.name }));
-			dispatch(setPosts({ customFetch }));
+			dispatch(update({ name: data.user.name, id: data.user._id }));
 			dispatch(showModal({ msg: "Success" }));
 		}
 	};
