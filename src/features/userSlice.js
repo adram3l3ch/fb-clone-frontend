@@ -9,6 +9,8 @@ const initialState = {
 	token: "",
 };
 
+let interceptor;
+
 const userSlice = createSlice({
 	name: "user",
 	initialState,
@@ -16,7 +18,7 @@ const userSlice = createSlice({
 		login: (state, action) => {
 			const { id, name, profileImage, token } = action.payload;
 			Cookies.set("user", JSON.stringify(action.payload), { expires: 30 });
-			axiosConfig.interceptors.request.use(
+			interceptor = axiosConfig.interceptors.request.use(
 				config => {
 					config.headers["Authorization"] = `Bearer ${token}`;
 					return config;
@@ -27,6 +29,7 @@ const userSlice = createSlice({
 		},
 		logout: state => {
 			Cookies.remove("user");
+			axiosConfig.interceptors.request.eject(interceptor);
 			return initialState;
 		},
 		update: (state, action) => {
