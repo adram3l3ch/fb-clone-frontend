@@ -3,7 +3,6 @@ import { dp, clockIcon, cakeIcon, locationIcon, mailIcon, cameraIcon } from "../
 import SetupProfile from "../SetupProfile/SetupProfile";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import useFetch from "../../hooks/useFetch";
-import useDate from "../../hooks/useDate";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createChat } from "../../features/messageSlice";
@@ -12,6 +11,7 @@ import { fetchUsersService } from "../../services/userServices";
 import { setIsLoading } from "../../features/modalSlice";
 import "./profilecard.css";
 import { logout } from "../../features/userSlice";
+import getDateString from "../../utils/getDateString";
 
 const ProfileCard = ({ id, isOwnProfile }) => {
 	const [user, setUser] = useState({});
@@ -30,8 +30,8 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 	}, [id, customFetch]);
 
 	let { name, email, about, dob, location, createdAt, profileImage } = user;
-	createdAt = `Joined on ${useDate(createdAt)}`;
-	dob = useDate(dob);
+	createdAt = `Joined on ${getDateString(createdAt)}`;
+	dob = getDateString(dob);
 
 	const sendMessage = async () => {
 		dispatch(setIsLoading(true));

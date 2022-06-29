@@ -12,7 +12,7 @@ const useFetch = () => {
 				return await callback(...props);
 			} catch (error) {
 				if (error.response?.status === 404) navigate("/not-found");
-				const { msg } = error.response?.data || "Something went wrong";
+				const msg = error.response?.data?.msg || "Something went wrong";
 				dispatch(showModal({ msg }));
 			}
 		},
