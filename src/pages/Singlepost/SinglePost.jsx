@@ -33,7 +33,7 @@ const SinglePost = () => {
 
 	return (
 		<section className="singlepost">
-			<div className="singlepost__left gradient-border">
+			<div className="singlepost__left">
 				<Post singlepost={true} post={singlePost} />
 				<article className="singlepost__comments">
 					<Comments post={singlePost} />

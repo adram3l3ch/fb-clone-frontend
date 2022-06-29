@@ -104,8 +104,10 @@ const postSlice = createSlice({
 	},
 	extraReducers: {
 		[addPost.fulfilled]: (state, action) => {
-			state.allPosts.posts = [action.payload, ...state.allPosts.posts];
-			state.userPosts.posts = [action.payload, ...state.userPosts.posts];
+			state.allPosts.posts.pop();
+			state.userPosts.posts.pop();
+			state.allPosts.posts.unshift(action.payload);
+			state.userPosts.posts.unshift(action.payload);
 		},
 		[deletePost.fulfilled]: (state, action) => {
 			state.allPosts.posts = state.allPosts.posts.filter(post => post._id !== action.payload);
