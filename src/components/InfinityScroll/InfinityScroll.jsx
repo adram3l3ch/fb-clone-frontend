@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 
-const InfinityScroll = ({ getNextPage, children, offset = 30 }) => {
+const InfinityScroll = ({ getNextPage, children, offset = 10 }) => {
 	const contentRef = useRef();
 	const [isFinished, setIsFinished] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
