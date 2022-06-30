@@ -8,7 +8,7 @@
 .singlepost__left {
 	flex: 3;
 	display: grid;
-	grid-template-columns: 2fr 1fr;
+	grid-template-columns: 3fr 2fr;
 	border-radius: 10px;
 	gap: 0.2rem;
 }
@@ -24,6 +24,7 @@
 	display: grid;
 	grid-template-rows: 1fr auto;
 	gap: 1rem;
+	min-height: 250px;
 }
 
 .singlepost__right {
@@ -49,5 +50,6 @@
 	.singlepost__comments {
 		border-radius: 10px;
 		padding: 1.5rem 0.75rem;
+		overflow: initial;
 	}
 }

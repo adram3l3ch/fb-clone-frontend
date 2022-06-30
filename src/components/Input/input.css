@@ -22,14 +22,17 @@
 .emoji-picker .picker {
 	position: absolute;
 	left: 0;
+	right: 0;
 	display: none;
 	bottom: calc(100% + 1rem);
+	z-index: 6;
 }
 
 .opener > svg {
 	display: block;
 	color: gray;
 	cursor: pointer;
+	font-size: 1.2rem;
 }
 
 .emoji-picker .picker.open {
@@ -41,4 +44,5 @@
 	--border-color: none;
 	--indicator-color: var(--primary-600);
 	--input-padding: 0.25rem 0.5rem;
+	max-width: 100%;
 }
