@@ -1,19 +1,44 @@
 .input__box {
-    background: var(--primary-400);
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	background: var(--primary-400);
+	width: 100%;
+	padding: 0.75rem 1rem;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	position: relative;
 }
 
 .input__box > input {
-    color: white;
-    width: 85%;
+	color: white;
+	flex: 1;
 }
 
 .input__box button img {
-    height: 1rem;
-    cursor: pointer;
+	height: 1rem;
+	cursor: pointer;
+}
+
+.emoji-picker .picker {
+	position: absolute;
+	left: 0;
+	display: none;
+	bottom: calc(100% + 1rem);
+}
+
+.opener > svg {
+	display: block;
+	color: gray;
+	cursor: pointer;
+}
+
+.emoji-picker .picker.open {
+	display: block;
+}
+
+.emoji-picker emoji-picker {
+	--background: var(--primary-400);
+	--border-color: none;
+	--indicator-color: var(--primary-600);
+	--input-padding: 0.25rem 0.5rem;
 }

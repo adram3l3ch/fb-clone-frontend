@@ -66,7 +66,7 @@ const Messenger = () => {
 						</div>
 					</main>
 					<footer>
-						<Input placeholder="Type a message..." handler={submitHandler} />
+						<Input placeholder="Type a message..." handler={submitHandler} showEmoji />
 					</footer>
 				</>
 			) : (

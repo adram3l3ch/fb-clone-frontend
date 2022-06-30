@@ -22,11 +22,12 @@ const SingleChat = ({ message, index, messages }) => {
 		}`;
 	};
 
+	const isEmoji = message.text.length === 2 && !message.text.match(/\w/);
 	return (
 		<>
 			{showDate && <h4>{date}</h4>}
 			<div className={message.send ? "chat__sent" : "chat__recieve"}>
-				<p className="message">
+				<p className={isEmoji ? "emoji message" : "message"}>
 					{message.text}
 					{messages[index + 1]?.send !== message.send && <span className="time">{getTime()}</span>}
 				</p>

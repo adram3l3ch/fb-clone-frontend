@@ -8,11 +8,10 @@
 	position: relative;
 }
 
-.chat__sent p,
-.chat__recieve p {
-	padding: 0.5rem 1rem;
+.message {
+	padding: 0.3rem 1rem;
 	background: var(--primary-400);
-	border-radius: 10px;
+	border-radius: 5px;
 	max-width: 70%;
 	font-weight: 400;
 	font-size: 0.8rem;
@@ -21,21 +20,27 @@
 	word-wrap: break-word;
 }
 
+.message.emoji {
+	font-size: 3rem;
+	padding: 0.25rem;
+	background: none;
+}
+
 .chat__sent p {
 	margin-left: auto;
 	max-width: 70%;
 }
 
-.chat__sent::after,
-.chat__recieve::after {
+.message:not(.emoji)::after {
 	content: "";
 	position: absolute;
 	border: 10px solid transparent;
 	border-top-color: var(--primary-400);
 	left: 0;
+	top: 0;
 	transform: translateX(-50%);
 }
-.chat__sent::after {
+.chat__sent .message:not(.emoji)::after {
 	left: inherit;
 	right: 0;
 	transform: translateX(50%);
