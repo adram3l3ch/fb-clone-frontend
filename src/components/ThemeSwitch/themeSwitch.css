@@ -1,10 +1,13 @@
 .theme-switch {
 	position: fixed;
-	left: 1rem;
-	bottom: 2rem;
+	left: 2rem;
+	bottom: 7rem;
 	height: 3rem;
 	aspect-ratio: 1;
+	border-radius: 50%;
 	z-index: 5;
+	/* border: 1px solid var(--primary-400); */
+	box-shadow: 0 0 1rem rgba(0, 0, 0, 0.274);
 }
 
 .theme-switch:not(.open) {
