@@ -8,7 +8,7 @@ import { useRef } from "react";
 const Input = ({ placeholder, handler, showEmoji }) => {
 	const submitHandler = async e => {
 		e.preventDefault();
-		emojiRef.current.close();
+		emojiRef.current?.close();
 		if (value.trim()) await handler(value.trim());
 		setValue("");
 	};
@@ -22,7 +22,7 @@ const Input = ({ placeholder, handler, showEmoji }) => {
 				placeholder={placeholder}
 				value={value}
 				onChange={e => setValue(e.target.value)}
-				onFocus={() => emojiRef.current.close()}
+				onFocus={() => emojiRef.current?.close()}
 			/>
 			<button type="submit" aria-label="submit">
 				<img src={sendIcon} alt="send" />

@@ -37,7 +37,7 @@ const SinglePost = () => {
 				<Post singlepost={true} post={singlePost} />
 				<article className="singlepost__comments">
 					<Comments post={singlePost} />
-					<Input placeholder="Write a comment..." handler={commentHandler} />
+					<Input placeholder="Write a comment..." handler={commentHandler} showEmoji />
 				</article>
 			</div>
 			<article className="singlepost__right gradient-border">
