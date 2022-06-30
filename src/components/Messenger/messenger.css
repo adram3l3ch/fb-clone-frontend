@@ -8,6 +8,7 @@
 	justify-content: center;
 	color: white;
 	flex: 3;
+	overflow: hidden;
 }
 
 .chat__page__messenger header {
