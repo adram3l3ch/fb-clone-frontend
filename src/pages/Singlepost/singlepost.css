@@ -49,5 +49,6 @@
 	.singlepost__comments {
 		border-radius: 10px;
 		padding: 1.5rem 0.75rem;
+		overflow: initial;
 	}
 }
