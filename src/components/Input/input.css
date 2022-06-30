@@ -24,6 +24,7 @@
 	left: 0;
 	display: none;
 	bottom: calc(100% + 1rem);
+	z-index: 6;
 }
 
 .opener > svg {
