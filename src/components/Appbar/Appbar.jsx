@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { dp, closeIcon, searchIcon, hamburger, chatIcon, homeIcon } from "../../assets";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleSidebar } from "../../features/modalSlice";
+import { setIsLoading, toggleSidebar } from "../../features/modalSlice";
 import useFetch from "../../hooks/useFetch";
 import SearchResults from "../SearchResults/SearchResults";
 import { fetchUsersService } from "../../services/userServices";
@@ -26,9 +26,11 @@ const Appbar = () => {
 	const searchHandler = async e => {
 		e.preventDefault();
 		if (query.length > 0) {
+			dispatch(setIsLoading(true));
 			const { posts } = await customFetch(fetchPostsService, { query });
 			const { users } = await customFetch(fetchUsersService, { query });
 			setSearchResult({ posts, users });
+			dispatch(setIsLoading(false));
 		}
 	};
 
