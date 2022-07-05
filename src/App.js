@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
 //utilities
 import { io } from "socket.io-client";
 import Cookies from "js-cookie";
@@ -12,22 +11,14 @@ import { setSocket } from "./features/socketSlice";
 import { showModal } from "./features/modalSlice.js";
 import { addMessages, clearMessage, deleteChat, updateChats } from "./features/messageSlice.js";
 import { addOnline, getUsers } from "./features/usersSlice.js";
-import { setEditingPost, setPosts } from "./features/postSlice.js";
+import { setPosts } from "./features/postSlice.js";
 //components
-import SinglePost from "./pages/Singlepost/SinglePost.jsx";
-import Profile from "./pages/Profile/Profile.jsx";
-import Appbar from "./components/Appbar/Appbar";
 import Auth from "./pages/Auth/Auth";
 import Modal from "./components/Modal/Modal.jsx";
-import Home from "./pages/Home/Home.jsx";
-import NotFound from "./pages/NotFound/NotFound.jsx";
 import Loading from "./components/Loading/Loading.jsx";
-import Chat from "./pages/Chat/Chat.jsx";
-import Messenger from "./pages/Messenger/Messenger.jsx";
-import Online from "./components/Online/Online.jsx";
 import Backdrop from "./components/Backdrop/Backdrop.jsx";
 import ThemeSwitch from "./components/ThemeSwitch/ThemeSwitch.jsx";
-import EditPost from "./components/EditPost/EditPost.jsx";
+import Router from "./routes";
 
 function App() {
 	const dispatch = useDispatch();
@@ -35,10 +26,9 @@ function App() {
 	const [theme, setTheme] = useState("dark");
 	const {
 		user: { id },
-		modal: { isLoading, isSidebarVisible },
+		modal: { isLoading },
 		socket: { socket },
 		message: { to, conversationID },
-		post: { editingPost },
 	} = useSelector(state => state);
 
 	//login
@@ -61,9 +51,7 @@ function App() {
 	useEffect(() => {
 		if (socket) {
 			socket.on("usersOnline", users => dispatch(addOnline(users)));
-			socket.on("delete chat", id => {
-				dispatch(deleteChat(id));
-			});
+			socket.on("delete chat", id => dispatch(deleteChat(id)));
 		}
 	}, [socket, dispatch]);
 
@@ -74,46 +62,20 @@ function App() {
 				dispatch(updateChats({ lastMessage: message, id: senderID, customFetch }));
 				senderID === to && dispatch(addMessages({ text: message }));
 			});
-			socket.off("clear chat").on("clear chat", id => {
-				dispatch(clearMessage({ conversationID: id }));
-			});
+			socket.off("clear chat").on("clear chat", id => dispatch(clearMessage({ conversationID: id })));
 		}
 	}, [customFetch, dispatch, socket, to, conversationID]);
-
-	const closeEditing = () => {
-		dispatch(setEditingPost({}));
-	};
 
 	return (
 		<div className={"app " + theme}>
 			<div className="container">
 				<ThemeSwitch setTheme={setTheme} />
 				<Modal />
-				{!id ? (
-					<Auth />
-				) : (
-					<>
-						<div className={isSidebarVisible ? "sidebar visible" : "sidebar"}>
-							<Online />
-						</div>
-						<Appbar />
-						<Routes>
-							<Route path="/" element={<Home />} />
-							<Route path="/post/:id" element={<SinglePost />} />
-							<Route path="/user/:id" element={<Profile />} />
-							<Route path="/chat" element={<Chat />} />
-							<Route path="/chat/messenger" element={<Messenger />} />
-							<Route path="*" element={<NotFound />} />
-						</Routes>
-					</>
-				)}
-				<Backdrop show={editingPost._id} onClose={closeEditing}>
-					<EditPost close={closeEditing} />
-				</Backdrop>
-				<Backdrop show={isLoading}>
-					<Loading />
-				</Backdrop>
+				{id ? <Router /> : <Auth />}
 			</div>
+			<Backdrop show={isLoading}>
+				<Loading />
+			</Backdrop>
 		</div>
 	);
 }

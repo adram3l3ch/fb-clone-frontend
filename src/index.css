@@ -103,15 +103,16 @@ input::placeholder {
 }
 
 .sidebar {
-	position: absolute;
+	position: fixed;
 	display: none;
-	width: 400px;
+	max-width: 400px;
 	opacity: 0;
 	z-index: 999;
 	border-radius: 10px;
 	top: 100px;
 	bottom: 10px;
 	left: 0;
+	right: 1rem;
 	transform: translateX(-20%);
 	transition: all 0.2s linear;
 	pointer-events: none;
