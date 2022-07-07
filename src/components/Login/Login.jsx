@@ -4,6 +4,7 @@ import { login } from "../../features/userSlice";
 import useFetch from "../../hooks/useFetch";
 import { setIsLoading } from "../../features/modalSlice";
 import { loginService } from "../../services/authServices";
+import DataList from "../DataList/DataList";
 
 const Login = ({ setIsRegistering }) => {
 	const [email, setEmail] = useState("");
@@ -21,14 +22,17 @@ const Login = ({ setIsRegistering }) => {
 
 	return (
 		<form onSubmit={loginHandler} className="login">
-			<label htmlFor="login-email">Email</label>
-			<input
-				type="email"
-				id="login-email"
-				placeholder="johndoe@example.com"
-				value={email}
-				onChange={e => setEmail(e.target.value)}
-			/>
+			<div className="email">
+				<label htmlFor="login-email">Email</label>
+				<input
+					type="email"
+					id="login-email"
+					placeholder="johndoe@example.com"
+					value={email}
+					onChange={e => setEmail(e.target.value)}
+				/>
+				<DataList email={email} setEmail={setEmail} />
+			</div>
 			<label htmlFor="login-password">Password</label>
 			<input
 				type="password"

@@ -40,14 +40,14 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
 	width: 10px;
 }
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
 	background-color: #3c3e44;
 }
 
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
 	border: 2px solid #3c3e44;
 	border-radius: 100vmax;
 	background-color: #1f1f25;
@@ -162,4 +162,33 @@ input::placeholder {
 	:root {
 		font-size: calc(1rem - 2px);
 	}
+}
+
+.email {
+	position: relative;
+}
+
+.email-datalist {
+	position: absolute;
+	background-color: var(--primary-400);
+	display: grid;
+	border-radius: 10px;
+	inset: 80% 0 auto 0;
+	max-height: 12rem;
+	overflow: auto;
+}
+
+.email-datalist option {
+	padding-inline: 1rem;
+	display: block;
+	height: 3rem;
+	display: grid;
+	align-items: center;
+	cursor: pointer;
+	transition: background-color 0.2s linear;
+	font-size: 0.8rem;
+}
+
+.email-datalist option:hover {
+	background-color: var(--primary-600);
 }

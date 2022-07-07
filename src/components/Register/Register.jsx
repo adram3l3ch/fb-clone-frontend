@@ -4,6 +4,7 @@ import { setIsLoading } from "../../features/modalSlice";
 import { login } from "../../features/userSlice";
 import useFetch from "../../hooks/useFetch";
 import { registerService } from "../../services/authServices";
+import DataList from "../DataList/DataList";
 
 const initialForm = { name: "", password: "", email: "", dob: "" };
 
@@ -26,15 +27,18 @@ const Register = ({ setIsRegistering }) => {
 
 	return (
 		<form onSubmit={registerHandler} className="register">
-			<label htmlFor="email">Email</label>
-			<input
-				type="email"
-				id="email"
-				placeholder="johndoe@example.com"
-				value={form.email}
-				required
-				onChange={e => updateForm("email", e)}
-			/>
+			<div className="email">
+				<label htmlFor="email">Email</label>
+				<input
+					type="email"
+					id="email"
+					placeholder="johndoe@example.com"
+					value={form.email}
+					required
+					onChange={e => updateForm("email", e)}
+				/>
+				<DataList email={form.email} setEmail={value => setForm(form => ({ ...form, email: value }))} />
+			</div>
 			<label htmlFor="name">Username</label>
 			<input
 				type="text"

@@ -1,85 +1,82 @@
 .auth {
-   perspective: 1200px;
-   height: 100vh;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding: 1rem;
+	perspective: 1200px;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
 }
 
 .login,
 .register {
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   backface-visibility: hidden;
-   transform-style: preserve-3d;
-   transition: transform 0.4s linear;
-   transform: translate(-50%, -50%);
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	backface-visibility: hidden;
+	transform-style: preserve-3d;
+	transition: transform 0.4s linear;
+	transform: translate(-50%, -50%);
 }
 
 .register {
-   transform: translate(-50%, -50%) rotateY(-180deg);
+	transform: translate(-50%, -50%) rotateY(-180deg);
 }
 
 .signup .login {
-   transform: translate(-50%, -50%) rotateY(180deg);
+	transform: translate(-50%, -50%) rotateY(180deg);
 }
 
 .signup .register {
-   transform: translate(-50%, -50%) rotateY(0deg);
+	transform: translate(-50%, -50%) rotateY(0deg);
 }
 
 .auth p {
-   margin-inline: auto;
-   width: max-content;
-   margin-top: 1.5rem;
+	margin-inline: auto;
+	width: max-content;
+	margin-top: 1.5rem;
 }
 
 .auth form {
-   background-color: var(--primary-500);
-   color: white;
-   width: 400px;
-   padding: 3rem 1.5rem 1.5rem 1.5rem;
-   border-radius: 10px;
-}
-
-.auth form > * {
-   display: block;
-   margin-bottom: 0.5rem;
+	background-color: var(--primary-500);
+	color: white;
+	width: 400px;
+	padding: 3rem 1.5rem 1.5rem 1.5rem;
+	border-radius: 10px;
 }
 
 .auth label {
-   padding-left: 0.3rem;
-   font-weight: 300;
-   font-size: 0.85rem;
+	display: block;
+	margin-bottom: 0.5rem;
+	padding-left: 0.3rem;
+	font-weight: 300;
+	font-size: 0.85rem;
 }
 
 .auth input {
-   background-color: var(--primary-600);
-   width: 100%;
-   padding: 0.75rem 1rem;
-   color: white;
-   border-radius: 10px;
-   margin-bottom: 2rem;
+	background-color: var(--primary-600);
+	width: 100%;
+	padding: 0.75rem 1rem;
+	color: white;
+	border-radius: 10px;
+	margin-bottom: 2rem;
 }
 
 .auth button {
-   background: var(--primary-400);
-   width: 100%;
-   color: white;
-   padding: 0.75rem;
-   border-radius: 10px;
-   font-size: 1rem;
+	background: var(--primary-400);
+	width: 100%;
+	color: white;
+	padding: 0.75rem;
+	border-radius: 10px;
+	font-size: 1rem;
 }
 
 .auth p span:hover {
-   cursor: pointer;
-   text-decoration: underline;
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 @media (max-width: 420px) {
-   .auth form {
-      width: 350px;
-   }
+	.auth form {
+		width: 350px;
+	}
 }
