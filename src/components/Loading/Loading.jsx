@@ -9,18 +9,17 @@ const Loading = ({ show }) => {
 		setQuote(data.text);
 	};
 	useEffect(() => {
-		fetchQuote();
-		setTimeout(() => {
-			setQuote(q => {
-				if (q) return q;
-				return "Your internet is slower than my crushs reply :(";
-			});
-		}, 3000);
-	}, []);
-
-	useEffect(() => {
-		show || setQuote("");
+		if (!show) {
+			fetchQuote();
+			setTimeout(() => {
+				setQuote(q => {
+					if (q) return q;
+					return "Your internet is slower than my crushs reply :(";
+				});
+			}, 3000);
+		}
 	}, [show]);
+
 	return (
 		<section className="loading">
 			<div className="loading__circle"></div>
