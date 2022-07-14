@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { dp, clockIcon, cakeIcon, locationIcon, mailIcon, cameraIcon } from "../../assets";
 import SetupProfile from "../SetupProfile/SetupProfile";
 import ImageUpload from "../ImageUpload/ImageUpload";
@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createChat } from "../../features/messageSlice";
 import Backdrop from "../Backdrop/Backdrop";
-import { fetchUsersService } from "../../services/userServices";
 import { setIsLoading } from "../../features/modalSlice";
 import "./profilecard.css";
 import { logout } from "../../features/userSlice";
