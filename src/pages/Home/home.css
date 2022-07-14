@@ -43,6 +43,9 @@
 	.home__left {
 		display: none;
 	}
+	.home {
+		grid-template-columns: 1fr;
+	}
 }
 
 @keyframes spin {
