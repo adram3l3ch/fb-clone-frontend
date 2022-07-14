@@ -3,7 +3,7 @@ import { dp, clockIcon, cakeIcon, locationIcon, mailIcon, cameraIcon } from "../
 import SetupProfile from "../SetupProfile/SetupProfile";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import useFetch from "../../hooks/useFetch";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createChat } from "../../features/messageSlice";
 import Backdrop from "../Backdrop/Backdrop";
@@ -14,20 +14,16 @@ import { logout } from "../../features/userSlice";
 import getDateString from "../../utils/getDateString";
 
 const ProfileCard = ({ id, isOwnProfile }) => {
-	const [user, setUser] = useState({});
+	const {
+		users: { users },
+	} = useSelector(state => state);
+	const user = users.find(user => user._id === id) || {};
 	const [isEditing, setIsEditing] = useState(false);
 	const [isUploading, setIsUploading] = useState(false);
 
 	const customFetch = useFetch();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		(async () => {
-			const data = await customFetch(fetchUsersService, { id });
-			if (data) setUser(data.user);
-		})();
-	}, [id, customFetch]);
 
 	let { name, email, about, dob, location, createdAt, profileImage } = user;
 	createdAt = `Joined on ${getDateString(createdAt)}`;
@@ -54,10 +50,10 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 			{isOwnProfile && (
 				<>
 					<Backdrop show={isEditing} onClose={hideEditing}>
-						<SetupProfile close={hideEditing} user={user} setUser={setUser} />
+						<SetupProfile close={hideEditing} user={user} />
 					</Backdrop>
 					<Backdrop show={isUploading} onClose={hideUploading}>
-						<ImageUpload setUser={setUser} close={hideUploading} />
+						<ImageUpload close={hideUploading} />
 					</Backdrop>
 				</>
 			)}

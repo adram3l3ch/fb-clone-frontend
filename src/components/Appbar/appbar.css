@@ -5,7 +5,7 @@
 	position: sticky;
 	height: 7rem;
 	top: 0rem;
-	z-index: 4;
+	z-index: 2;
 	background-color: var(--primary-400);
 }
 

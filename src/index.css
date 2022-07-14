@@ -53,6 +53,10 @@ body {
 	background-color: #1f1f25;
 }
 
+.topZ {
+	z-index: 99 !important;
+}
+
 img {
 	max-width: 100%;
 	display: block;

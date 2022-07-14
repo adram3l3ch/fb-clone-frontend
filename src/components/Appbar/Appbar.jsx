@@ -40,7 +40,7 @@ const Appbar = () => {
 	};
 
 	return (
-		<header className="appbar">
+		<header className={searchResult.posts || searchResult.users ? "appbar topZ" : "appbar"}>
 			<div className="hamburger" onClick={() => dispatch(toggleSidebar(!isSidebarVisible))}>
 				<img src={isSidebarVisible ? closeIcon : hamburger} alt="hamburger" />
 			</div>

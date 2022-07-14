@@ -6,8 +6,9 @@ import useFetch from "../../hooks/useFetch";
 import "./setupprofile.css";
 import { useEffect } from "react";
 import { updateUserService } from "../../services/userServices";
+import { getUsers } from "../../features/usersSlice";
 
-const SetupProfile = ({ close, user, setUser }) => {
+const SetupProfile = ({ close, user }) => {
 	const [userDetails, setUserDetails] = useState({ name: "", about: "", location: "" });
 
 	useEffect(() => {
@@ -33,7 +34,7 @@ const SetupProfile = ({ close, user, setUser }) => {
 		e.preventDefault();
 		const data = await customFetch(updateUserService, userDetails);
 		if (data) {
-			setUser(data.user);
+			dispatch(getUsers({ customFetch }));
 			close();
 			dispatch(update({ name: data.user.name, id: data.user._id }));
 			dispatch(showModal({ msg: "Success" }));

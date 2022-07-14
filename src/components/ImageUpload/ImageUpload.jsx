@@ -6,8 +6,9 @@ import useFetch from "../../hooks/useFetch";
 import Compress from "compress.js";
 import { updateDPService } from "../../services/userServices";
 import "./imageupload.css";
+import { getUsers } from "../../features/usersSlice";
 
-const ImageUpload = ({ close, setUser }) => {
+const ImageUpload = ({ close }) => {
 	const [image, setImage] = useState(null);
 	const [preview, setPreview] = useState(null);
 
@@ -45,7 +46,7 @@ const ImageUpload = ({ close, setUser }) => {
 		dispatch(showModal({}));
 		const data = await customFetch(updateDPService, formData);
 		if (data) {
-			setUser(data.user);
+			dispatch(getUsers({ customFetch }));
 			dispatch(update({ profileImage: data.user.profileImage, id: data.user._id }));
 			close();
 			dispatch(showModal({ msg: "Success" }));

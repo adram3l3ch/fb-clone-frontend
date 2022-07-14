@@ -4,6 +4,7 @@ import CreatePost from "../../components/CreatePost/CreatePost";
 import InfinityScroll from "../../components/InfinityScroll/InfinityScroll";
 import Online from "../../components/Online/Online";
 import Posts from "../../components/Post/Posts";
+import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import { setAllPosts } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
 import { fetchPostsService } from "../../services/postServices";
@@ -11,8 +12,11 @@ import "./home.css";
 
 const Home = () => {
 	const {
-		allPosts: { posts, page },
-	} = useSelector(state => state.post);
+		post: {
+			allPosts: { posts, page },
+		},
+		user: { id },
+	} = useSelector(state => state);
 
 	const customFetch = useFetch();
 	const dispatch = useDispatch();
@@ -25,8 +29,11 @@ const Home = () => {
 
 	return (
 		<section className="home">
+			<div className="home__left">
+				<ProfileCard id={id} isOwnProfile />
+			</div>
 			<InfinityScroll getNextPage={getNextPage}>
-				<main className="home__left">
+				<main className="home__center">
 					<CreatePost />
 					<Posts posts={posts} />
 				</main>
