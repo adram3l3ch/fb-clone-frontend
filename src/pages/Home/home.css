@@ -8,7 +8,7 @@
 }
 
 .home__left {
-	width: clamp(300px, 30vw, 350px);
+	width: clamp(300px, 20vw, 350px);
 	height: fit-content;
 	position: sticky;
 	top: 7rem;

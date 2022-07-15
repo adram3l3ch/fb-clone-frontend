@@ -4,7 +4,7 @@
 	display: grid;
 	background-color: rgba(0, 0, 0, 0.544);
 	place-content: center;
-	z-index: 10;
+	z-index: 99;
 	opacity: 0;
 	backdrop-filter: blur(0);
 	pointer-events: none;

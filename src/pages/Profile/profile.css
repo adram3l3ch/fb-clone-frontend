@@ -7,7 +7,7 @@
 }
 
 .profile__left {
-	width: clamp(300px, 30vw, 350px);
+	width: clamp(300px, 20vw, 350px);
 	display: flex;
 	height: max-content;
 	flex-direction: column;

@@ -56,6 +56,9 @@ body {
 .topZ {
 	z-index: 99 !important;
 }
+:root {
+	font-size: calc(1rem - 1px);
+}
 
 img {
 	max-width: 100%;
@@ -159,12 +162,6 @@ input::placeholder {
 		opacity: 1;
 		pointer-events: all;
 		box-shadow: 0 10px 100px rgb(0, 0, 0);
-	}
-}
-
-@media (max-width: 400px) {
-	:root {
-		font-size: calc(1rem - 2px);
 	}
 }
 
