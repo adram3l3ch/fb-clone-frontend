@@ -29,7 +29,7 @@
 	transition: transform 0.2s linear;
 }
 
-.user:hover {
+.user:not(.online-users .user):hover {
 	transform: translateX(10px);
 }
 
@@ -40,4 +40,21 @@
 .online h3 {
 	font-weight: 500;
 	font-size: 0.8rem;
+}
+
+.online-users {
+	display: flex;
+	gap: 0.5rem;
+	width: 100%;
+	overflow-x: auto;
+	flex-shrink: 0;
+	scrollbar-width: 0;
+}
+
+.online-users::-webkit-scrollbar {
+	display: none;
+}
+
+.online-users > * {
+	flex-shrink: 0;
 }
