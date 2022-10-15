@@ -11,6 +11,7 @@ import MessengerPage from "../pages/Messenger/Messenger";
 import NotFound from "../pages/NotFound/NotFound";
 import Profile from "../pages/Profile/Profile";
 import SinglePost from "../pages/Singlepost/SinglePost";
+import ProtectedRoute from "./ProtectedRoute";
 
 const Router = () => {
 	const {
@@ -23,6 +24,12 @@ const Router = () => {
 	const closeEditing = () => {
 		dispatch(setEditingPost({}));
 	};
+
+	const authenticate = Comp => (
+		<ProtectedRoute>
+			<Comp />
+		</ProtectedRoute>
+	);
 	return (
 		<>
 			<div className={isSidebarVisible ? "sidebar visible" : "sidebar"}>
@@ -36,8 +43,8 @@ const Router = () => {
 				<Route path="/" element={<Home />} />
 				<Route path="/post/:id" element={<SinglePost />} />
 				<Route path="/user/:id" element={<Profile />} />
-				<Route path="/chat" element={<Chat />} />
-				<Route path="/chat/messenger" element={<MessengerPage />} />
+				<Route path="/chat" element={authenticate(Chat)} />
+				<Route path="/chat/messenger" element={authenticate(MessengerPage)} />
 				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</>

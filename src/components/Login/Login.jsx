@@ -20,6 +20,10 @@ const Login = ({ setIsRegistering }) => {
 		dispatch(setIsLoading(false));
 	};
 
+	const guestHandler = () => {
+		dispatch(login({ id: "guest", isGuest: true }));
+	};
+
 	return (
 		<form onSubmit={loginHandler} className="login">
 			<div className="email">
@@ -43,7 +47,9 @@ const Login = ({ setIsRegistering }) => {
 			/>
 			<button type="submit">Login</button>
 			<p>
-				Don't have an account? <span onClick={() => setIsRegistering(true)}>Register</span>
+				Don't have an account? <br />
+				<span onClick={() => setIsRegistering(true)}>Register</span> or{" "}
+				<span onClick={guestHandler}>Continue as a guest</span>
 			</p>
 		</form>
 	);

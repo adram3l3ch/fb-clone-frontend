@@ -8,11 +8,12 @@ import SearchResults from "../SearchResults/SearchResults";
 import { fetchUsersService } from "../../services/userServices";
 import { fetchPostsService } from "../../services/postServices";
 import "./appbar.css";
+import { logout } from "../../features/userSlice";
 
 const Appbar = () => {
 	//global states
 	const {
-		user: { id, profileImage },
+		user: { id, profileImage, isGuest },
 		modal: { isSidebarVisible },
 	} = useSelector(state => state);
 
@@ -38,6 +39,8 @@ const Appbar = () => {
 		setQuery("");
 		setSearchResult({});
 	};
+
+	const gotoLogin = () => dispatch(logout());
 
 	return (
 		<header className={searchResult.posts || searchResult.users ? "appbar topZ" : "appbar"}>
@@ -65,12 +68,25 @@ const Appbar = () => {
 				)}
 			</form>
 			<nav className="appbar__profile">
-				<Link to={`/user/${id}`}>
-					<img src={profileImage || dp} alt="profileImage" className="appbar__profile__dp" title="profile" />
-				</Link>
-				<Link to="/chat">
-					<img src={chatIcon} alt="chat" className="chat" />
-				</Link>
+				{isGuest ? (
+					<button className="login-btn" onClick={gotoLogin}>
+						Login
+					</button>
+				) : (
+					<>
+						<Link to={`/user/${id}`}>
+							<img
+								src={profileImage || dp}
+								alt="profileImage"
+								className="appbar__profile__dp"
+								title="profile"
+							/>
+						</Link>
+						<Link to="/chat">
+							<img src={chatIcon} alt="chat" className="chat" />
+						</Link>
+					</>
+				)}
 			</nav>
 		</header>
 	);

@@ -3,6 +3,8 @@
 	border-radius: 10px;
 	margin-top: 50px;
 	padding: 2rem 1.5rem;
+	position: relative;
+	isolation: isolate;
 }
 
 .profilecard header {
@@ -44,7 +46,7 @@
 	font-weight: 500;
 	font-size: 1.5rem;
 }
-.profilecard h2 {
+.profilecard:not(.guest) h2 {
 	font-size: 0.8rem;
 	font-weight: 400;
 	opacity: 0.7;
@@ -89,4 +91,87 @@
 .btn-group {
 	display: flex;
 	gap: 0.5rem;
+}
+
+.guest h2 {
+	color: white;
+	font-weight: 500;
+	font-size: 1.4rem;
+	margin-bottom: 1rem;
+}
+
+.guest p {
+	color: white;
+	margin-bottom: 2rem;
+}
+
+.guest {
+	--color-1: #e70a37;
+	--color-2: #0822a5;
+	--color-3: #cbd10f;
+	--color-4: #01cf87;
+	--blur: blur(60px);
+	overflow: hidden;
+}
+
+gradient-container {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	background: var(--color-2);
+	flex-wrap: wrap;
+	overflow: hidden;
+	z-index: -1;
+}
+
+gradient-color {
+	width: 50%;
+	height: 50%;
+	display: flex;
+	border-radius: 30% 80% 75% 40% / 40% 40% 70% 50%;
+	animation-name: animate;
+	animation-duration: 5s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+@keyframes animate {
+	0% {
+		border-radius: 30% 70% 70% 30% / 30% 30% 70% 60%;
+		transform: scale(2) rotate(0deg) translate(10%, 10%);
+	}
+	100% {
+		border-radius: 88% 10% 22% 58% / 73% 56% 34% 77%;
+		transform: scale(2) rotate(180deg) translate(10%, -10%);
+	}
+}
+
+gradient-color:nth-child(1) {
+	background-color: var(--color-1);
+	animation-direction: backwards;
+}
+
+gradient-color:nth-child(2) {
+	background-color: var(--color-2);
+}
+
+gradient-color:nth-child(3) {
+	background-color: var(--color-3);
+	animation-direction: backwards;
+}
+
+gradient-color:nth-child(4) {
+	background-color: var(--color-4);
+}
+
+gradient-backdrop {
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: transparent;
+	backdrop-filter: var(--blur);
 }

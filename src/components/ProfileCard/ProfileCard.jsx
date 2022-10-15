@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createChat } from "../../features/messageSlice";
 import Backdrop from "../Backdrop/Backdrop";
-import { setIsLoading } from "../../features/modalSlice";
+import { setIsLoading, showModal } from "../../features/modalSlice";
 import "./profilecard.css";
 import { logout } from "../../features/userSlice";
 import getDateString from "../../utils/getDateString";
@@ -15,6 +15,7 @@ import getDateString from "../../utils/getDateString";
 const ProfileCard = ({ id, isOwnProfile }) => {
 	const {
 		users: { users },
+		user: { isGuest },
 	} = useSelector(state => state);
 	const user = users.find(user => user._id === id) || {};
 	const [isEditing, setIsEditing] = useState(false);
@@ -29,6 +30,7 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 	dob = getDateString(dob);
 
 	const sendMessage = async () => {
+		if (isGuest) return dispatch(showModal({ msg: "You must be logged in to do this action!!" }));
 		dispatch(setIsLoading(true));
 		dispatch(createChat({ customFetch, id })).then(() => {
 			if (window.innerWidth < 801) navigate("/chat/messenger");
@@ -58,10 +60,18 @@ const ProfileCard = ({ id, isOwnProfile }) => {
 			)}
 			<header>
 				<div>
-					<img src={profileImage || dp} alt="profile_image" className="profilecard__dp roundimage" />
+					<img
+						src={profileImage || dp}
+						alt="profile_image"
+						className="profilecard__dp roundimage"
+					/>
 					{isOwnProfile && (
 						<div className="dp-upload">
-							<img src={cameraIcon} alt="change_profile_image" onClick={() => setIsUploading(true)} />
+							<img
+								src={cameraIcon}
+								alt="change_profile_image"
+								onClick={() => setIsUploading(true)}
+							/>
 						</div>
 					)}
 				</div>

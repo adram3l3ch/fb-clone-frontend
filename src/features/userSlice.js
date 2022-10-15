@@ -7,6 +7,7 @@ const initialState = {
 	name: "",
 	profileImage: "",
 	token: "",
+	isGuest: "",
 };
 
 let interceptor;
@@ -16,7 +17,7 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		login: (state, action) => {
-			const { id, name, profileImage, token } = action.payload;
+			const { id, name, profileImage, token, isGuest } = action.payload;
 			Cookies.set("user", JSON.stringify(action.payload), { expires: 30 });
 			interceptor = axiosConfig.interceptors.request.use(
 				config => {
@@ -25,7 +26,7 @@ const userSlice = createSlice({
 				},
 				error => Promise.reject(error)
 			);
-			return { id, name, profileImage, token };
+			return { id, name, profileImage, token, isGuest: !!isGuest };
 		},
 		logout: state => {
 			Cookies.remove("user");

@@ -1,3 +1,3 @@
-export default process.env.REACT_APP_ENV === "DEVELOPMENT"
+export default process.env.NODE_ENV === "development"
 	? "http://localhost:5000"
 	: "https://adram3l3ch-fb-clone.herokuapp.com";

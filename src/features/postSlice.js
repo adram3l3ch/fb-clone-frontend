@@ -29,7 +29,11 @@ export const setPosts = createAsyncThunk("post/set", async (props, thunkAPI) => 
 
 export const addPost = createAsyncThunk("post/add", async (props, thunkAPI) => {
 	const { customFetch, formData } = props;
-	const { fulfillWithValue, dispatch, rejectWithValue } = thunkAPI;
+	const { fulfillWithValue, dispatch, rejectWithValue, getState } = thunkAPI;
+	const {
+		user: { isGuest },
+	} = getState();
+	if (isGuest) return dispatch(showModal({ msg: "You must be logged in to do this action!!" }));
 	dispatch(showModal({}));
 	const data = await customFetch(createPostService, formData);
 	if (!data) return rejectWithValue();
@@ -40,35 +44,54 @@ export const addPost = createAsyncThunk("post/add", async (props, thunkAPI) => {
 export const updatePost = createAsyncThunk("post/update", async (props, thunkAPI) => {
 	const { customFetch, formData, id } = props;
 	const { dispatch, rejectWithValue, getState } = thunkAPI;
+	const {
+		user: { isGuest },
+		post: { singlePost },
+	} = getState();
+	if (isGuest) return dispatch(showModal({ msg: "You must be logged in to do this action!!" }));
 	dispatch(showModal({}));
 	const data = await customFetch(updatePostService, { id, form: formData });
 	if (!data) return rejectWithValue();
 	dispatch(showModal({ msg: "Post updated" }));
-	if (getState().post.singlePost._id === id) dispatch(postSlice.actions.setSinglePost(data.post));
+	if (singlePost._id === id) dispatch(postSlice.actions.setSinglePost(data.post));
 	dispatch(postSlice.actions.updatePosts(data.post));
 });
 
 export const likePost = createAsyncThunk("post/like", async (props, thunkAPI) => {
 	const { customFetch, id, isLiked } = props;
 	const { dispatch, rejectWithValue, getState } = thunkAPI;
+	const {
+		user: { isGuest },
+		post: { singlePost },
+	} = getState();
+	if (isGuest) return dispatch(showModal({ msg: "You must be logged in to do this action!!" }));
 	const data = await customFetch(likePostService, { id, add: !isLiked });
 	if (!data) return rejectWithValue();
-	if (getState().post.singlePost._id === id) dispatch(postSlice.actions.setSinglePost(data.post));
+	if (singlePost._id === id) dispatch(postSlice.actions.setSinglePost(data.post));
 	dispatch(postSlice.actions.updatePosts(data.post));
 });
 
 export const commentPost = createAsyncThunk("post/comment", async (props, thunkAPI) => {
 	const { customFetch, id, comment } = props;
 	const { dispatch, rejectWithValue, getState } = thunkAPI;
+	const {
+		user: { isGuest },
+		post: { singlePost },
+	} = getState();
+	if (isGuest) return dispatch(showModal({ msg: "You must be logged in to do this action!!" }));
 	const data = await customFetch(commentPostService, { id, comment });
 	if (!data) return rejectWithValue();
-	if (getState().post.singlePost._id === id) dispatch(postSlice.actions.setSinglePost(data.post));
+	if (singlePost._id === id) dispatch(postSlice.actions.setSinglePost(data.post));
 	dispatch(postSlice.actions.updatePosts(data.post));
 });
 
 export const deletePost = createAsyncThunk("post/delete", async (props, thunkAPI) => {
 	const { customFetch, id } = props;
-	const { dispatch, fulfillWithValue } = thunkAPI;
+	const { dispatch, fulfillWithValue, getState } = thunkAPI;
+	const {
+		user: { isGuest },
+	} = getState();
+	if (isGuest) return dispatch(showModal({ msg: "You must be logged in to do this action!!" }));
 	dispatch(showModal({}));
 	await customFetch(deletePostService, { id });
 	dispatch(showModal({ msg: "Post Deleted" }));

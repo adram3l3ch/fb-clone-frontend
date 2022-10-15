@@ -32,8 +32,10 @@
 
 .auth p {
 	margin-inline: auto;
+	line-height: 1.8em;
 	width: max-content;
 	margin-top: 1.5rem;
+	text-align: center;
 }
 
 .auth form {

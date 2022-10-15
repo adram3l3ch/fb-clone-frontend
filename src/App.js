@@ -25,7 +25,7 @@ function App() {
 	const customFetch = useFetch();
 	const [theme, setTheme] = useState("dark");
 	const {
-		user: { id },
+		user: { id, isGuest },
 		modal: { isLoading },
 		socket: { socket },
 		message: { to, conversationID },
@@ -43,9 +43,9 @@ function App() {
 			const query = `id=${id}`;
 			dispatch(getUsers({ customFetch }));
 			dispatch(setPosts({ customFetch }));
-			dispatch(setSocket(io(SERVER_URI, { query })));
+			if (!isGuest) dispatch(setSocket(io(SERVER_URI, { query })));
 		}
-	}, [id, customFetch, dispatch]);
+	}, [id, customFetch, dispatch, isGuest]);
 
 	//socket events
 	useEffect(() => {
