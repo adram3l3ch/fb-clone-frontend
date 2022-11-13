@@ -218,3 +218,7 @@ input::placeholder {
 		left: 150%;
 	}
 }
+
+:root:has(.backdrop.show) {
+	overflow: hidden;
+}

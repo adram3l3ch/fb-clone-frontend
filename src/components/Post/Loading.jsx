@@ -16,7 +16,7 @@ export const Post = ({ singlepost }) => (
 		<div className="post__details">
 			<div
 				className="loadingBox"
-				style={{ width: "100%", height: singlepost ? "60vh" : "300px", borderRadius: "1em" }}
+				style={{ width: "100%", height: singlepost ? "60vh" : "400px", borderRadius: "1em" }}
 			></div>
 		</div>
 		<div className="post__footer">
