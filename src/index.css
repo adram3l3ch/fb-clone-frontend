@@ -193,3 +193,28 @@ input::placeholder {
 .email-datalist option:hover {
 	background-color: var(--primary-600);
 }
+
+.loadingBox {
+	position: relative;
+	background-color: var(--primary-600);
+	overflow: hidden;
+}
+
+.loadingBox::after {
+	position: absolute;
+	content: "";
+	height: 500%;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 30px;
+	background: var(--primary-400);
+	filter: blur(50px);
+	left: -50%;
+	animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+	to {
+		left: 150%;
+	}
+}

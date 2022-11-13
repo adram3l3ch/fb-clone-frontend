@@ -83,7 +83,11 @@ const Post = ({ singlepost, post }) => {
 		<article className={singlepost ? "post halfborder single" : "post gradient-border"}>
 			<header>
 				<Link to={`/user/${post.createdBy}`} className={isOnline ? "green" : ""}>
-					<img src={post.userDetails?.image || dp} alt="profileImage" className="post__dp roundimage" />
+					<img
+						src={post.userDetails?.image || dp}
+						alt="profileImage"
+						className="post__dp roundimage"
+					/>
 				</Link>
 				<div>
 					<h3>{post.userDetails?.name}</h3>

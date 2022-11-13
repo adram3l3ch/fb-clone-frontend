@@ -1,12 +1,11 @@
 import React from "react";
+import Loading from "./Loading";
 import Post from "./Post";
 
-const Posts = ({ posts }) => {
+const Posts = ({ posts, isLoading }) => {
 	return (
 		<div className="posts">
-			{posts.map(post => (
-				<Post post={post} key={post._id} />
-			))}
+			{isLoading ? <Loading /> : posts.map(post => <Post post={post} key={post._id} />)}
 		</div>
 	);
 };

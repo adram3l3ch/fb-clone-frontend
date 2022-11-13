@@ -12,7 +12,7 @@ import { logout, update } from "./userSlice";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 const initialState = {
-	allPosts: { posts: [], page: 0 },
+	allPosts: { posts: [], page: 0, isLoading: false },
 	userPosts: { posts: [], page: 0 },
 	editingPost: {},
 	singlePost: {},
@@ -163,6 +163,9 @@ const postSlice = createSlice({
 		},
 		[logout.type]: (state, action) => {
 			return initialState;
+		},
+		[setPosts.pending]: state => {
+			state.allPosts.isLoading = true;
 		},
 	},
 });

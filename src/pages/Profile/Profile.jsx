@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Gallery from "../../components/Gallery/Gallery";
 import Online from "../../components/Online/Online";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
@@ -18,14 +18,17 @@ const Profile = () => {
 		userPosts: { posts, page },
 	} = useSelector(state => state.post);
 	const isOwnProfile = id === useSelector(state => state.user.id);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const dispatch = useDispatch();
 	const customFetch = useFetch();
 
 	useEffect(() => {
 		(async () => {
+			setIsLoading(true);
 			const data = await customFetch(fetchPostsService, { userId: id });
 			if (data) dispatch(setUserPosts(data));
+			setIsLoading(false);
 		})();
 	}, [dispatch, id, customFetch]);
 
@@ -44,8 +47,8 @@ const Profile = () => {
 			<InfinityScroll getNextPage={getNextPage}>
 				<article className="profile__center">
 					{isOwnProfile && <CreatePost />}
-					{posts.length < 1 && <h2>No Posts</h2>}
-					<Posts posts={posts} />
+					{posts.length < 1 && !isLoading && <h2>No Posts</h2>}
+					<Posts posts={posts} isLoading={isLoading} />
 				</article>
 			</InfinityScroll>
 			<article className="profile__right gradient-border">

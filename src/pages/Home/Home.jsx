@@ -14,7 +14,7 @@ import "./home.css";
 const Home = () => {
 	const {
 		post: {
-			allPosts: { posts, page },
+			allPosts: { posts, page, isLoading },
 		},
 		user: { id, isGuest },
 	} = useSelector(state => state);
@@ -34,7 +34,7 @@ const Home = () => {
 			<InfinityScroll getNextPage={getNextPage}>
 				<main className="home__center">
 					{isGuest || <CreatePost />}
-					<Posts posts={posts} />
+					<Posts posts={posts} isLoading={isLoading} />
 				</main>
 			</InfinityScroll>
 			<aside className="home__right gradient-border">
