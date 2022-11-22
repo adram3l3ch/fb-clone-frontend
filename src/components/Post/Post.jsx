@@ -11,9 +11,13 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
 import { IoIosShareAlt } from "react-icons/io";
 import getDateString from "../../utils/getDateString";
+import Share from "./Share";
+import { useState } from "react";
+import Backdrop from "../Backdrop/Backdrop";
 
 const Post = ({ singlepost, post }) => {
 	const createdAt = getDateString(post.createdAt);
+	const [showShare, setShowShare] = useState(false);
 
 	const dispatch = useDispatch();
 	const customFetch = useFetch();
@@ -84,6 +88,9 @@ const Post = ({ singlepost, post }) => {
 
 	return (
 		<article className={singlepost ? "post halfborder single" : "post gradient-border"}>
+			<Backdrop show={showShare} onClose={() => setShowShare(false)}>
+				<Share post={post} />
+			</Backdrop>
 			<header>
 				<Link to={`/user/${post.createdBy}`} className={isOnline ? "green" : ""}>
 					<img
@@ -117,9 +124,8 @@ const Post = ({ singlepost, post }) => {
 					<BiCommentDetail />
 					<p>{post.comments.length}</p>
 				</Link>
-				<div className="group">
+				<div className="group" onClick={() => setShowShare(true)} title="share">
 					<IoIosShareAlt />
-					<p>Share</p>
 				</div>
 			</div>
 		</article>

@@ -1,5 +1,5 @@
 .imageupload {
-	width: 400px;
+	width: min(400px, 95vw);
 	min-height: 100px;
 	background-color: var(--primary-500);
 	border-radius: 10px;
@@ -38,10 +38,4 @@ input[type="file"] {
 .uploaded-image {
 	width: 100%;
 	border-radius: 10px;
-}
-
-@media (max-width: 420px) {
-	.imageupload form {
-		width: 350px;
-	}
 }

@@ -1,5 +1,6 @@
 import React from "react";
-import { dp, likeIcon } from "../../assets";
+import { dp } from "../../assets";
+import { AiFillHeart } from "react-icons/ai";
 
 export const Post = ({ singlepost }) => (
 	<article className={singlepost ? "post halfborder single" : "post gradient-border"}>
@@ -20,9 +21,9 @@ export const Post = ({ singlepost }) => (
 			></div>
 		</div>
 		<div className="post__footer">
-			<div className="post__reactions">
-				<img src={likeIcon} alt="like" />
-				<div className="loadingBox" style={{ width: "25%", height: "20px" }}></div>
+			<div className="group">
+				<AiFillHeart />
+				<div className="loadingBox" style={{ width: "250px", height: "20px" }}></div>
 			</div>
 		</div>
 	</article>

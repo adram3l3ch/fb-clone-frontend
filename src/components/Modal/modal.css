@@ -12,7 +12,7 @@
 	transition: all 0.2s ease-out;
 	border-radius: 5px;
 	text-align: center;
-	z-index: 99;
+	z-index: 999;
 	border-left: 3px solid white;
 }
 

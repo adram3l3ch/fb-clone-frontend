@@ -1,7 +1,7 @@
 .setup {
 	background-color: var(--primary-500);
 	color: white;
-	width: 400px;
+	width: min(95vw, 400px);
 	padding: 3rem 1.5rem 1.5rem 1.5rem;
 	border-radius: 10px;
 }
@@ -37,10 +37,4 @@
 
 .setup button:last-child {
 	background: none;
-}
-
-@media (max-width: 420px) {
-	.setup {
-		width: 350px;
-	}
 }
