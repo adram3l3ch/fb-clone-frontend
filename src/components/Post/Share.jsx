@@ -30,9 +30,9 @@ const Share = ({ post }) => {
 	const copyEmbed = () => {
 		window.navigator.clipboard.writeText(
 			`<iframe
-				src=https://adramelech-social-media-app.netlify.app/post/${post._id}
-				width="1200"
-				height="800"
+				src="https://adramelech-social-media-app.netlify.app/post/${post._id}?embed=true"
+				width="500"
+				height="700"
 				title="social-media-app"
 			></iframe>`
 		);

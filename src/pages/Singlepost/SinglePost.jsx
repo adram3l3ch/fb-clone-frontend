@@ -3,7 +3,7 @@ import Input from "../../components/Input/Input";
 import Comments from "../../components/Comments/Comments";
 import Post from "../../components/Post/Post";
 import Online from "../../components/Online/Online";
-import { useParams } from "react-router";
+import { useParams, useLocation } from "react-router";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { setSinglePost, commentPost } from "../../features/postSlice";
@@ -15,6 +15,12 @@ import { Post as PostLoading } from "../../components/Post/Loading";
 
 const SinglePost = () => {
 	const { id } = useParams();
+	const { embed } = Object.fromEntries(
+		useLocation()
+			.search.slice(1)
+			.split("&")
+			.map(ele => ele.split("="))
+	);
 	const { token } = JSON.parse(Cookies.get("user"));
 	const { singlePost } = useSelector(state => state.post);
 	const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +40,8 @@ const SinglePost = () => {
 	const commentHandler = async comment => {
 		dispatch(commentPost({ customFetch, id: singlePost._id, comment }));
 	};
+
+	if (embed) return <>{isLoading ? <PostLoading /> : <Post post={singlePost} />}</>;
 
 	return (
 		<section className="singlepost">
