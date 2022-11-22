@@ -21,8 +21,7 @@ const SinglePost = () => {
 			.split("&")
 			.map(ele => ele.split("="))
 	);
-	const user = Cookies.get("user");
-	const { token } = JSON.parse(user === "undefined" ? {} : user);
+	const { token } = JSON.parse(Cookies.get("user") ?? {});
 	const { singlePost } = useSelector(state => state.post);
 	const [isLoading, setIsLoading] = useState(true);
 
