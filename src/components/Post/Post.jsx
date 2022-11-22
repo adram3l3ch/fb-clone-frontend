@@ -1,12 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost, setEditingPost, commentPost, likePost } from "../../features/postSlice";
-import { dp, likeIcon, likeOutlined } from "../../assets";
+import { dp } from "../../assets";
 import Input from "../Input/Input";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Options from "../Options/Options";
 import "./post.css";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { BiCommentDetail } from "react-icons/bi";
+import { IoIosShareAlt } from "react-icons/io";
 import getDateString from "../../utils/getDateString";
 
 const Post = ({ singlepost, post }) => {
@@ -67,7 +70,7 @@ const Post = ({ singlepost, post }) => {
 					: `You and ${post.likes.length - 1} others`
 				: post.likes?.length;
 		}
-		return false;
+		return "";
 	};
 
 	const postDetails = () => {
@@ -105,11 +108,19 @@ const Post = ({ singlepost, post }) => {
 				)}
 			</div>
 			<div className="post__footer">
-				<div className="post__reactions">
-					<img src={isLiked ? likeIcon : likeOutlined} alt="like" onClick={likeHandler} />
-					<p>{getNumberOfLikes() || ""}</p>
+				<div className="group">
+					<div onClick={likeHandler}>{isLiked ? <AiFillHeart /> : <AiOutlineHeart />}</div>
+					<p>{getNumberOfLikes()}</p>
 				</div>
 				{singlepost || <Input placeholder={"Write a comment..."} handler={commentHandler} />}
+				<Link className={singlepost ? "comment__icon group" : "group"} to={`/post/${post._id}`}>
+					<BiCommentDetail />
+					<p>{post.comments.length}</p>
+				</Link>
+				<div className="group">
+					<IoIosShareAlt />
+					<p>Share</p>
+				</div>
 			</div>
 		</article>
 	);
