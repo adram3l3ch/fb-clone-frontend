@@ -1,24 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { logout } from "./userSlice";
 
+class Modal {
+	constructor(msg = "Hold on I swear it won't take so long", id) {
+		this.msg = msg;
+		this.id = id;
+	}
+}
+
 const initialState = {
-	msg: "",
-	visible: false,
+	modals: [],
 	isSidebarVisible: false,
 	isLoading: false,
 };
 
-let timeout;
-
 export const showModal = createAsyncThunk("modal/show", async (props, thunkAPI) => {
-	let { msg } = props;
-	msg = msg || "Hold on I swear it won't take so long";
-	const { fulfillWithValue, dispatch } = thunkAPI;
-	clearTimeout(timeout);
-	timeout = setTimeout(() => {
+	const { fulfillWithValue, dispatch, getState } = thunkAPI;
+	const { msg } = props;
+	const id = getState().modal.modals.length;
+	const modal = new Modal(msg, id);
+	setTimeout(() => {
 		dispatch(modalSlice.actions.hideModal());
-	}, 4000);
-	return fulfillWithValue({ msg, visible: true });
+	}, 10000);
+	return fulfillWithValue(modal);
 });
 
 const modalSlice = createSlice({
@@ -26,7 +30,7 @@ const modalSlice = createSlice({
 	initialState,
 	reducers: {
 		hideModal: state => {
-			state.visible = false;
+			state.modals.pop();
 		},
 		toggleSidebar: (state, action) => {
 			state.isSidebarVisible = action.payload;
@@ -37,8 +41,7 @@ const modalSlice = createSlice({
 	},
 	extraReducers: {
 		[showModal.fulfilled]: (state, action) => {
-			state.msg = action.payload.msg;
-			state.visible = action.payload.visible;
+			state.modals.push(action.payload);
 		},
 		[logout.type]: (state, action) => {
 			return initialState;
