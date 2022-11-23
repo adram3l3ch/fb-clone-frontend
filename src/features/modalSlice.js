@@ -15,12 +15,12 @@ const initialState = {
 };
 
 export const showModal = createAsyncThunk("modal/show", async (props, thunkAPI) => {
-	const { fulfillWithValue, dispatch, getState } = thunkAPI;
+	const { fulfillWithValue, dispatch } = thunkAPI;
 	const { msg } = props;
-	const id = getState().modal.modals.length;
+	const id = new Date().getTime();
 	const modal = new Modal(msg, id);
 	setTimeout(() => {
-		dispatch(modalSlice.actions.hideModal());
+		dispatch(modalSlice.actions.hideModal(id));
 	}, 10000);
 	return fulfillWithValue(modal);
 });
@@ -29,8 +29,8 @@ const modalSlice = createSlice({
 	name: "modal",
 	initialState,
 	reducers: {
-		hideModal: state => {
-			state.modals.pop();
+		hideModal: (state, action) => {
+			state.modals = state.modals.filter(ele => ele.id !== action.payload);
 		},
 		toggleSidebar: (state, action) => {
 			state.isSidebarVisible = action.payload;
