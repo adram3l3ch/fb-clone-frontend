@@ -18,7 +18,7 @@ const userSlice = createSlice({
 	reducers: {
 		login: (state, action) => {
 			const { id, name, profileImage, token, isGuest } = action.payload;
-			Cookies.set("user", JSON.stringify(action.payload), { expires: 30, sameSite: "None" });
+			Cookies.set("user", JSON.stringify(action.payload), { expires: 30 });
 			interceptor = axiosConfig.interceptors.request.use(
 				config => {
 					config.headers["Authorization"] = `Bearer ${token}`;
@@ -37,7 +37,7 @@ const userSlice = createSlice({
 			const { payload } = action;
 			console.log(payload);
 			Object.keys(payload).map(key => (state[key] = payload[key]));
-			Cookies.set("user", JSON.stringify(state), { expires: 30, sameSite: "None" });
+			Cookies.set("user", JSON.stringify(state));
 		},
 	},
 });
