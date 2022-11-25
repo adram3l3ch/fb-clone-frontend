@@ -1,13 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { logout } from "./userSlice";
 
-class Modal {
-	constructor(msg = "Hold on I swear it won't take so long", id) {
-		this.msg = msg;
-		this.id = id;
-	}
-}
-
 const initialState = {
 	modals: [],
 	isSidebarVisible: false,
@@ -16,9 +9,9 @@ const initialState = {
 
 export const showModal = createAsyncThunk("modal/show", async (props, thunkAPI) => {
 	const { fulfillWithValue, dispatch } = thunkAPI;
-	const { msg } = props;
+	const msg = props.msg || "Hold on I swear it won't take so long";
 	const id = new Date().getTime();
-	const modal = new Modal(msg, id);
+	const modal = { msg, id };
 	setTimeout(() => {
 		dispatch(modalSlice.actions.hideModal(id));
 	}, 10000);

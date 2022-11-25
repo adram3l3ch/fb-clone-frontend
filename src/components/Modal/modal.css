@@ -26,33 +26,33 @@
 @keyframes in {
 	5% {
 		padding: 1rem;
-		max-height: 200px;
+		max-height: 500px;
 		transform: translateX(150%);
 	}
 	8% {
 		padding: 1rem;
 		transform: translateX(-10px);
-		max-height: 200px;
+		max-height: 500px;
 	}
 	11% {
 		padding: 1rem;
 		transform: translateX(0);
-		max-height: 200px;
+		max-height: 500px;
 	}
 	95% {
 		padding: 1rem;
 		transform: translateX(0);
-		max-height: 200px;
+		max-height: 500px;
 	}
 	96% {
 		padding: 1rem;
 		transform: translateX(-10px);
-		max-height: 200px;
+		max-height: 500px;
 	}
 	100% {
 		padding: 1rem;
 		transform: translateX(150%);
-		max-height: 200px;
+		max-height: 500px;
 	}
 }
 
