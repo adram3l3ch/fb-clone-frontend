@@ -17,7 +17,12 @@ const Online = () => {
 			<Link to={`/user/${user._id}`} key={user._id} onClick={() => dispatch(toggleSidebar(false))}>
 				<div className="user">
 					<div>
-						<img src={user.profileImage || dp} alt={user.name + " image"} className="roundimage" />
+						<img
+							src={user.profileImage || dp}
+							loading="lazy"
+							alt={user.name + " image"}
+							className="roundimage"
+						/>
 					</div>
 					<h3>{user.name}</h3>
 				</div>
@@ -31,7 +36,11 @@ const Online = () => {
 			<Link to={`/user/${user._id}`} key={user._id} onClick={() => dispatch(toggleSidebar(false))}>
 				<div className="user" title={user.name}>
 					<div className="green">
-						<img src={user.profileImage || dp} alt={user.name + " image"} className="roundimage" />
+						<img
+							src={user.profileImage || dp}
+							alt={user.name + " image"}
+							className="roundimage"
+						/>
 					</div>
 				</div>
 			</Link>

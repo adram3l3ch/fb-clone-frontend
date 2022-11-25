@@ -81,7 +81,9 @@ const Post = ({ singlepost, post }) => {
 		return (
 			<>
 				{post.caption && getParagraphs(post.caption)}
-				{post.image?.src && <img src={post.image?.src} alt="post_image" className="post__image" />}
+				{post.image?.src && (
+					<img src={post.image?.src} alt="post_image" className="post__image" loading="lazy" />
+				)}
 			</>
 		);
 	};
@@ -96,6 +98,7 @@ const Post = ({ singlepost, post }) => {
 					<img
 						src={post.userDetails?.image || dp}
 						alt="profileImage"
+						loading="lazy"
 						className="post__dp roundimage"
 					/>
 				</Link>
