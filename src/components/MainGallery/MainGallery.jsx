@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { closeIcon } from "../../assets";
 import "./maingallery.css";
 
-const MainGallery = ({ posts, close }) => {
+const MainGallery = ({ posts, onClose }) => {
 	return (
 		<div className="maingallery">
-			<button onClick={close} aria-label="close">
+			<button onClick={onClose} aria-label="close">
 				<img src={closeIcon} alt="close" />
 			</button>
 			{posts.map(post => (

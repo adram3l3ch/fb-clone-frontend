@@ -181,9 +181,11 @@ input::placeholder {
 	}
 	.sidebar {
 		display: block;
+		visibility: hidden;
 	}
 	.visible {
 		transform: translateX(0);
+		visibility: visible;
 		opacity: 1;
 		pointer-events: all;
 		box-shadow: 0 10px 100px rgb(0, 0, 0);

@@ -14,10 +14,12 @@ import getDateString from "../../utils/getDateString";
 import Share from "./Share";
 import { useState } from "react";
 import Backdrop from "../Backdrop/Backdrop";
+import ImageViewer from "./ImageViewer";
 
 const Post = ({ singlepost, post }) => {
 	const createdAt = getDateString(post.createdAt);
 	const [showShare, setShowShare] = useState(false);
+	const [showImage, setShowImage] = useState(false);
 
 	const dispatch = useDispatch();
 	const customFetch = useFetch();
@@ -78,11 +80,23 @@ const Post = ({ singlepost, post }) => {
 	};
 
 	const postDetails = () => {
+		const toggleImage = () => setShowImage(!showImage);
 		return (
 			<>
 				{post.caption && getParagraphs(post.caption)}
+				{singlepost && (
+					<Backdrop show={showImage} onClose={toggleImage}>
+						<ImageViewer image={post.image.src} />
+					</Backdrop>
+				)}
 				{post.image?.src && (
-					<img src={post.image?.src} alt="post_image" className="post__image" loading="lazy" />
+					<img
+						src={post.image.src}
+						alt="post_image"
+						className="post__image"
+						loading="lazy"
+						onClick={toggleImage}
+					/>
 				)}
 			</>
 		);
@@ -109,13 +123,7 @@ const Post = ({ singlepost, post }) => {
 				{isOwnPost && <Options options={options} />}
 			</header>
 			<div className="post__details">
-				{singlepost ? (
-					postDetails()
-				) : (
-					<Link to={`/post/${post._id}`} className="post__details">
-						{postDetails()}
-					</Link>
-				)}
+				{singlepost ? postDetails() : <Link to={`/post/${post._id}`}>{postDetails()}</Link>}
 			</div>
 			<div className="post__footer">
 				<div className="group">

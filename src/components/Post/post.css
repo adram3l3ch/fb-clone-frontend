@@ -74,6 +74,7 @@ p {
 	border-radius: 10px;
 	object-fit: contain;
 	background-color: var(--primary-600);
+	cursor: pointer;
 }
 
 .post__footer {
@@ -102,6 +103,31 @@ p {
 }
 .comment__icon {
 	margin-left: auto;
+}
+
+.imageViewer {
+	width: 90vw;
+	height: 90vh;
+	background-color: var(--primary-400);
+	border-radius: 0.5rem;
+	position: relative;
+}
+
+.imageViewer > button {
+	position: absolute;
+	width: 2rem !important;
+	aspect-ratio: 1;
+	background-color: red;
+	border-radius: 50%;
+	padding: 0.5rem;
+	right: 10px;
+	top: 10px;
+}
+
+.imageViewer img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
 }
 
 .share {

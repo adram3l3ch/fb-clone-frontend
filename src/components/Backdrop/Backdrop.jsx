@@ -7,6 +7,7 @@ const Backdrop = ({ children, show, onClose = () => {} }) => {
 	const newChildren = cloneElement(children, {
 		...children.props,
 		show,
+		onClose,
 	});
 	const closeModal = e => {
 		const isBackdrop = e.target.firstChild?.classList?.contains("backdrop__content");
