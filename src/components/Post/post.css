@@ -108,7 +108,7 @@ p {
 .imageViewer {
 	width: 90vw;
 	height: 90vh;
-	background-color: var(--primary-400);
+	background-color: var(--primary-500);
 	border-radius: 0.5rem;
 	position: relative;
 }

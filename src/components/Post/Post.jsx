@@ -86,7 +86,7 @@ const Post = ({ singlepost, post }) => {
 				{post.caption && getParagraphs(post.caption)}
 				{singlepost && (
 					<Backdrop show={showImage} onClose={toggleImage}>
-						<ImageViewer image={post.image.src} />
+						<ImageViewer image={post.image?.src} />
 					</Backdrop>
 				)}
 				{post.image?.src && (
