@@ -146,7 +146,6 @@ input::placeholder {
 	left: 0;
 	right: 1rem;
 	transform: translateX(-20%);
-	transition: all 0.2s linear;
 	pointer-events: none;
 }
 
@@ -182,6 +181,7 @@ input::placeholder {
 	.sidebar {
 		display: block;
 		visibility: hidden;
+		transition: all 0.2s linear;
 	}
 	.visible {
 		transform: translateX(0);
@@ -189,6 +189,7 @@ input::placeholder {
 		opacity: 1;
 		pointer-events: all;
 		box-shadow: 0 10px 100px rgb(0, 0, 0);
+		transition: opacity 0.2s linear, transform 0.2s linear;
 	}
 }
 
