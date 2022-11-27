@@ -13,7 +13,7 @@ It is a Social media app built using mern stack. You can create an account, crea
 
 -  Solution URL: [Frontend](https://github.com/adram3l3ch/fb-clone-frontend)
 -  Solution URL: [Backend](https://github.com/adram3l3ch/fb-clone-backend)
--  Live Site URL: [Netlify](https://adramelech-social-media-app.netlify.app/)
+-  Live Site URL: [Netlify](https://adra-amie.netlify.app/)
 
 ### Built with
 
