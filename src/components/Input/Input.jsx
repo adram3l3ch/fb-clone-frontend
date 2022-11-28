@@ -10,7 +10,7 @@ const Input = ({ placeholder, handler, showEmoji, initialValue = "" }) => {
 	const submitHandler = async e => {
 		e.preventDefault();
 		emojiRef.current?.close();
-		if (value.trim()) await handler(value.trim());
+		if (value.trim()) handler(value.trim());
 		setValue("");
 	};
 	const [value, setValue] = useState(initialValue);
