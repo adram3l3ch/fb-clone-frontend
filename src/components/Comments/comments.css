@@ -6,8 +6,13 @@
 }
 
 .comments > div > h3 {
-	margin-bottom: 2rem;
 	font-size: 0.9rem;
+}
+
+.comments > div {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
 }
 
 .comments::-webkit-scrollbar {

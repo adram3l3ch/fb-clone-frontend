@@ -35,7 +35,6 @@ const userSlice = createSlice({
 		},
 		update: (state, action) => {
 			const { payload } = action;
-			console.log(payload);
 			Object.keys(payload).map(key => (state[key] = payload[key]));
 			Cookies.set("user", JSON.stringify(state));
 		},

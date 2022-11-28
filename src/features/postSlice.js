@@ -6,6 +6,7 @@ import {
 	editCommentService,
 	fetchPostsService,
 	likePostService,
+	replyCommentService,
 	updatePostService,
 } from "../services/postServices";
 import { showModal } from "./modalSlice";
@@ -109,28 +110,39 @@ export const deletePost = createAsyncThunk("post/delete", async (props, thunkAPI
 });
 
 export const deleteComment = createAsyncThunk("post/comment/delete", async (props, thunkAPI) => {
-	const { customFetch, postId, commentId } = props;
+	const { customFetch, postId, commentId, replyId } = props;
 	const { dispatch, fulfillWithValue, getState, rejectWithValue } = thunkAPI;
 	const {
 		user: { isGuest },
 	} = getState();
 	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
 	dispatch(showModal({}));
-	const data = await customFetch(deleteCommentService, { postId, commentId });
+	const data = await customFetch(deleteCommentService, { postId, commentId, replyId });
 	dispatch(showModal({ msg: "Comment Deleted" }));
 	return fulfillWithValue(data);
 });
 
 export const editComment = createAsyncThunk("post/comment/edit", async (props, thunkAPI) => {
-	const { customFetch, postId, commentId, comment } = props;
+	const { customFetch, postId, commentId, comment, replyId } = props;
 	const { dispatch, rejectWithValue, getState, fulfillWithValue } = thunkAPI;
 	const {
 		user: { isGuest },
 	} = getState();
 	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
 	dispatch(showModal({}));
-	const data = await customFetch(editCommentService, { postId, commentId, comment });
+	const data = await customFetch(editCommentService, { postId, commentId, comment, replyId });
 	dispatch(showModal({ msg: "Comment Edited" }));
+	return fulfillWithValue(data);
+});
+
+export const replyComment = createAsyncThunk("post/comment/reply", async (props, thunkAPI) => {
+	const { customFetch, id, commentId, comment, replyTo } = props;
+	const { dispatch, rejectWithValue, getState, fulfillWithValue } = thunkAPI;
+	const {
+		user: { isGuest },
+	} = getState();
+	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
+	const data = await customFetch(replyCommentService, { id, commentId, comment, replyTo });
 	return fulfillWithValue(data);
 });
 
@@ -203,6 +215,10 @@ const postSlice = createSlice({
 			state.allPosts.posts = state.allPosts.posts.map(_post => (_post._id === post._id ? post : _post));
 		},
 		[editComment.fulfilled]: (state, action) => {
+			const { post } = action.payload;
+			state.singlePost = post;
+		},
+		[replyComment.fulfilled]: (state, action) => {
 			const { post } = action.payload;
 			state.singlePost = post;
 		},
