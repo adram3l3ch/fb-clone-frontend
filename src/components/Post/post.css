@@ -44,7 +44,8 @@ p {
 	gap: 0.5rem;
 }
 
-.post__details {
+.post__details,
+.post__details a {
 	display: flex;
 	flex-direction: column;
 	gap: 0.75rem;

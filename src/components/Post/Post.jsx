@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deletePost, setEditingPost, commentPost, likePost } from "../../features/postSlice";
 import { dp } from "../../assets";
 import Input from "../Input/Input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Options from "../Options/Options";
 import "./post.css";
@@ -23,6 +23,7 @@ const Post = ({ singlepost, post }) => {
 
 	const dispatch = useDispatch();
 	const customFetch = useFetch();
+	const navigate = useNavigate();
 
 	//global states
 	const {
@@ -43,6 +44,7 @@ const Post = ({ singlepost, post }) => {
 
 	const deleteHandler = () => {
 		dispatch(deletePost({ customFetch, id: post._id }));
+		singlepost && navigate(-1);
 	};
 
 	const editHandler = () => {
