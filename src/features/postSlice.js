@@ -3,6 +3,7 @@ import {
 	createPostService,
 	deleteCommentService,
 	deletePostService,
+	editCommentService,
 	fetchPostsService,
 	likePostService,
 	updatePostService,
@@ -115,9 +116,22 @@ export const deleteComment = createAsyncThunk("post/comment/delete", async (prop
 	} = getState();
 	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
 	dispatch(showModal({}));
-	const post = await customFetch(deleteCommentService, { postId, commentId });
+	const data = await customFetch(deleteCommentService, { postId, commentId });
 	dispatch(showModal({ msg: "Comment Deleted" }));
-	return fulfillWithValue(post);
+	return fulfillWithValue(data);
+});
+
+export const editComment = createAsyncThunk("post/comment/edit", async (props, thunkAPI) => {
+	const { customFetch, postId, commentId, comment } = props;
+	const { dispatch, rejectWithValue, getState, fulfillWithValue } = thunkAPI;
+	const {
+		user: { isGuest },
+	} = getState();
+	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
+	dispatch(showModal({}));
+	const data = await customFetch(editCommentService, { postId, commentId, comment });
+	dispatch(showModal({ msg: "Comment Edited" }));
+	return fulfillWithValue(data);
 });
 
 const postSlice = createSlice({
@@ -187,6 +201,10 @@ const postSlice = createSlice({
 			const { post } = action.payload;
 			state.singlePost = post;
 			state.allPosts.posts = state.allPosts.posts.map(_post => (_post._id === post._id ? post : _post));
+		},
+		[editComment.fulfilled]: (state, action) => {
+			const { post } = action.payload;
+			state.singlePost = post;
 		},
 		[logout.type]: (state, action) => {
 			return initialState;

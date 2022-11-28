@@ -1,9 +1,15 @@
+.comment__group {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin-bottom: 2rem;
+}
+
 .comment {
 	display: flex;
 	align-items: flex-start;
 	gap: 0.75rem;
 	color: white;
-	margin-bottom: 2rem;
 }
 
 .comment a {
@@ -27,4 +33,5 @@
 	font-size: 0.8rem;
 	line-height: 1.7em;
 	color: #bbbbbb;
+	overflow-wrap: anywhere;
 }

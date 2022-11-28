@@ -4,16 +4,22 @@ import { sendIcon } from "../../assets";
 import "./input.css";
 import EmojiPicker from "./EmojiPicker";
 import { useRef } from "react";
+import { useEffect } from "react";
 
-const Input = ({ placeholder, handler, showEmoji }) => {
+const Input = ({ placeholder, handler, showEmoji, initialValue = "" }) => {
 	const submitHandler = async e => {
 		e.preventDefault();
 		emojiRef.current?.close();
 		if (value.trim()) await handler(value.trim());
 		setValue("");
 	};
-	const [value, setValue] = useState("");
+	const [value, setValue] = useState(initialValue);
 	const emojiRef = useRef();
+
+	useEffect(() => {
+		setValue(initialValue);
+	}, [initialValue]);
+
 	return (
 		<form className="input__box" onSubmit={submitHandler}>
 			{showEmoji && <EmojiPicker setValue={setValue} ref={emojiRef} />}

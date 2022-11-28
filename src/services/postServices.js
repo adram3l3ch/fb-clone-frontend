@@ -21,13 +21,19 @@ const likePostService = async (formData = {}) => {
 
 const commentPostService = async (formData = {}) => {
 	const params = extractParams(formData, "id", "comment");
-	const { data } = await axiosConfig.patch("/posts/comment", params);
+	const { data } = await axiosConfig.post("/posts/comment", params);
 	return data;
 };
 
 const deleteCommentService = async (formData = {}) => {
 	const params = extractParams(formData, "postId", "commentId");
 	const { data } = await axiosConfig.delete(`/posts/comment`, { params });
+	return data;
+};
+
+const editCommentService = async (formData = {}) => {
+	const params = extractParams(formData, "postId", "commentId", "comment");
+	const { data } = await axiosConfig.patch(`/posts/comment`, params);
 	return data;
 };
 
@@ -51,4 +57,5 @@ export {
 	deletePostService,
 	updatePostService,
 	deleteCommentService,
+	editCommentService,
 };
