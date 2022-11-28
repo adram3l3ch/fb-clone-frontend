@@ -1,6 +1,7 @@
 import {
 	commentPostService,
 	createPostService,
+	deleteCommentService,
 	deletePostService,
 	fetchPostsService,
 	likePostService,
@@ -18,6 +19,14 @@ const initialState = {
 	singlePost: {},
 };
 
+const handleGuest = (isGuest, dispatch) => {
+	if (isGuest) {
+		dispatch(showModal({ msg: "You must be logged in to do this action!!" }));
+		return true;
+	}
+	return false;
+};
+
 export const setPosts = createAsyncThunk("post/set", async (props, thunkAPI) => {
 	const { customFetch } = props;
 	const { rejectWithValue, dispatch } = thunkAPI;
@@ -33,10 +42,7 @@ export const addPost = createAsyncThunk("post/add", async (props, thunkAPI) => {
 	const {
 		user: { isGuest },
 	} = getState();
-	if (isGuest) {
-		dispatch(showModal({ msg: "You must be logged in to do this action!!" }));
-		return;
-	}
+	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
 	dispatch(showModal({}));
 	const data = await customFetch(createPostService, formData);
 	if (!data) return rejectWithValue();
@@ -51,10 +57,7 @@ export const updatePost = createAsyncThunk("post/update", async (props, thunkAPI
 		user: { isGuest },
 		post: { singlePost },
 	} = getState();
-	if (isGuest) {
-		dispatch(showModal({ msg: "You must be logged in to do this action!!" }));
-		return;
-	}
+	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
 	dispatch(showModal({}));
 	const data = await customFetch(updatePostService, { id, form: formData });
 	if (!data) return rejectWithValue();
@@ -70,10 +73,7 @@ export const likePost = createAsyncThunk("post/like", async (props, thunkAPI) =>
 		user: { isGuest },
 		post: { singlePost },
 	} = getState();
-	if (isGuest) {
-		dispatch(showModal({ msg: "You must be logged in to do this action!!" }));
-		return;
-	}
+	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
 	const data = await customFetch(likePostService, { id, add: !isLiked });
 	if (!data) return rejectWithValue();
 	if (singlePost._id === id) dispatch(postSlice.actions.setSinglePost(data.post));
@@ -87,10 +87,7 @@ export const commentPost = createAsyncThunk("post/comment", async (props, thunkA
 		user: { isGuest },
 		post: { singlePost },
 	} = getState();
-	if (isGuest) {
-		dispatch(showModal({ msg: "You must be logged in to do this action!!" }));
-		return;
-	}
+	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
 	const data = await customFetch(commentPostService, { id, comment });
 	if (!data) return rejectWithValue();
 	if (singlePost._id === id) dispatch(postSlice.actions.setSinglePost(data.post));
@@ -99,18 +96,28 @@ export const commentPost = createAsyncThunk("post/comment", async (props, thunkA
 
 export const deletePost = createAsyncThunk("post/delete", async (props, thunkAPI) => {
 	const { customFetch, id } = props;
-	const { dispatch, fulfillWithValue, getState } = thunkAPI;
+	const { dispatch, fulfillWithValue, getState, rejectWithValue } = thunkAPI;
 	const {
 		user: { isGuest },
 	} = getState();
-	if (isGuest) {
-		dispatch(showModal({ msg: "You must be logged in to do this action!!" }));
-		return;
-	}
+	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
 	dispatch(showModal({}));
 	await customFetch(deletePostService, { id });
 	dispatch(showModal({ msg: "Post Deleted" }));
 	return fulfillWithValue(id);
+});
+
+export const deleteComment = createAsyncThunk("post/comment/delete", async (props, thunkAPI) => {
+	const { customFetch, postId, commentId } = props;
+	const { dispatch, fulfillWithValue, getState, rejectWithValue } = thunkAPI;
+	const {
+		user: { isGuest },
+	} = getState();
+	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
+	dispatch(showModal({}));
+	const post = await customFetch(deleteCommentService, { postId, commentId });
+	dispatch(showModal({ msg: "Comment Deleted" }));
+	return fulfillWithValue(post);
 });
 
 const postSlice = createSlice({
@@ -175,6 +182,11 @@ const postSlice = createSlice({
 				}
 				return post;
 			});
+		},
+		[deleteComment.fulfilled]: (state, action) => {
+			const { post } = action.payload;
+			state.singlePost = post;
+			state.allPosts.posts = state.allPosts.posts.map(_post => (_post._id === post._id ? post : _post));
 		},
 		[logout.type]: (state, action) => {
 			return initialState;

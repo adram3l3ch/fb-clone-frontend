@@ -122,7 +122,7 @@ const Post = ({ singlepost, post }) => {
 					<h3>{post.userDetails?.name}</h3>
 					<p>{createdAt}</p>
 				</div>
-				{isOwnPost && <Options options={options} />}
+				{isOwnPost && <Options options={options} id={post._id} />}
 			</header>
 			<div className="post__details">
 				{singlepost ? postDetails() : <Link to={`/post/${post._id}`}>{postDetails()}</Link>}

@@ -15,6 +15,7 @@ const Comments = ({ post }) => {
 						key={comment._id}
 						comment={comment}
 						user={users.find(user => user._id === comment.commentedBy)}
+						postId={post._id}
 					/>
 				))}
 			</div>

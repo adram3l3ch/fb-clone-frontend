@@ -25,6 +25,12 @@ const commentPostService = async (formData = {}) => {
 	return data;
 };
 
+const deleteCommentService = async (formData = {}) => {
+	const params = extractParams(formData, "postId", "commentId");
+	const { data } = await axiosConfig.delete(`/posts/comment`, { params });
+	return data;
+};
+
 const deletePostService = async (formData = {}) => {
 	const { id } = formData;
 	const { data } = await axiosConfig.delete(`/posts/${id}`);
@@ -44,4 +50,5 @@ export {
 	commentPostService,
 	deletePostService,
 	updatePostService,
+	deleteCommentService,
 };
