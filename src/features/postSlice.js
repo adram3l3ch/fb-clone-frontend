@@ -103,7 +103,6 @@ export const deletePost = createAsyncThunk("post/delete", async (props, thunkAPI
 		user: { isGuest },
 	} = getState();
 	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
-	dispatch(showModal({}));
 	await customFetch(deletePostService, { id });
 	dispatch(showModal({ msg: "Post Deleted" }));
 	return fulfillWithValue(id);
@@ -116,7 +115,6 @@ export const deleteComment = createAsyncThunk("post/comment/delete", async (prop
 		user: { isGuest },
 	} = getState();
 	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
-	dispatch(showModal({}));
 	const data = await customFetch(deleteCommentService, { postId, commentId, replyId });
 	dispatch(showModal({ msg: "Comment Deleted" }));
 	return fulfillWithValue(data);
@@ -129,7 +127,6 @@ export const editComment = createAsyncThunk("post/comment/edit", async (props, t
 		user: { isGuest },
 	} = getState();
 	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
-	dispatch(showModal({}));
 	const data = await customFetch(editCommentService, { postId, commentId, comment, replyId });
 	dispatch(showModal({ msg: "Comment Edited" }));
 	return fulfillWithValue(data);
