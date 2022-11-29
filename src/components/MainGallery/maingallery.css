@@ -1,11 +1,11 @@
 .maingallery {
-	width: 600px;
+	max-width: 700px;
 	max-height: 600px;
-	padding: 2rem 1.5rem;
+	padding: 2rem 1rem;
 	background-color: var(--primary-500);
 	border-radius: 10px;
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(4, 1fr);
 	gap: 1rem;
 	overflow: scroll;
 	position: relative;
@@ -49,5 +49,6 @@
 		width: 90vw;
 		gap: 0.75rem;
 		padding: 0.75rem;
+		grid-template-columns: repeat(3, 1fr);
 	}
 }

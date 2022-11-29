@@ -6,7 +6,7 @@ import "./backdrop.css";
 const Backdrop = ({ children, show, onClose = () => {} }) => {
 	const newChildren = cloneElement(children, {
 		...children.props,
-		show,
+		show: show ? "true" : undefined,
 		onClose,
 	});
 	const closeModal = e => {
