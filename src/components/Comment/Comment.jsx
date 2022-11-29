@@ -80,11 +80,10 @@ const SingleComment = ({ comment, postId }) => {
 				<Input
 					placeholder="Edit Comment"
 					handler={editCommentHandler}
-					showEmoji
 					initialValue={comment?.comment}
 				/>
 			)}
-			{isReplying && <Input placeholder={`Reply to ${user?.name}`} handler={replyHandler} showEmoji />}
+			{isReplying && <Input placeholder={`Reply to ${user?.name}`} handler={replyHandler} />}
 		</div>
 	);
 };
