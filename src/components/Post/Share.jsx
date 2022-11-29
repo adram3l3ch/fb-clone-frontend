@@ -21,16 +21,14 @@ const Share = ({ post }) => {
 	const dispatch = useDispatch();
 
 	const copyURL = () => {
-		window.navigator.clipboard.writeText(
-			`https://adramelech-social-media-app.netlify.app/post/${post._id}`
-		);
+		window.navigator.clipboard.writeText(`https://adra-amie.netlify.app/post/${post._id}`);
 		dispatch(showModal({ msg: "URL copied to clipboard" }));
 	};
 
 	const copyEmbed = () => {
 		window.navigator.clipboard.writeText(
 			`<iframe
-				src="https://adramelech-social-media-app.netlify.app/post/${post._id}?embed=true"
+				src="https://adra-amie.netlify.app/post/${post._id}?embed=true"
 				width="500"
 				height="700"
 				title="social-media-app"
@@ -40,14 +38,14 @@ const Share = ({ post }) => {
 	};
 
 	const shareToUrls = {
-		twitter: `https://twitter.com/intent/tweet?text=${post.caption}&url=https://adramelech-social-media-app.netlify.app/post/${post._id}`,
+		twitter: `https://twitter.com/intent/tweet?text=${post.caption}&url=https://adra-amie.netlify.app/post/${post._id}`,
 		facebook: `https://www.facebook.com/dialog/share?
 		app_id=287203076842060
 		&display=popup
-		&href=https://adramelech-social-media-app.netlify.app/post/${post._id}
-		&redirect_uri=https://adramelech-social-media-app.netlify.app/post/${post._id}`,
-		linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=https://adramelech-social-media-app.netlify.app/post/${post._id}`,
-		whatsapp: `https://api.whatsapp.com/send/?text=${post.caption} Link: https://adramelech-social-media-app.netlify.app/post/${post._id}`,
+		&href=https://adra-amie.netlify.app/post/${post._id}
+		&redirect_uri=https://adra-amie.netlify.app/post/${post._id}`,
+		linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=https://adra-amie.netlify.app/post/${post._id}`,
+		whatsapp: `https://api.whatsapp.com/send/?text=${post.caption} Link: https://adra-amie.netlify.app/post/${post._id}`,
 	};
 
 	const shareTo = dest => {
