@@ -8,8 +8,8 @@ const Comments = ({ post }) => {
 			<div>
 				<h3>{(post?.comments?.length || "") + " comments"}</h3>
 				{post?.comments?.map(comment => (
-					<div className="commentAndReplies">
-						<Comment key={comment._id} comment={comment} postId={post._id} />
+					<div className="commentAndReplies" key={comment._id}>
+						<Comment comment={comment} postId={post._id} />
 						{!!comment.replies.length && (
 							<div className="replies">
 								{comment.replies?.map(reply => (
