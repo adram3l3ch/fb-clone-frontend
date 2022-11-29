@@ -9,7 +9,7 @@ import Input from "../Input/Input";
 import Options from "../Options/Options";
 import "./comment.css";
 
-const SingleComment = ({ comment, postId }) => {
+const Comment = ({ comment, postId }) => {
 	const { users } = useSelector(state => state.users);
 	const user = users.find(user => user._id === comment.commentedBy);
 
@@ -84,19 +84,6 @@ const SingleComment = ({ comment, postId }) => {
 				/>
 			)}
 			{isReplying && <Input placeholder={`Reply to ${user?.name}`} handler={replyHandler} />}
-		</div>
-	);
-};
-
-const Comment = props => {
-	return (
-		<div className="commentAndReplies">
-			<SingleComment {...props} />
-			<div className="replies">
-				{props.comment?.replies?.map(reply => (
-					<SingleComment comment={reply} postId={props.postId} />
-				))}
-			</div>
 		</div>
 	);
 };
