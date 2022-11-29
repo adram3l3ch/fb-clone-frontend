@@ -15,6 +15,7 @@ import Share from "./Share";
 import { useState } from "react";
 import Backdrop from "../Backdrop/Backdrop";
 import ImageViewer from "./ImageViewer";
+import useConfirmation from "../Confirmation/useConfirmation";
 
 const Post = ({ singlepost, post }) => {
 	const createdAt = getDateString(post.createdAt);
@@ -51,8 +52,13 @@ const Post = ({ singlepost, post }) => {
 		dispatch(setEditingPost(post));
 	};
 
+	const { Confirmation, toggleShow } = useConfirmation(
+		deleteHandler,
+		"Are you sure, You want to delete the post?"
+	);
+
 	const options = {
-		Delete: deleteHandler,
+		Delete: toggleShow,
 		Edit: editHandler,
 	};
 
@@ -106,6 +112,7 @@ const Post = ({ singlepost, post }) => {
 
 	return (
 		<article className={singlepost ? "post halfborder single" : "post gradient-border"}>
+			{Confirmation}
 			<Backdrop show={showShare} onClose={() => setShowShare(false)}>
 				<Share post={post} />
 			</Backdrop>

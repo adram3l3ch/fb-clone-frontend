@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { dp } from "../../assets";
 import { deleteComment, editComment, replyComment } from "../../features/postSlice";
 import useFetch from "../../hooks/useFetch";
+import useConfirmation from "../Confirmation/useConfirmation";
 import Input from "../Input/Input";
 import Options from "../Options/Options";
 import "./comment.css";
@@ -56,14 +57,20 @@ const Comment = ({ comment, postId }) => {
 		setIsReplying(false);
 	};
 
+	const { Confirmation: DeleteConfirm, toggleShow } = useConfirmation(
+		deleteCommentHandler,
+		"Are you sure, You want to delete the comment?"
+	);
+
 	const options = { Reply: () => setIsReplying(true) };
 	if (id === user?._id) {
-		options.Delete = deleteCommentHandler;
+		options.Delete = toggleShow;
 		options.Edit = () => setIsEditing(true);
 	}
 
 	return (
 		<div className="comment__group">
+			{DeleteConfirm}
 			<div className="comment">
 				<Link to={`/user/${user?._id}`}>
 					<img src={user?.profileImage || dp} alt={`${user?.name}-dp`} className="comment__dp" />
