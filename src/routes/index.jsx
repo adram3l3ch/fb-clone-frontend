@@ -12,6 +12,7 @@ import NotFound from "../pages/NotFound/NotFound";
 import Profile from "../pages/Profile/Profile";
 import SinglePost from "../pages/Singlepost/SinglePost";
 import ProtectedRoute from "./ProtectedRoute";
+import ThemeSwitch from "../components/ThemeSwitch/ThemeSwitch";
 
 const Router = () => {
 	const {
@@ -33,6 +34,7 @@ const Router = () => {
 	return (
 		<>
 			<div className={isSidebarVisible ? "sidebar visible" : "sidebar"}>
+				<ThemeSwitch />
 				<Online />
 			</div>
 			<Backdrop show={!!editingPost._id} onClose={closeEditing}>

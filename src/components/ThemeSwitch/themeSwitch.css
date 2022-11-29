@@ -116,3 +116,19 @@
 		transform: scale(1.2);
 	}
 }
+
+@media (max-width: 800px) {
+	.container > .theme-switch {
+		display: none;
+	}
+	.theme-switch {
+		position: absolute;
+		rotate: 180deg;
+		right: 1rem;
+		left: initial;
+		bottom: 2rem;
+	}
+	.theme-switch svg {
+		rotate: -180deg;
+	}
+}
