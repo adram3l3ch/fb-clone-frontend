@@ -81,7 +81,7 @@ body {
 	z-index: 99 !important;
 }
 :root {
-	font-size: calc(1rem - 1px);
+	font-size: calc(1rem - 2px);
 	color: white;
 }
 
@@ -113,7 +113,7 @@ a {
 }
 
 .container {
-	max-width: 1700px;
+	max-width: 1500px;
 	min-height: 100vh;
 	padding-inline: 2rem;
 	margin-inline: auto;
