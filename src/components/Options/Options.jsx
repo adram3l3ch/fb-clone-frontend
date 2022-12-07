@@ -6,16 +6,15 @@ import "./options.css";
 const Options = ({ options, id = "" }) => {
 	const [isOptionsVisible, setIsOptionsVisible] = useState(false);
 
-	const handleOutsideClick = e => {
-		if (e.target.id !== "options" + id && e.target.id !== "options__icon" + id) {
-			setIsOptionsVisible(false);
-		}
-	};
-
 	useEffect(() => {
+		const handleOutsideClick = e => {
+			if (e.target.id !== "options" + id && e.target.id !== "options__icon" + id) {
+				setIsOptionsVisible(false);
+			}
+		};
 		document.body.addEventListener("click", handleOutsideClick);
 		return () => document.body.removeEventListener("click", handleOutsideClick);
-	});
+	}, [id]);
 
 	const handleClick = handler => {
 		setIsOptionsVisible(false);
