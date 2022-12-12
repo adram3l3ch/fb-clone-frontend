@@ -72,14 +72,11 @@ export const likePost = createAsyncThunk("post/like", async (props, thunkAPI) =>
 	const { customFetch, id, isLiked } = props;
 	const { dispatch, rejectWithValue, getState } = thunkAPI;
 	const {
-		user: { isGuest },
-		post: { singlePost },
+		user: { isGuest, id: userId },
 	} = getState();
 	if (handleGuest(isGuest, dispatch)) return rejectWithValue();
-	const data = await customFetch(likePostService, { id, add: !isLiked });
-	if (!data) return rejectWithValue();
-	if (singlePost._id === id) dispatch(postSlice.actions.setSinglePost(data.post));
-	dispatch(postSlice.actions.updatePosts(data.post));
+	customFetch(likePostService, { id, add: !isLiked });
+	return { id, userId, add: !isLiked };
 });
 
 export const commentPost = createAsyncThunk("post/comment", async (props, thunkAPI) => {
@@ -180,6 +177,24 @@ const postSlice = createSlice({
 		[deletePost.fulfilled]: (state, action) => {
 			state.allPosts.posts = state.allPosts.posts.filter(post => post._id !== action.payload);
 			state.userPosts.posts = state.userPosts.posts.filter(post => post._id !== action.payload);
+		},
+		[likePost.fulfilled]: (state, { payload }) => {
+			const { singlePost, allPosts, userPosts } = state;
+			const { id, userId, add } = payload;
+			if (singlePost._id === id) {
+				add
+					? singlePost.likes.push(userId)
+					: (singlePost.likes = singlePost.likes.filter(ele => ele !== userId));
+			}
+			let post = allPosts.posts.find(post => post._id === id);
+			let _post = userPosts.posts.find(post => post._id === id);
+			if (add) {
+				post?.likes.push(userId);
+				_post?.likes.push(userId);
+			} else {
+				post && (post.likes = post.likes.filter(ele => ele !== userId));
+				_post && (_post.likes = _post.likes.filter(ele => ele !== userId));
+			}
 		},
 		[update.type]: (state, action) => {
 			const { name, profileImage, id } = action.payload;
