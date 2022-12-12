@@ -8,7 +8,8 @@ import EditPost from "../components/EditPost/EditPost";
 import Online from "../components/Online/Online";
 import ProtectedRoute from "./ProtectedRoute";
 import ThemeSwitch from "../components/ThemeSwitch/ThemeSwitch";
-import Loading from "../components/Loading/Loading";
+import ProgressBar from "react-topbar-progress-indicator";
+
 const Home = lazy(() => import("../pages/Home/Home"));
 const SinglePost = lazy(() => import("../pages/Singlepost/SinglePost"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
@@ -28,12 +29,6 @@ const Layout = () => {
 		dispatch(setEditingPost({}));
 	};
 
-	const fallback = (
-		<Backdrop show={true}>
-			<Loading />
-		</Backdrop>
-	);
-
 	return (
 		<>
 			<div className={isSidebarVisible ? "sidebar visible" : "sidebar"}>
@@ -44,7 +39,7 @@ const Layout = () => {
 				<EditPost close={closeEditing} />
 			</Backdrop>
 			<Appbar />
-			<Suspense fallback={fallback}>
+			<Suspense fallback={<ProgressBar />}>
 				<Outlet />
 			</Suspense>
 		</>
