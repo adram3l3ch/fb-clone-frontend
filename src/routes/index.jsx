@@ -1,20 +1,22 @@
+import { Suspense, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import { setEditingPost } from "../features/postSlice";
 import Appbar from "../components/Appbar/Appbar";
 import Backdrop from "../components/Backdrop/Backdrop";
 import EditPost from "../components/EditPost/EditPost";
 import Online from "../components/Online/Online";
-import Chat from "../pages/Chat/Chat";
-import Home from "../pages/Home/Home";
-import MessengerPage from "../pages/Messenger/Messenger";
-import NotFound from "../pages/NotFound/NotFound";
-import Profile from "../pages/Profile/Profile";
-import SinglePost from "../pages/Singlepost/SinglePost";
 import ProtectedRoute from "./ProtectedRoute";
 import ThemeSwitch from "../components/ThemeSwitch/ThemeSwitch";
+import Loading from "../components/Loading/Loading";
+const Home = lazy(() => import("../pages/Home/Home"));
+const SinglePost = lazy(() => import("../pages/Singlepost/SinglePost"));
+const Profile = lazy(() => import("../pages/Profile/Profile"));
+const Chat = lazy(() => import("../pages/Chat/Chat"));
+const MessengerPage = lazy(() => import("../pages/Messenger/Messenger"));
+const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
 
-const Router = () => {
+const Layout = () => {
 	const {
 		modal: { isSidebarVisible },
 		post: { editingPost },
@@ -26,11 +28,12 @@ const Router = () => {
 		dispatch(setEditingPost({}));
 	};
 
-	const authenticate = Comp => (
-		<ProtectedRoute>
-			<Comp />
-		</ProtectedRoute>
+	const fallback = (
+		<Backdrop show={true}>
+			<Loading />
+		</Backdrop>
 	);
+
 	return (
 		<>
 			<div className={isSidebarVisible ? "sidebar visible" : "sidebar"}>
@@ -41,15 +44,30 @@ const Router = () => {
 				<EditPost close={closeEditing} />
 			</Backdrop>
 			<Appbar />
-			<Routes>
-				<Route path="/" element={<Home />} />
+			<Suspense fallback={fallback}>
+				<Outlet />
+			</Suspense>
+		</>
+	);
+};
+
+const Router = () => {
+	const authenticate = Comp => (
+		<ProtectedRoute>
+			<Comp />
+		</ProtectedRoute>
+	);
+	return (
+		<Routes>
+			<Route path="/" element={<Layout />}>
+				<Route index element={<Home />} />
 				<Route path="/post/:id" element={<SinglePost />} />
 				<Route path="/user/:id" element={<Profile />} />
 				<Route path="/chat" element={authenticate(Chat)} />
 				<Route path="/chat/messenger" element={authenticate(MessengerPage)} />
 				<Route path="*" element={<NotFound />} />
-			</Routes>
-		</>
+			</Route>
+		</Routes>
 	);
 };
 
