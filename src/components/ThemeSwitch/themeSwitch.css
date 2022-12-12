@@ -123,12 +123,22 @@
 	}
 	.theme-switch {
 		position: absolute;
-		rotate: 180deg;
 		right: 1rem;
 		left: initial;
 		bottom: 2rem;
 	}
-	.theme-switch svg {
-		rotate: -180deg;
+	.themes {
+		left: initial;
+		right: 50%;
+		border-radius: 100vmax 0 0 100vmax;
+	}
+	.theme-switch.open .switch {
+		transform: rotate(-90deg);
+	}
+	.themes > div:first-of-type {
+		margin-left: 0;
+	}
+	.themes > div:last-of-type {
+		margin-right: 1rem;
 	}
 }

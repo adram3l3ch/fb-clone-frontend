@@ -5,9 +5,7 @@ import { setEditingPost } from "../features/postSlice";
 import Appbar from "../components/Appbar/Appbar";
 import Backdrop from "../components/Backdrop/Backdrop";
 import EditPost from "../components/EditPost/EditPost";
-import Online from "../components/Online/Online";
 import ProtectedRoute from "./ProtectedRoute";
-import ThemeSwitch from "../components/ThemeSwitch/ThemeSwitch";
 import ProgressBar from "react-topbar-progress-indicator";
 
 const Home = lazy(() => import("../pages/Home/Home"));
@@ -19,7 +17,6 @@ const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
 
 const Layout = () => {
 	const {
-		modal: { isSidebarVisible },
 		post: { editingPost },
 	} = useSelector(state => state);
 
@@ -31,10 +28,6 @@ const Layout = () => {
 
 	return (
 		<>
-			<div className={isSidebarVisible ? "sidebar visible" : "sidebar"}>
-				<ThemeSwitch />
-				<Online />
-			</div>
 			<Backdrop show={!!editingPost._id} onClose={closeEditing}>
 				<EditPost close={closeEditing} />
 			</Backdrop>

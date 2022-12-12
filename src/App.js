@@ -19,6 +19,7 @@ import Loading from "./components/Loading/Loading.jsx";
 import Backdrop from "./components/Backdrop/Backdrop.jsx";
 import ThemeSwitch from "./components/ThemeSwitch/ThemeSwitch.jsx";
 import Router from "./routes";
+import Online from "./components/Online/Online.jsx";
 
 function App() {
 	const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function App() {
 	const [theme, setTheme] = useState("dark");
 	const {
 		user: { id, isGuest },
-		modal: { isLoading },
+		modal: { isLoading, isSidebarVisible },
 		socket: { socket },
 		message: { to, conversationID },
 	} = useSelector(state => state);
@@ -70,6 +71,10 @@ function App() {
 	return (
 		<div className={"app " + theme}>
 			<div className="container">
+				<div className={isSidebarVisible ? "sidebar visible" : "sidebar"}>
+					<ThemeSwitch setTheme={setTheme} />
+					<Online />
+				</div>
 				<ThemeSwitch setTheme={setTheme} />
 				<Modal />
 				{id ? <Router /> : <Auth />}
